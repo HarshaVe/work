@@ -1,23 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 
-const allPortfolio = await getCollection('portfolio');
-const portfolioItems = allPortfolio
-  .filter((item) => item.data.featured.systems)
-  .sort((a, b) => a.data.order - b.data.order);
+const portfolioItems = await getCollection('portfolio');
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Design Systems | Harsha Vemulapalli</title>
+    <title>Portfolio | Harsha Vemulapalli</title>
   </head>
   <body>
-    <h1>Design Systems & Platform</h1>
-    <p>I build design infrastructure that scales—systems, governance, and the teams that make them work.</p>
-    
-    <h2>Selected Work</h2>
+    <h1>Portfolio</h1>
     <ul>
       {portfolioItems.map((item) => (
         <li>
@@ -26,7 +20,6 @@ const portfolioItems = allPortfolio
         </li>
       ))}
     </ul>
-    
     <a href="/">← Home</a>
   </body>
 </html>

@@ -1,5 +1,10 @@
 ---
-// AI variant
+import { getCollection } from 'astro:content';
+
+const allPortfolio = await getCollection('portfolio');
+const portfolioItems = allPortfolio
+  .filter((item) => item.data.featured.ai)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <html lang="en">
@@ -11,6 +16,17 @@
   <body>
     <h1>AI & Emerging Technology</h1>
     <p>I'm building the future of UX research and design with AI—from persona agents to research automation.</p>
+    
+    <h2>Selected Work</h2>
+    <ul>
+      {portfolioItems.map((item) => (
+        <li>
+          <strong>{item.data.title}</strong> — {item.data.company}
+          <p>{item.data.description}</p>
+        </li>
+      ))}
+    </ul>
+    
     <a href="/">← Home</a>
   </body>
 </html>

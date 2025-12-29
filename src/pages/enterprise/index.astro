@@ -1,5 +1,10 @@
 ---
-// Enterprise variant
+import { getCollection } from 'astro:content';
+
+const allPortfolio = await getCollection('portfolio');
+const portfolioItems = allPortfolio
+  .filter((item) => item.data.featured.enterprise)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <html lang="en">
@@ -11,6 +16,17 @@
   <body>
     <h1>Enterprise B2B & Industrial</h1>
     <p>I simplify complex workflows for technical users—across manufacturing, automation, and B2B platforms.</p>
+    
+    <h2>Selected Work</h2>
+    <ul>
+      {portfolioItems.map((item) => (
+        <li>
+          <strong>{item.data.title}</strong> — {item.data.company}
+          <p>{item.data.description}</p>
+        </li>
+      ))}
+    </ul>
+    
     <a href="/">← Home</a>
   </body>
 </html>
