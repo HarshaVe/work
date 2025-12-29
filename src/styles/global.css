@@ -1,0 +1,218 @@
+:root {
+  --color-text: #111;
+  --color-text-secondary: #444;
+  --color-background: #fff;
+  --color-accent: #0077b6;
+  --color-accent-hover: #005082;
+  --color-accent-active: #00a8e8;
+  --color-border: #ddd;
+  --font-sans: "Helvetica Neue", "Arial", sans-serif;
+  --max-width: 680px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-background);
+  padding: 3rem 1.5rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 {
+  font-family: var(--font-sans);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--color-accent-active);
+}
+
+a:visited {
+  color: var(--color-accent);
+}
+
+/* Navigation */
+nav {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+nav a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 2rem;
+}
+
+nav a:hover {
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+nav a.active {
+  color: var(--color-text);
+  pointer-events: none;
+  border-bottom: 2px solid var(--color-text);
+}
+
+/* Lists */
+ul {
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+li {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+/* Portfolio list item titles */
+.portfolio-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.portfolio-title:hover {
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+}
+
+.portfolio-company {
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+/* Tagline / intro text */
+.intro {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Article pages */
+article {
+  margin-top: 1rem;
+}
+
+article > p:first-of-type {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  line-height: 1.7;
+}
+
+article ul {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+article li {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  padding-left: 1rem;
+  position: relative;
+}
+
+article li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-text-secondary);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+/* Footer */
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+footer a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Meta info on portfolio pages */
+.meta {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}

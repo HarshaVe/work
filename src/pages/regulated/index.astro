@@ -10,15 +10,14 @@ const portfolioItems = allPortfolio
 
 <Layout title="Regulated Industries">
   <h1>Regulated Industries</h1>
-  <p>I design experiences where precision matters—in healthcare, finance, and safety-critical systems.</p>
+  <p class="intro">I design experiences where precision matters—in healthcare, finance, and safety-critical systems.</p>
   
   <h2>Selected Work</h2>
   <ul>
     {portfolioItems.map((item) => (
       <li>
-        <a href={`/portfolio/${item.slug}`}>
-          <strong>{item.data.title}</strong>
-        </a> — {item.data.company}
+        <a href={`/portfolio/${item.slug}`} class="portfolio-title">{item.data.title}</a>
+        <span class="portfolio-company"> — {item.data.company}</span>
         <p>{item.data.description}</p>
       </li>
     ))}

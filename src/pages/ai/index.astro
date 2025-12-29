@@ -10,15 +10,14 @@ const portfolioItems = allPortfolio
 
 <Layout title="AI & Emerging Tech">
   <h1>AI & Emerging Technology</h1>
-  <p>I'm building the future of UX research and design with AI—from persona agents to research automation.</p>
+  <p class="intro">I'm building the future of UX research and design with AI—from persona agents to research automation.</p>
   
   <h2>Selected Work</h2>
   <ul>
     {portfolioItems.map((item) => (
       <li>
-         <a href={`/portfolio/${item.slug}`}>
-          <strong>{item.data.title}</strong>
-        </a> — {item.data.company}
+        <a href={`/portfolio/${item.slug}`} class="portfolio-title">{item.data.title}</a>
+        <span class="portfolio-company"> — {item.data.company}</span>
         <p>{item.data.description}</p>
       </li>
     ))}
