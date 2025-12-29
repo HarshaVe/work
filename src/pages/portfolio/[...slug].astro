@@ -15,12 +15,48 @@ const { Content } = await entry.render();
 ---
 
 <Layout title={entry.data.title}>
+  <div class="subheader">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <a href="/">home</a>
+      <span class="separator">/</span>
+      <a href="/portfolio">portfolio</a>
+      <span class="separator">/</span>
+      <span class="current">{entry.data.title.toLowerCase()}</span>
+    </div>
+    <a href="/portfolio" class="action-link" id="action-link">View entire portfolio →</a>
+  </div>
+  
   <article>
     <h1>{entry.data.title}</h1>
-    <p><strong>{entry.data.company}</strong> | {entry.data.role} | {entry.data.dates}</p>
+    <p class="meta">{entry.data.company} · {entry.data.role} · {entry.data.dates}</p>
     <p>{entry.data.description}</p>
     <hr />
     <Content />
   </article>
-  <a href="/portfolio">← Back to Portfolio</a>
+  
+  <script>
+    const variantMap = {
+      ai: { label: 'ai & emerging tech', href: '/ai' },
+      regulated: { label: 'regulated industries', href: '/regulated' },
+      systems: { label: 'design systems', href: '/systems' },
+      enterprise: { label: 'enterprise b2b', href: '/enterprise' },
+    };
+    
+    const params = new URLSearchParams(window.location.search);
+    const via = params.get('via');
+    
+    if (via && variantMap[via]) {
+      const breadcrumbs = document.getElementById('breadcrumbs');
+      const variant = variantMap[via];
+      const currentTitle = breadcrumbs.querySelector('.current').textContent;
+      
+      breadcrumbs.innerHTML = `
+        <a href="/">home</a>
+        <span class="separator">/</span>
+        <a href="${variant.href}">${variant.label}</a>
+        <span class="separator">/</span>
+        <span class="current">${currentTitle}</span>
+      `;
+    }
+  </script>
 </Layout>

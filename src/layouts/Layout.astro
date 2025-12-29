@@ -3,11 +3,19 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
-  showBackLink?: boolean;
+  breadcrumbs?: Array<{label: string, href?: string}>;
+  actionLink?: {label: string, href: string};
 }
 
-const { title, showBackLink = true } = Astro.props;
+const { title, breadcrumbs, actionLink } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+// Only mark nav as active for exact matches or index pages, not child pages
+const isHome = currentPath === "/";
+const isAbout = currentPath === "/about" || currentPath === "/about/";
+const isPortfolio = currentPath === "/portfolio" || currentPath === "/portfolio/";
+const isResume = currentPath === "/resume" || currentPath === "/resume/";
+const isContact = currentPath === "/contact" || currentPath === "/contact/";
 ---
 
 <!doctype html>
@@ -20,22 +28,38 @@ const currentPath = Astro.url.pathname;
   <body>
     <header>
       <nav>
-        <a href="/" class={currentPath === "/" ? "active" : ""}>Home</a>
-        <a href="/about" class={currentPath.startsWith("/about") ? "active" : ""}>About</a>
-        <a href="/portfolio" class={currentPath.startsWith("/portfolio") ? "active" : ""}>Portfolio</a>
-        <a href="/resume" class={currentPath.startsWith("/resume") ? "active" : ""}>Resume</a>
-        <a href="/contact" class={currentPath.startsWith("/contact") ? "active" : ""}>Contact</a>
+        <a href="/" class={isHome ? "active" : ""}>Home</a>
+        <a href="/about" class={isAbout ? "active" : ""}>About</a>
+        <a href="/portfolio" class={isPortfolio ? "active" : ""}>Portfolio</a>
+        <a href="/resume" class={isResume ? "active" : ""}>Resume</a>
+        <a href="/contact" class={isContact ? "active" : ""}>Contact</a>
       </nav>
+      
+      {(breadcrumbs || actionLink) && (
+        <div class="subheader">
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <div class="breadcrumbs">
+              {breadcrumbs.map((crumb, index) => (
+                <>
+                  {crumb.href ? (
+                    <a href={crumb.href}>{crumb.label}</a>
+                  ) : (
+                    <span class="current">{crumb.label}</span>
+                  )}
+                  {index < breadcrumbs.length - 1 && <span class="separator">/</span>}
+                </>
+              ))}
+            </div>
+          )}
+          {actionLink && (
+            <a href={actionLink.href} class="action-link">{actionLink.label}</a>
+          )}
+        </div>
+      )}
     </header>
     
     <main>
       <slot />
     </main>
-
-    {showBackLink && (
-      <footer>
-        <a href="/">← Home</a>
-      </footer>
-    )}
   </body>
 </html>

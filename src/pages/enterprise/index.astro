@@ -6,9 +6,16 @@ const allPortfolio = await getCollection('portfolio');
 const portfolioItems = allPortfolio
   .filter((item) => item.data.featured.enterprise)
   .sort((a, b) => a.data.order - b.data.order);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Enterprise B2B' }
+];
+
+const actionLink = { label: 'View full resume →', href: '/resume' };
 ---
 
-<Layout title="Enterprise B2B">
+<Layout title="Enterprise B2B" breadcrumbs={breadcrumbs} actionLink={actionLink}>
   <h1>Enterprise B2B & Industrial</h1>
   <p class="intro">I simplify complex workflows for technical users—across manufacturing, automation, and B2B platforms.</p>
   
@@ -16,7 +23,7 @@ const portfolioItems = allPortfolio
   <ul>
     {portfolioItems.map((item) => (
       <li>
-        <a href={`/portfolio/${item.slug}`} class="portfolio-title">{item.data.title}</a>
+        <a href={`/portfolio/${item.slug}?via=enterprise`} class="portfolio-title">{item.data.title}</a>
         <span class="portfolio-company"> — {item.data.company}</span>
         <p>{item.data.description}</p>
       </li>

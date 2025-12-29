@@ -87,7 +87,7 @@ a:visited {
 
 /* Navigation */
 nav {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--color-border);
 }
@@ -109,6 +109,54 @@ nav a.active {
   color: var(--color-text);
   pointer-events: none;
   border-bottom: 2px solid var(--color-text);
+}
+
+/* Subheader with breadcrumbs and action link */
+.subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .subheader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  text-transform: lowercase;
+}
+
+.breadcrumbs a {
+  color: var(--color-accent);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.breadcrumbs .separator {
+  margin: 0 0.5rem;
+  color: var(--color-border);
+}
+
+.breadcrumbs .current {
+  color: var(--color-text);
+}
+
+/* Action link */
+.action-link {
+  font-size: 0.8rem;
+  white-space: nowrap;
 }
 
 /* Lists */
@@ -197,22 +245,40 @@ hr {
   margin: 2.5rem 0;
 }
 
-/* Footer */
-footer {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
-}
-
-footer a {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 /* Meta info on portfolio pages */
 .meta {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   margin-bottom: 1.5rem;
+}
+
+/* Variant list on homepage */
+ul.variants {
+  margin-top: 1rem;
+}
+
+ul.variants li {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+ul.variants li:last-child {
+  border-bottom: none;
+}
+
+/* Page header with title and action link */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+}
+
+.page-header h1 {
+  margin-bottom: 0;
+}
+
+.see-all {
+  font-size: 0.85rem;
+  white-space: nowrap;
 }

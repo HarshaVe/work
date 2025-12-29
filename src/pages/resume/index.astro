@@ -1,8 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Resume' }
+];
 ---
 
-<Layout title="Resume">
+<Layout title="Resume" breadcrumbs={breadcrumbs}>
   <h1>Resume</h1>
   <p>Full resume coming soon.</p>
 </Layout>

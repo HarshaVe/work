@@ -4,9 +4,14 @@ import { getCollection } from 'astro:content';
 
 const portfolioItems = (await getCollection('portfolio'))
   .sort((a, b) => a.data.order - b.data.order);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio' }
+];
 ---
 
-<Layout title="Portfolio">
+<Layout title="Portfolio" breadcrumbs={breadcrumbs}>
   <h1>Portfolio</h1>
   <ul>
     {portfolioItems.map((item) => (
