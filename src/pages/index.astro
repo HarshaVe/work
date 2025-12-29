@@ -1,20 +1,8 @@
 ---
-// Homepage
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Harsha Vemulapalli</title>
-  </head>
-  <body>
-    <h1>Harsha Vemulapalli</h1>
-    <p>Global Director, Experience Design & Research</p>
-    <nav>
-      <a href="/about">About</a> |
-      <a href="/resume">Resume</a> |
-      <a href="/contact">Contact</a>
-    </nav>
-  </body>
-</html>
+<Layout title="Home" showBackLink={false}>
+  <h1>Harsha Vemulapalli</h1>
+  <p>Global Director, Experience Design & Research</p>
+</Layout>

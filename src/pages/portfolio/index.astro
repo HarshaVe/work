@@ -1,25 +1,18 @@
 ---
+import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const portfolioItems = await getCollection('portfolio');
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Portfolio | Harsha Vemulapalli</title>
-  </head>
-  <body>
-    <h1>Portfolio</h1>
-    <ul>
-      {portfolioItems.map((item) => (
-        <li>
-          <strong>{item.data.title}</strong> — {item.data.company}
-          <p>{item.data.description}</p>
-        </li>
-      ))}
-    </ul>
-    <a href="/">← Home</a>
-  </body>
-</html>
+<Layout title="Portfolio">
+  <h1>Portfolio</h1>
+  <ul>
+    {portfolioItems.map((item) => (
+      <li>
+        <strong>{item.data.title}</strong> — {item.data.company}
+        <p>{item.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</Layout>
