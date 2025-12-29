@@ -16,7 +16,9 @@ const portfolioItems = allPortfolio
   <ul>
     {portfolioItems.map((item) => (
       <li>
-        <strong>{item.data.title}</strong> — {item.data.company}
+        <a href={`/portfolio/${item.slug}`}>
+          <strong>{item.data.title}</strong>
+        </a> — {item.data.company}
         <p>{item.data.description}</p>
       </li>
     ))}
