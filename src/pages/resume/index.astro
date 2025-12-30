@@ -5,44 +5,294 @@ const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'Resume' }
 ];
+
+const actionLink = { label: 'download pdf', href: '/Harsha_Vemulapalli_Resume.pdf' };
 ---
 
-<Layout title="Resume" breadcrumbs={breadcrumbs}>
+<Layout title="Resume" breadcrumbs={breadcrumbs} actionLink={actionLink}>
   <h1 id="top">Harsha Vemulapalli</h1>
-  <p>Detroit, MI • <a href="/contact">Contact Me</a> · <a href="https://www.linkedin.com/in/hvem/">LinkedIn</a></p>
-  <h2 id="summary">Summary</h2>
-  <p>Strategic design executive with 25+ years driving digital experience transformation across financial services, B2B, B2C.</p>
-  <p>Proven expertise leading large-scale design organizations (70+ person teams) that deliver measurable business impact through intuitive B2C and B2B experiences across web and mobile platforms.</p>
-  <p>Deep experience navigating regulated industries, operationalizing enterprise design systems at scale, and partnering with Product, Engineering, and Business teams to modernize user flows that strengthen acquisition, retention, and customer satisfaction.</p>
-  <p><a href="#top" class="action-link">back to top</a></p>
+  <p>Detroit, MI • <a href="/contact">Contact Me</a> • <a href="https://www.linkedin.com/in/hvem/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
   
-  <h2>Skills & Experitise</h2>
-  <h3>Experience Design Leadership & Strategy</h3>
-  <p>Executive leadership, Digital experience strategy, Product design, Product vision & strategy, Team building & mentorship, Cross-functional collaboration, Communications, Business Strategy, Servant leadership, Customer experience</p>
-  
-  <h3>Financial Services & Regulated Industries</h3>
-  <p>Financial services platforms, Fintech user experience, Retirement & benefits systems, Regulatory standards & compliance, Privacy & accessibility standards, Financial product workflows, B2C consumer acquisition, Customer trust & retention</p>
-  
-  <h3>Design Excellence & User Experience</h3>
-  <p>Product design, User flows & journey mapping, Interaction design, Usability testing, Visual design excellence, Acquisition & retention optimization, Multi-platform experiences (web/mobile), Satisfaction measurement, Content strategy, Customer needs analysis</p>
+  <p class="intro">Strategic design executive with 25+ years driving digital experience transformation across financial services, B2B, B2C. Proven expertise leading large-scale design organizations (70+ person teams) that deliver measurable business impact through intuitive B2C and B2B experiences across web and mobile platforms. Deep experience navigating regulated industries, operationalizing enterprise design systems at scale, and partnering with Product, Engineering, and Business teams to modernize user flows that strengthen acquisition, retention, and customer satisfaction.</p>
 
-  <h3>Technical Capabilities & Design Tools</h3>
-  <p>Front-end technologies (HTML, CSS, JavaScript), Figma, Adobe Creative Suite (Photoshop, Illustrator), Figma Make (AI-assisted prototyping), Miro, Jira, UserTesting, Dovetail, Design systems governance</p>
-  
-  <h3>Innovation & Emerging Technology</h3>
-  <p>AI-powered design workflows, Personalization at scale, Data-driven design, Emerging technology integration, Hybrid team operations (onshore/offshore)</p>
+  <div class="page-nav">
+    <a href="#skills">Skills</a> • <a href="#experience">Experience</a> • <a href="#thought-leadership">Thought Leadership</a> • <a href="#education">Education</a>
+  </div>
 
-  <p><a href="#top" class="action-link">back to top</a></p>
+  <h2 id="skills">Skills & Expertise</h2>
 
-  <h2>Professional Experience</h2>
-  <h3>Director Experience Design and Research, Siemens</h3>
-  <p>04/2025 - Present</p>
-  <p>Leading enterprise-wide digital experience modernization across Siemens' global portfolio, including financial services platforms, regulatory compliance systems, and consumer-facing marketplaces serving millions of users.</p>
-  <strong>Strategic Leadership & Business Impact</strong>
-  <ul>
-    <li>Set and deliver unified UX/UI strategy across corporate, marketplace, and financial services platforms, partnering with Product, Engineering, and Business teams to align design with strategic priorities</li>
-    <li>Lead 70-person cross-functional teams (4 direct reports: Senior Managers and Managers) spanning UX design, visual design, content strategy, user research (qual/quant), taxonomy, and operations across San Francisco, Munich, and remote locations</li>
-    <li>Built culture of creativity, collaboration, and continuous learning through mentorship programs, design critiques, and psychological safety practices</li>
-    <li>Advise executive leadership (C-level) on experience strategy, digital transformation efforts, and design maturity acceleration</li>
-  </ul>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <h3>Experience Design Leadership & Strategy</h3>
+      <p>Executive leadership, Digital experience strategy, Product design, Product vision & strategy, Team building & mentorship, Cross-functional collaboration, Communications, Business Strategy, Servant leadership, Customer experience</p>
+    </div>
+
+    <div class="skill-category">
+      <h3>Financial Services & Regulated Industries</h3>
+      <p>Financial services platforms, Fintech user experience, Retirement & benefits systems, Regulatory standards & compliance, Privacy & accessibility standards, Financial product workflows, B2C consumer acquisition, Customer trust & retention</p>
+    </div>
+
+    <div class="skill-category">
+      <h3>Design Excellence & User Experience</h3>
+      <p>Product design, User flows & journey mapping, Interaction design, Usability testing, Visual design excellence, Acquisition & retention optimization, Multi-platform experiences (web/mobile), Satisfaction measurement, Content strategy, Customer needs analysis</p>
+    </div>
+
+    <div class="skill-category">
+      <h3>Technical Capabilities & Design Tools</h3>
+      <p>Front-end technologies (HTML, CSS, JavaScript), Figma, Adobe Creative Suite (Photoshop, Illustrator), Figma Make (AI-assisted prototyping), Miro, Jira, UserTesting, Dovetail, Design systems governance</p>
+    </div>
+
+    <div class="skill-category">
+      <h3>Innovation & Emerging Technology</h3>
+      <p>AI-powered design workflows, Personalization at scale, Data-driven design, Emerging technology integration, Hybrid team operations (onshore/offshore)</p>
+    </div>
+  </div>
+
+  <a href="#top" class="return-to-top">back to top</a>
+
+  <h2 id="experience">Professional Experience</h2>
+
+  <div class="resume-entry">
+    <h3>Director Experience Design and Research<span class="company">Siemens</span></h3>
+    <p class="meta">04/2025 - Present</p>
+    <p>Leading enterprise-wide digital experience modernization across Siemens' global portfolio, including financial services platforms, regulatory compliance systems, and consumer-facing marketplaces serving millions of users.</p>
+    
+    <h4>Strategic Leadership & Business Impact</h4>
+    <ul class="resume-list">
+      <li>Set and deliver unified UX/UI strategy across corporate, marketplace, and financial services platforms, partnering with Product, Engineering, and Business teams to align design with strategic priorities</li>
+      <li>Lead 70-person cross-functional teams (4 direct reports: Senior Managers and Managers) spanning UX design, visual design, content strategy, user research (qual/quant), taxonomy, and operations across San Francisco, Munich, and remote locations</li>
+      <li>Built culture of creativity, collaboration, and continuous learning through mentorship programs, design critiques, and psychological safety practices</li>
+      <li>Advise executive leadership (C-level) on experience strategy, digital transformation efforts, and design maturity acceleration</li>
+    </ul>
+
+    <h4>Design Systems & Scalability</h4>
+    <ul class="resume-list">
+      <li>Evolved and operationalized enterprise design system for 3,000+ internal creators and hundreds of agency partners, ensuring consistency, scalability, and innovation across 150+ digital properties</li>
+      <li>Established design governance frameworks ensuring all experiences meet accessibility, privacy, and regulatory standards</li>
+      <li>Scaled unified design and content system adopted across 5,000+ pages and multiple federated business units</li>
+    </ul>
+
+    <h4>User Experience & Business Outcomes</h4>
+    <ul class="resume-list">
+      <li>Simplified and modernized user flows for financial services workflows, improving acquisition and reducing time-on-task for complex transaction processes</li>
+      <li>Led design of AI-powered product finder that increased conversion by 10% and engagement by 15% through intuitive user flows and personalization</li>
+      <li>Delivered measurable impact through product scorecards: boosted engagement by 26% and conversion by 17%</li>
+      <li>Developed hybrid onshore/offshore delivery model and applied AI tools (Microsoft Copilot) to enhance quality and reduce time-to-insight by 20%</li>
+    </ul>
+
+    <h4>User Research & Insights</h4>
+    <ul class="resume-list">
+      <li>Partnered with UX research to uncover customer needs and inspire design innovation through global user research panels</li>
+      <li>Built AI-powered research agent enabling teams to query validated insights, accelerating data-driven decision-making across product development</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>Senior Manager UX Smart Vehicle<span class="company">Amazon</span></h3>
+    <p class="meta">September 2022–January 2023</p>
+    <p>Co-led design strategy for Amazon's next-gen in-vehicle consumer platform integrating commerce, media, and personalization across vehicle hardware and cloud services.</p>
+    <ul class="resume-list">
+      <li>Directed design for complex multi-service user flows across vehicle systems, AWS services, and embedded apps balancing safety, usability, and business KPIs</li>
+      <li>Designed vehicle-specific monetization flows and consumer acquisition features through iterative, user-centered design</li>
+      <li>Led 13-person team (3 directs: Principal and Senior ICs) across UX design, research, conversational design, and visual design in Seattle, San Francisco, and Detroit</li>
+      <li>Introduced lean UX processes increasing collaboration and reducing delivery timelines by 12%</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>Senior Director User Experience Design & Research<span class="company">VMware</span></h3>
+    <p class="meta">April 2021–September 2022</p>
+    <p>Led design, research, and service design transformation for VMware's internal employee experience, including financial systems, HR benefits, and enterprise workflow tools serving 35,000+ users.</p>
+
+    <h4>Platform Experience & Regulatory Compliance</h4>
+    <ul class="resume-list">
+      <li>Directed modernization of SAP Commerce-powered CPQ and subscription billing systems, reducing time-on-task by 30% and enabling VMware's subscription-to-SaaS transformation</li>
+      <li>Integrated Workday HR workflows with benefits administration, ITSM, and compliance tools, ensuring privacy and regulatory standards for vaccination attestations and hybrid work systems</li>
+      <li>Re-platformed post-COVID digital systems maintaining 75%+ CSAT while reducing support load by 20%</li>
+    </ul>
+
+    <h4>Team Leadership & Measurement</h4>
+    <ul class="resume-list">
+      <li>Built and mentored 75-person distributed team (9 directs: Directors, Senior Managers, and Staff-level ICs) across UX strategy, design, research, visual/motion design, content design, and design operations in Palo Alto, Sofia, and Bangalore</li>
+      <li>Designed centralized experience scorecard and measurement frameworks adopted company-wide, enabling data-driven decision-making</li>
+      <li>Operated as player/coach, directly contributing to critical design efforts while scaling leadership capacity</li>
+    </ul>
+
+    <h4>Executive Advisory</h4>
+    <ul class="resume-list">
+      <li>Guided C-suite stakeholders through platform strategy, experience operating model transformation, and design maturity roadmaps</li>
+      <li>Ran platform discovery sessions, opportunity mapping, and cross-functional alignment workshops</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>Director UX and Research<span class="company">CARFAX</span></h3>
+    <p class="meta">October 2019–April 2021</p>
+    <p>Led UX, visual design, and research teams elevating B2C consumer trust and brand consistency across digital and physical touchpoints for millions of vehicle buyers.</p>
+    <ul class="resume-list">
+      <li>Directed end-to-end redesign of vehicle history report experience, achieving 7% conversion lift and strengthening customer acquisition through trust-building design patterns</li>
+      <li>Modernized cross-platform experiences across mobile, web, and dealer tools, increasing consumer engagement and satisfaction</li>
+      <li>Established repeatable user research cadence and design process improving brand consistency and customer retention</li>
+      <li>Led 30-person team (3 directs: Senior Managers and Managers) across UX design, research, graphic design, and design operations in Centreville, Columbia, and London</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>Head of Experience Design<span class="company">Robert Bosch, LLC</span></h3>
+    <p class="meta">October 2016–October 2019</p>
+    <p>Built and led Bosch's internal design consultancy serving automotive, power tools retail (B2C), and IoT product lines.</p>
+    <ul class="resume-list">
+      <li>Directed UX strategy for AI/ML-powered infotainment platform and autonomous driving systems, balancing innovation, safety, and consumer adoption</li>
+      <li>Led B2C e-commerce design for Power Tools direct sales, optimizing user flows and checkout experiences for retail customers</li>
+      <li>Drove service design initiatives saving $6M while optimizing design-to-sales processes</li>
+      <li>Scaled 120-person design organization (5 directs, 90 indirect reports) across Detroit, Sunnyvale, Chicago, Boston, Guadalajara, and Mississauga</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>User Experience Manager<span class="company">General Motors</span></h3>
+    <p class="meta">September 2014–October 2016</p>
+    <p>Led UX and research for connected-vehicle ecosystems across seven global brands.</p>
+    <ul class="resume-list">
+      <li>Directed UX for OnStar, CarPlay, and Android Auto integration.</li>
+      <li>Unified design systems across mobile and in-vehicle launching seven apps in 23 languages within one year.</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>Design Manager<span class="company">Air Mobility Command</span></h3>
+    <p class="meta">May 2013–September 2014</p>
+    <p>Led consulting teams delivering mission-critical planning and decision-support systems for U.S. Air Force operations.</p>
+    <ul class="resume-list">
+      <li>Directed end-to-end design for high-urgency planning tools supporting 1,200+ daily missions, generating $2M+ in operational savings</li>
+      <li>Established command-wide human interaction design guidelines based on research-driven principles</li>
+      <li>Co-led proposal development and competitive bids resulting in multi-year contract extensions</li>
+    </ul>
+  </div>
+
+  <div class="resume-entry">
+    <h3>User Experience and Analytics Manager<span class="company">Centers for Disease Control and Prevention</span></h3>
+    <p class="meta">Dec 2010–May 2013</p>
+    <p>Led UX, research, and analytics for CDC's National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention supporting 14+ websites and three mobile apps in a highly regulated environment.</p>
+    <ul class="resume-list">
+      <li>Designed and launched CDC's first mobile app and responsive website, increasing HIV testing conversions by 70% through optimized user flows</li>
+      <li>Built enterprise measurement and effectiveness framework for data-driven experience decisions at national scale</li>
+      <li>Navigated HIPAA compliance and federal accessibility standards (Section 508) while modernizing digital experiences</li>
+      <li>Developed and won multiple follow-on contracts through proposal development and RFP responses</li>
+    </ul>
+  </div>
+
+  <h3>Prior Experience</h3>
+
+  <div class="two-column-grid">
+    <div class="resume-entry">
+      <h3>Interaction Designer<span class="company">Blackbaud</span></h3>
+      <p class="meta">Nov 2007–Dec 2010</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Product Manager & Design Engineer<span class="company">Morris Digitalworks</span></h3>
+      <p class="meta">Feb 2004–Oct 2007</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Research Analyst<span class="company">Mirant, LLC</span></h3>
+      <p class="meta">Aug 2001–Oct 2003</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Designer<span class="company">SoftSys, LLC</span></h3>
+      <p class="meta">May 1999–Jul 2001</p>
+    </div>
+  </div>
+
+  <a href="#top" class="return-to-top">back to top</a>
+
+  <h2 id="thought-leadership">Thought Leadership</h2>
+
+  <div class="two-column-grid">
+    <div class="resume-entry">
+      <h3>Leading Teams through AI</h3>
+      <p class="meta">Panel Speaker, UX Researchers' Guild, Dec 2025</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>IDC MarketScape: Digital B2B Ecosystems and Marketplaces</h3>
+      <p class="meta">IDC, Sept 2025</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Forrester Research: Leveraging AI for e-commerce in B2B Organizations</h3>
+      <p class="meta">Forrester, 2025</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Creating a Human-Centered Company</h3>
+      <p class="meta">AV18 Autonomous Vehicle Conference, 2018</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Designing the Human Experience</h3>
+      <p class="meta">Automotive Cockpit HMI, 2018</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Five Agile Challenges for Distributed Teams</h3>
+      <p class="meta">AgileConnection/TechWell, Jul 2, 2014</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Gaming & Mobile for a Public Health</h3>
+      <p class="meta">CDC NPIN Health Webcast Presentation, 2013</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Usability in Public Health</h3>
+      <p class="meta">National HIV Prevention Conference, 2011</p>
+    </div>
+  </div>
+
+  <a href="#top" class="return-to-top">back to top</a>
+
+  <h2 id="education">Education</h2>
+
+  <div class="two-column-grid">
+    <div class="resume-entry">
+      <h3>Decision by Design</h3>
+      <p class="meta">Farnam Street, 2025 (in-progress)</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Google AI Essentials</h3>
+      <p class="meta">Google, 2025 (in-progress)</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Behavioral Design Bootcamp</h3>
+      <p class="meta">Irrational Labs, 2023</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Certificate User Experience Research</h3>
+      <p class="meta">University of Denver, 2016</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Certificate Agile Scrum Master</h3>
+      <p class="meta">Scrum Alliance, 2009</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Certificate Agile Product Owner</h3>
+      <p class="meta">Scrum Alliance, 2009</p>
+    </div>
+
+    <div class="resume-entry">
+      <h3>Bachelors of Science, Information Technology</h3>
+      <p class="meta">American Intercontinental University, 2001</p>
+    </div>
+  </div>
+
+  <a href="#top" class="return-to-top">back to top</a>
+
 </Layout>

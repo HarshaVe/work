@@ -55,6 +55,15 @@ h3 {
   color: var(--color-text);
 }
 
+h4 {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
 p {
   margin-bottom: 1rem;
   color: var(--color-text-secondary);
@@ -281,4 +290,159 @@ ul.variants li:last-child {
 .see-all {
   font-size: 0.85rem;
   white-space: nowrap;
+}
+
+/* Resume styles */
+.resume-entry {
+  margin-bottom: 1.5rem;
+}
+
+.resume-entry h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+}
+
+.resume-entry h3 .company {
+  color: var(--color-text);
+}
+
+.resume-entry h3 .company::before {
+  content: ", ";
+}
+
+.resume-entry .meta {
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.resume-entry p {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.resume-entry > h4,
+.resume-entry > ul {
+  margin-left: 1.5rem;
+}
+
+ul.resume-list {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+ul.resume-list li {
+  margin-bottom: 0.4rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.4;
+}
+
+ul.resume-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-text-secondary);
+}
+
+ul.resume-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Prior experience list */
+ul.resume-list li h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul.resume-list li .meta {
+  margin-top: 0.1rem;
+}
+
+h4 {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+/* Skills grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skill-category h3 {
+  margin-top: 0;
+  margin-bottom: 0.15rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.skill-category p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+/* Two column grid for thought leadership and education */
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+  margin-top: 1rem;
+}
+
+.two-column-grid .resume-entry {
+  margin-bottom: 0;
+}
+
+.two-column-grid .resume-entry h3 {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .two-column-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* In-page navigation */
+.page-nav {
+  display: block;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #fffbeb;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+  color: var(--color-text-secondary);
+}
+
+/* Return to top link */
+.return-to-top {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
 }
