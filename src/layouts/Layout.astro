@@ -5,9 +5,10 @@ interface Props {
   title: string;
   breadcrumbs?: Array<{label: string, href?: string}>;
   actionLink?: {label: string, href: string};
+  hasHero?: boolean;
 }
 
-const { title, breadcrumbs, actionLink } = Astro.props;
+const { title, breadcrumbs, actionLink, hasHero = false } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 // Only mark nav as active for exact matches or index pages, not child pages
@@ -24,10 +25,10 @@ const isContact = currentPath === "/contact" || currentPath === "/contact/";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>{title} | HarshaV</title>
+    <title>{title} | Harsha Vemulapalli</title>
   </head>
-  <body>
-    <header>
+  <body class={hasHero ? "has-hero" : ""}>
+    <header class={hasHero ? "floating-header" : ""}>
       <nav>
         <a href="/" class={isHome ? "active" : ""}>Home</a>
         <a href="/about" class={isAbout ? "active" : ""}>About</a>
