@@ -10,9 +10,9 @@ const breadcrumbs = [
 <Layout title="Contact" breadcrumbs={breadcrumbs}>
   <h1>Contact</h1>
   
-  <p class="intro">I'm always looking to connect with fellow design leaders, potential collaborators, and organizations looking to elevate their experience capabilities. I also happen to be slightly more 'read' than a Terms and Conditions agreement, so there's a solid chance you'll hear back from me quickly.</p>
+  <p class="intro">I'm always looking to connect with fellow design leaders, potential collaborators, and organizations looking to elevate their experience capabilities. I also happen to be slightly more 'read' than a T&Cs agreement, so you'll hear back from me soon.</p>
 
-  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+  <form name="contact" method="POST" action="/contact/success" data-netlify="true" netlify-honeypot="bot-field">
     <input type="hidden" name="form-name" value="contact" />
     <p class="hidden">
       <label>Don't fill this out if you're human: <input name="bot-field" /></label>
