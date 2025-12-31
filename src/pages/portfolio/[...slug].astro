@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const portfolioEntries = await getCollection('portfolio');
-  return portfolioEntries.map((entry) => ({
+  return portfolioEntries.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
@@ -12,51 +12,127 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: entry.data.title }
+];
+
+const actionLink = { label: 'view entire portfolio', href: '/portfolio' };
+
+// Get hero and gallery images from frontmatter
+const heroImage = entry.data.heroImage;
+const galleryImages = entry.data.gallery || [];
+const downloadFile = entry.data.downloadFile;
+const downloadLabel = entry.data.downloadLabel || 'Download PDF';
 ---
 
-<Layout title={entry.data.title}>
-  <div class="subheader">
-    <div class="breadcrumbs" id="breadcrumbs">
-      <a href="/">home</a>
-      <span class="separator">/</span>
-      <a href="/portfolio">portfolio</a>
-      <span class="separator">/</span>
-      <span class="current">{entry.data.title.toLowerCase()}</span>
-    </div>
-    <a href="/portfolio" class="action-link" id="action-link">view entire portfolio</a>
-  </div>
+<Layout title={entry.data.title} breadcrumbs={breadcrumbs} actionLink={actionLink}>
+  {heroImage && (
+    <div class="portfolio-hero" style={`background-image: url('${heroImage}')`}></div>
+  )}
+  
+  <h1>{entry.data.title}</h1>
+  <p class="meta">{entry.data.company} · {entry.data.role} · {entry.data.dates}</p>
   
   <article>
-    <h1>{entry.data.title}</h1>
-    <p class="meta">{entry.data.company} · {entry.data.role} · {entry.data.dates}</p>
-    <p>{entry.data.description}</p>
-    <hr />
     <Content />
   </article>
-  
-  <script>
-    const variantMap = {
-      ai: { label: 'ai & emerging tech', href: '/ai' },
-      regulated: { label: 'regulated industries', href: '/regulated' },
-      systems: { label: 'design systems', href: '/systems' },
-      enterprise: { label: 'enterprise b2b', href: '/enterprise' },
-    };
-    
-    const params = new URLSearchParams(window.location.search);
-    const via = params.get('via');
-    
-    if (via && variantMap[via]) {
-      const breadcrumbs = document.getElementById('breadcrumbs');
-      const variant = variantMap[via];
-      const currentTitle = breadcrumbs.querySelector('.current').textContent;
-      
-      breadcrumbs.innerHTML = `
-        <a href="/">home</a>
-        <span class="separator">/</span>
-        <a href="${variant.href}">${variant.label}</a>
-        <span class="separator">/</span>
-        <span class="current">${currentTitle}</span>
-      `;
+
+  {downloadFile && (
+    <div class="portfolio-download">
+      <a href={downloadFile} target="_blank">{downloadLabel}</a>
+    </div>
+  )}
+
+  {galleryImages.length > 0 && (
+    <div class="portfolio-gallery">
+      <h2>Project Artifacts</h2>
+      <div class="gallery-grid">
+        {galleryImages.map((image: {src: string, caption: string}, index: number) => (
+          <div class="gallery-item" data-index={index}>
+            <img src={image.src} alt={image.caption} draggable="false" />
+            <div class="gallery-item-caption">{image.caption}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {galleryImages.length > 0 && (
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous">&lsaquo;</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next">&rsaquo;</button>
+        <img src="" alt="" draggable="false" />
+        <div class="lightbox-caption"></div>
+      </div>
+    </div>
+  )}
+
+  <script define:vars={{ galleryImages }}>
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox?.querySelector('img');
+    const lightboxCaption = lightbox?.querySelector('.lightbox-caption');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      lightbox?.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeLightbox() {
+      lightbox?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      if (lightboxImg && lightboxCaption && galleryImages[currentIndex]) {
+        lightboxImg.src = galleryImages[currentIndex].src;
+        lightboxImg.alt = galleryImages[currentIndex].caption;
+        lightboxCaption.textContent = galleryImages[currentIndex].caption;
+      }
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % galleryImages.length;
+      updateLightbox();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      updateLightbox();
+    }
+
+    // Event listeners
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => openLightbox(index));
+    });
+
+    lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+    lightbox?.querySelector('.lightbox-prev')?.addEventListener('click', prevImage);
+    lightbox?.querySelector('.lightbox-next')?.addEventListener('click', nextImage);
+
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox?.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    // Disable right-click on images
+    document.querySelectorAll('.gallery-item img, .lightbox-content img').forEach(img => {
+      img.addEventListener('contextmenu', (e) => e.preventDefault());
+    });
   </script>
 </Layout>

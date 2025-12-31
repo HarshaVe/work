@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-const allPortfolio = await getCollection('portfolio');
-const portfolioItems = allPortfolio
-  .filter((item) => item.data.featured.regulated)
+const portfolioEntries = await getCollection('portfolio');
+const filteredEntries = portfolioEntries
+  .filter(entry => entry.data.featured.regulated)
   .sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumbs = [
@@ -17,16 +17,24 @@ const actionLink = { label: 'view full resume', href: '/resume' };
 
 <Layout title="Regulated Industries" breadcrumbs={breadcrumbs} actionLink={actionLink}>
   <h1>Regulated Industries</h1>
-  <p class="intro">I design experiences where precision matters—in healthcare, finance, and safety-critical systems.</p>
+  <p class="intro">Work in healthcare, finance, government, and safety-critical systems where compliance, accessibility, and trust are paramount.</p>
   
-  <h2>Selected Work</h2>
-  <ul>
-    {portfolioItems.map((item) => (
-      <li>
-        <a href={`/portfolio/${item.slug}?via=regulated`} class="portfolio-title">{item.data.title}</a>
-        <span class="portfolio-company"> — {item.data.company}</span>
-        <p>{item.data.description}</p>
+  <ul class="portfolio-list">
+    {filteredEntries.map((entry) => (
+      <li class="portfolio-list-item">
+        {entry.data.heroImage && (
+          <a href={`/portfolio/${entry.slug}?via=regulated`} class="portfolio-thumbnail">
+            <img src={entry.data.heroImage} alt={entry.data.title} />
+          </a>
+        )}
+        <div class="portfolio-list-content">
+          <a href={`/portfolio/${entry.slug}?via=regulated`} class="portfolio-title">{entry.data.title}</a>
+          <span class="portfolio-company"> — {entry.data.company}</span>
+          <p>{entry.data.description}</p>
+        </div>
       </li>
     ))}
   </ul>
+  
+  <p><a href="/portfolio">View entire portfolio</a></p>
 </Layout>

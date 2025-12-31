@@ -17,6 +17,13 @@ const portfolio = defineCollection({
     }),
     order: z.number().default(99),
     image: z.string().optional(),
+    heroImage: z.string().optional(),
+    gallery: z.array(z.object({
+      src: z.string(),
+      caption: z.string(),
+    })).optional(),
+    downloadFile: z.string().optional(),
+    downloadLabel: z.string().optional(),
   }),
 });
 

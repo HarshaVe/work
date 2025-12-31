@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-const allPortfolio = await getCollection('portfolio');
-const portfolioItems = allPortfolio
-  .filter((item) => item.data.featured.ai)
+const portfolioEntries = await getCollection('portfolio');
+const filteredEntries = portfolioEntries
+  .filter(entry => entry.data.featured.ai)
   .sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumbs = [
@@ -16,17 +16,25 @@ const actionLink = { label: 'view full resume', href: '/resume' };
 ---
 
 <Layout title="AI & Emerging Tech" breadcrumbs={breadcrumbs} actionLink={actionLink}>
-  <h1>AI & Emerging Technology</h1>
-  <p class="intro">I'm building the future of UX research and design with AI—from persona agents to research automation.</p>
+  <h1>AI & Emerging Tech</h1>
+  <p class="intro">Work focused on research automation, persona agents, machine learning applications, and AI-powered personalization.</p>
   
-  <h2>Selected Work</h2>
-  <ul>
-    {portfolioItems.map((item) => (
-      <li>
-        <a href={`/portfolio/${item.slug}?via=ai`} class="portfolio-title">{item.data.title}</a>
-        <span class="portfolio-company"> — {item.data.company}</span>
-        <p>{item.data.description}</p>
+  <ul class="portfolio-list">
+    {filteredEntries.map((entry) => (
+      <li class="portfolio-list-item">
+        {entry.data.heroImage && (
+          <a href={`/portfolio/${entry.slug}?via=ai`} class="portfolio-thumbnail">
+            <img src={entry.data.heroImage} alt={entry.data.title} />
+          </a>
+        )}
+        <div class="portfolio-list-content">
+          <a href={`/portfolio/${entry.slug}?via=ai`} class="portfolio-title">{entry.data.title}</a>
+          <span class="portfolio-company"> — {entry.data.company}</span>
+          <p>{entry.data.description}</p>
+        </div>
       </li>
     ))}
   </ul>
+  
+  <p><a href="/portfolio">View entire portfolio</a></p>
 </Layout>

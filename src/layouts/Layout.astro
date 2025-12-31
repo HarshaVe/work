@@ -5,13 +5,11 @@ interface Props {
   title: string;
   breadcrumbs?: Array<{label: string, href?: string}>;
   actionLink?: {label: string, href: string};
-  hasHero?: boolean;
 }
 
-const { title, breadcrumbs, actionLink, hasHero = false } = Astro.props;
+const { title, breadcrumbs, actionLink } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-// Only mark nav as active for exact matches or index pages, not child pages
 const isHome = currentPath === "/";
 const isAbout = currentPath === "/about" || currentPath === "/about/";
 const isPortfolio = currentPath === "/portfolio" || currentPath === "/portfolio/";
@@ -27,41 +25,92 @@ const isContact = currentPath === "/contact" || currentPath === "/contact/";
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title} | Harsha Vemulapalli</title>
   </head>
-  <body class={hasHero ? "has-hero" : ""}>
-    <header class={hasHero ? "floating-header" : ""}>
+  <body>
+    <div class="hero-banner">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <header class="site-header">
       <nav>
-        <a href="/" class={isHome ? "active" : ""}>Home</a>
-        <a href="/about" class={isAbout ? "active" : ""}>About</a>
-        <a href="/portfolio" class={isPortfolio ? "active" : ""}>Portfolio</a>
-        <a href="/resume" class={isResume ? "active" : ""}>Resume</a>
-        <a href="/contact" class={isContact ? "active" : ""}>Contact</a>
-      </nav>
-      
-      {(breadcrumbs || actionLink) && (
-        <div class="subheader">
-          {breadcrumbs && breadcrumbs.length > 0 && (
-            <div class="breadcrumbs">
-              {breadcrumbs.map((crumb, index) => (
-                <>
-                  {crumb.href ? (
-                    <a href={crumb.href}>{crumb.label}</a>
-                  ) : (
-                    <span class="current">{crumb.label}</span>
-                  )}
-                  {index < breadcrumbs.length - 1 && <span class="separator">/</span>}
-                </>
-              ))}
-            </div>
-          )}
-          {actionLink && (
-            <a href={actionLink.href} class="action-link">{actionLink.label}</a>
-          )}
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+        <div class="nav-links">
+          <a href="/" class={isHome ? "active" : ""}>Home</a>
+          <a href="/about" class={isAbout ? "active" : ""}>About</a>
+          <a href="/portfolio" class={isPortfolio ? "active" : ""}>Portfolio</a>
+          <a href="/resume" class={isResume ? "active" : ""}>Resume</a>
+          <a href="/contact" class={isContact ? "active" : ""}>Contact</a>
         </div>
-      )}
+      </nav>
     </header>
     
     <main>
-      <slot />
+      <div class="content-wrapper">
+        {(breadcrumbs || actionLink) && (
+          <div class="subheader">
+            {breadcrumbs && breadcrumbs.length > 0 && (
+              <div class="breadcrumbs">
+                {breadcrumbs.map((crumb, index) => (
+                  <>
+                    {crumb.href ? (
+                      <a href={crumb.href}>{crumb.label}</a>
+                    ) : (
+                      <span class="current">{crumb.label}</span>
+                    )}
+                    {index < breadcrumbs.length - 1 && <span class="separator">/</span>}
+                  </>
+                ))}
+              </div>
+            )}
+            {actionLink && (
+              <a href={actionLink.href} class="action-link">{actionLink.label}</a>
+            )}
+          </div>
+        )}
+        
+        <slot />
+      </div>
     </main>
+    
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/harshavemulapalli/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span class="footer-separator">·</span>
+          <a href="/contact">Contact</a>
+        </div>
+        <div class="footer-credit">
+          <p>This site was built with help from <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>, powered by <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>, and hosted on <a href="https://netlify.com" target="_blank" rel="noopener noreferrer">Netlify</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      menuToggle?.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        navLinks?.classList.toggle('open');
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!menuToggle?.contains(e.target as Node) && !navLinks?.contains(e.target as Node)) {
+          menuToggle?.setAttribute('aria-expanded', 'false');
+          navLinks?.classList.remove('open');
+        }
+      });
+
+      // Close menu when clicking a link
+      navLinks?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle?.setAttribute('aria-expanded', 'false');
+          navLinks?.classList.remove('open');
+        });
+      });
+    </script>
   </body>
 </html>

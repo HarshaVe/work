@@ -1,24 +1,35 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-const portfolioItems = (await getCollection('portfolio'))
-  .sort((a, b) => a.data.order - b.data.order);
+const portfolioEntries = await getCollection('portfolio');
+const sortedEntries = portfolioEntries.sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'Portfolio' }
 ];
+
+const actionLink = { label: 'view full resume', href: '/resume' };
 ---
 
-<Layout title="Portfolio" breadcrumbs={breadcrumbs}>
+<Layout title="Portfolio" breadcrumbs={breadcrumbs} actionLink={actionLink}>
   <h1>Portfolio</h1>
-  <ul>
-    {portfolioItems.map((item) => (
-      <li>
-        <a href={`/portfolio/${item.slug}`} class="portfolio-title">{item.data.title}</a>
-        <span class="portfolio-company"> — {item.data.company}</span>
-        <p>{item.data.description}</p>
+  <p class="intro">Selected work from 25+ years leading design teams across regulated industries, enterprise B2B, and emerging technology.</p>
+  
+  <ul class="portfolio-list">
+    {sortedEntries.map((entry) => (
+      <li class="portfolio-list-item">
+        {entry.data.heroImage && (
+          <a href={`/portfolio/${entry.slug}`} class="portfolio-thumbnail">
+            <img src={entry.data.heroImage} alt={entry.data.title} />
+          </a>
+        )}
+        <div class="portfolio-list-content">
+          <a href={`/portfolio/${entry.slug}`} class="portfolio-title">{entry.data.title}</a>
+          <span class="portfolio-company"> — {entry.data.company}</span>
+          <p>{entry.data.description}</p>
+        </div>
       </li>
     ))}
   </ul>

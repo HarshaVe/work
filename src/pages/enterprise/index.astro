@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
-const allPortfolio = await getCollection('portfolio');
-const portfolioItems = allPortfolio
-  .filter((item) => item.data.featured.enterprise)
+const portfolioEntries = await getCollection('portfolio');
+const filteredEntries = portfolioEntries
+  .filter(entry => entry.data.featured.enterprise)
   .sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumbs = [
@@ -16,17 +16,25 @@ const actionLink = { label: 'view full resume', href: '/resume' };
 ---
 
 <Layout title="Enterprise B2B" breadcrumbs={breadcrumbs} actionLink={actionLink}>
-  <h1>Enterprise B2B & Industrial</h1>
-  <p class="intro">I simplify complex workflows for technical users—across manufacturing, automation, and B2B platforms.</p>
+  <h1>Enterprise B2B</h1>
+  <p class="intro">Complex workflow optimization, manufacturing systems, and enterprise platforms serving thousands of business users.</p>
   
-  <h2>Selected Work</h2>
-  <ul>
-    {portfolioItems.map((item) => (
-      <li>
-        <a href={`/portfolio/${item.slug}?via=enterprise`} class="portfolio-title">{item.data.title}</a>
-        <span class="portfolio-company"> — {item.data.company}</span>
-        <p>{item.data.description}</p>
+  <ul class="portfolio-list">
+    {filteredEntries.map((entry) => (
+      <li class="portfolio-list-item">
+        {entry.data.heroImage && (
+          <a href={`/portfolio/${entry.slug}?via=enterprise`} class="portfolio-thumbnail">
+            <img src={entry.data.heroImage} alt={entry.data.title} />
+          </a>
+        )}
+        <div class="portfolio-list-content">
+          <a href={`/portfolio/${entry.slug}?via=enterprise`} class="portfolio-title">{entry.data.title}</a>
+          <span class="portfolio-company"> — {entry.data.company}</span>
+          <p>{entry.data.description}</p>
+        </div>
       </li>
     ))}
   </ul>
+  
+  <p><a href="/portfolio">View entire portfolio</a></p>
 </Layout>
