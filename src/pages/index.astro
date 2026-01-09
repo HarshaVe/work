@@ -5,17 +5,49 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Home">
   <div class="intro-with-photo-wrap">
     <img src="/images/harsha-headshot.jpg" alt="Harsha Vemulapalli" class="headshot-float" />
-    <h1>👋 I'm Harsha</h1>
+    <h1>Harsha Vemulapalli</h1>
     <p class="intro">I'm a design and research leader with 25+ years building consumer experiences that drive measurable business results. I've led teams of 100+ across regulated industries and global enterprises — including Siemens, VMware, GM, and CDC. I specialize in designing the consumer-facing front door for complex services: the discovery, engagement, and self-service experiences that connect customers' needs to critical business outcomes.</p>
   </div>
 
-  <h2>View by Focus</h2>
-  <ul class="variants">
-    <li><a href="/regulated">Regulated Industries</a> — Healthcare, finance, and safety-critical systems</li>
-    <li><a href="/systems">Design Systems</a> — Infrastructure, governance, and scalable design</li>
-    <li><a href="/enterprise">Enterprise B2B</a> — Manufacturing, automation, and complex workflows</li>
-    <li><a href="/ai">AI & Emerging Tech</a> — Research automation, persona agents, and AI integration</li>
-  </ul>
+  <h2>Explore My Work</h2>
   
-  <p><a href="/resume">view full resume</a></p>
+  <div class="variant-cards">
+    <a href="/regulated" class="variant-card">
+      <h3>Regulated Industries</h3>
+      <p>Healthcare, finance, and safety-critical systems where compliance meets consumer experience.</p>
+      <ul class="variant-highlights">
+        <li>First responsive federal site under HIPAA & Section 508</li>
+        <li>Consumer financial touchpoints for GM and Siemens</li>
+      </ul>
+    </a>
+    
+    <a href="/systems" class="variant-card">
+      <h3>Design Systems</h3>
+      <p>Scalable infrastructure that accelerates delivery without sacrificing quality.</p>
+      <ul class="variant-highlights">
+        <li>7 apps in 23 languages launched in one year at GM</li>
+        <li>3,000+ creators using Siemens design system</li>
+      </ul>
+    </a>
+    
+    <a href="/enterprise" class="variant-card">
+      <h3>Enterprise B2B</h3>
+      <p>Complex workflows simplified for manufacturing, automation, and industrial users.</p>
+      <ul class="variant-highlights">
+        <li>Brand and product experience transformation at CARFAX</li>
+        <li>B2C eCommerce strategy shaped by consumer research at Bosch</li>
+      </ul>
+    </a>
+    
+    <a href="/ai" class="variant-card">
+      <h3>AI & Emerging Tech</h3>
+      <p>Machine learning and intelligent personalization that drives measurable outcomes.</p>
+      <ul class="variant-highlights">
+        <li>AI-powered product discovery with 10% conversion lift</li>
+        <li>Research automation reducing time-to-insight by 20%</li>
+      </ul>
+    </a>
+  </div>
+  
+  <p style="margin-top: 2rem;"><a href="/portfolio">View entire portfolio</a> · <a href="/resume">View full resume</a></p>
 </Layout>

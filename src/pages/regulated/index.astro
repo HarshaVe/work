@@ -17,7 +17,19 @@ const actionLink = { label: 'view full resume', href: '/resume' };
 
 <Layout title="Regulated Industries" breadcrumbs={breadcrumbs} actionLink={actionLink}>
   <h1>Regulated Industries</h1>
-  <p class="intro">Work in healthcare, finance, government, and safety-critical systems where compliance, accessibility, and trust are paramount.</p>
+  
+  <p class="intro">I've spent significant parts of my career designing consumer experiences within highly regulated environments — healthcare, government, automotive safety, and financial services. These aren't just design challenges; they're exercises in building trust while navigating compliance.</p>
+
+  <div class="highlight-box">
+    <h3>Key Outcomes</h3>
+    <ul>
+      <li><strong>CDC:</strong> Designed and developed the first responsive federal campaign site under HIPAA and Section 508 accessibility requirements, increasing HIV testing conversions by 70%</li>
+      <li><strong>GM & Siemens:</strong> Designed consumer financial touchpoints — payments, account management, and service discovery — balancing usability with regulatory requirements</li>
+      <li><strong>VMware:</strong> Integrated Workday HR workflows with compliance tools for vaccination attestations and hybrid work policies</li>
+    </ul>
+  </div>
+
+  <h2>Related Work</h2>
   
   <ul class="portfolio-list">
     {filteredEntries.map((entry) => (
