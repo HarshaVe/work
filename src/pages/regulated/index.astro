@@ -15,7 +15,7 @@ const breadcrumbs = [
 const actionLink = { label: 'view full resume', href: '/resume' };
 ---
 
-<Layout title="Regulated Industries" breadcrumbs={breadcrumbs} actionLink={actionLink}>
+<Layout title="Regulated Industries" breadcrumbs={breadcrumbs}>
   <h1>Regulated Industries</h1>
   
   <p class="intro">I've spent significant parts of my career designing consumer experiences within highly regulated environments — healthcare, government, automotive safety, and financial services. These aren't just design challenges; they're exercises in building trust while navigating compliance.</p>
@@ -27,6 +27,8 @@ const actionLink = { label: 'view full resume', href: '/resume' };
       <li><strong>GM & Siemens:</strong> Designed consumer financial touchpoints — payments, account management, and service discovery — balancing usability with regulatory requirements</li>
       <li><strong>VMware:</strong> Integrated Workday HR workflows with compliance tools for vaccination attestations and hybrid work policies</li>
     </ul>
+    <br />
+    <a href="/resume">→ View full resume</a>
   </div>
 
   <h2>Related Work</h2>
@@ -48,5 +50,5 @@ const actionLink = { label: 'view full resume', href: '/resume' };
     ))}
   </ul>
   
-  <p><a href="/portfolio">View entire portfolio</a></p>
+  <p><a href="/portfolio">→ View entire portfolio</a></p>
 </Layout>

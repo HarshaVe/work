@@ -1246,3 +1246,59 @@ button[type="submit"]:hover {
 .highlight-box li strong {
   color: var(--color-text);
 }
+
+/* Arrow links */
+.arrow-links {
+  margin-top: 2rem;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 500px) {
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
