@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import Hero from '../components/Hero.astro';
-import { capabilities, contact, experience, headlineStats, homeLanes } from '../data/site';
+import { contact, experience, cycle, headlineStats, homeLanes, workThesis } from '../data/site';
 
 const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
 const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
@@ -57,20 +57,21 @@ const lanes = homeLanes.map((lane) => ({
   </div>
 
   <div class="band">
-  <section class="container capabilities" aria-labelledby="kodawari-title">
-    <div class="capabilities-head">
-      <h2 id="kodawari-title">How I work</h2>
-      <p class="section-intro"><a href="https://exploringkodawari.blog/what-is-kodawari/" target="_blank" rel="noopener noreferrer">Kodawari<span class="visually-hidden"> (opens in a new tab)</span></a> is the Japanese idea of an uncompromising, personal commitment to craft. It’s how I believe design delivers its best results: the standard isn’t set by the deadline or the org chart; it’s set by the person on the other side of the experience.</p>
+  <section class="container how-i-work" aria-labelledby="how-i-work-title">
+    <div class="how-i-work-head">
+      <h2 id="how-i-work-title">How I work</h2>
+      <p class="section-intro">{workThesis}</p>
     </div>
-    <ol class="capability-grid">
-      {capabilities.map((c, i) => (
-        <li class="capability">
-          <span class="capability-step" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3>{c.title}</h3>
-          <p>{c.text}</p>
+    <ol class="cycle-list">
+      {cycle.map((step, i) => (
+        <li>
+          <span class="cycle-step" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{step.title}</h3>
+          <p>{step.short}</p>
         </li>
       ))}
     </ol>
+    <p><a href="/about/#how-i-work">What that looks like in practice</a></p>
   </section>
   </div>
 
@@ -114,19 +115,6 @@ const lanes = homeLanes.map((lane) => ({
 
 <style>
 
-  /* Full-width bands alternate off-white and light blue-grey so each topic reads as a new section. */
-  .band {
-    padding: 5rem 0;
-  }
-
-  .band-tint {
-    background: var(--color-accent-soft);
-  }
-
-  /* When the page ends on a tinted band, let it meet the footer directly. */
-  :global(main:has(> .band:last-child) + .site-footer) {
-    margin-top: 0;
-  }
 
   .keep-together {
     white-space: nowrap;
@@ -212,46 +200,40 @@ const lanes = homeLanes.map((lane) => ({
     font-size: 0.9375rem;
   }
 
-  .capabilities {
+  .how-i-work {
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
   }
 
-  .capabilities-head {
+  .how-i-work-head {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    max-width: var(--max-width-reading);
   }
 
-
-  .capability-grid {
+  .cycle-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.5rem;
     list-style: none;
   }
 
-  .capability-step {
+  /* Step numbers show the order; a grey label, not content. */
+  .cycle-step {
     font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--color-text-muted);
   }
 
-  .capability {
+  .cycle-list li {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding-top: 1rem;
     border-top: 2px solid var(--color-text);
-  }
-
-
-  .capability p {
-    margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.55;
   }
 
   .experience {
@@ -299,9 +281,12 @@ const lanes = homeLanes.map((lane) => ({
   }
 
   @media (max-width: 1024px) {
-    .work-grid,
-    .capability-grid {
+    .work-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cycle-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -332,12 +317,8 @@ const lanes = homeLanes.map((lane) => ({
 
   @media (max-width: 560px) {
 
-    .band {
-      padding: 3.5rem 0;
-    }
-
     .work-grid,
-    .capability-grid {
+    .cycle-list {
       grid-template-columns: 1fr;
     }
   }

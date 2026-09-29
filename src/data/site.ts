@@ -16,22 +16,36 @@ export const headlineStats = [
 ];
 
 // "How I work" (kodawari) section on the homepage. Order matters: each step builds on the last.
-export const capabilities = [
+// "How I work": five steps, each making the next possible; the leaders in step 5
+// renew step 1. The homepage shows `title` + `short`; the About page shows
+// `text` (trusted static HTML, for the inline links).
+export const workThesis = 'My job is to help teams see what we’re building toward, then give them what they need to get there. That means ways of working we build together, room to grow into leaders, and a high bar measured by customers and business results, not opinions.';
+
+export const cycle = [
   {
-    title: 'Start with shared values.',
-    text: 'We name our values, turn them into behaviors we can see, and make roles and responsibilities clear, because clarity builds the trust people need to take creative risks.',
+    title: 'Shared vision and values',
+    short: 'A clear direction, and ways of working we build together.',
+    text: 'It starts with a clear picture of what we’re building toward, shaped with the team so it’s theirs too. Then we build how we work, together: shared values, clear roles and decisions, and new processes whenever the old ones slow the team down.',
   },
   {
-    title: 'Build the workshop, not just the work.',
-    text: 'Great craft needs the right tools, processes, and room to grow. I build both: systems that make good work easier, and career paths that help every designer master their craft.',
+    title: 'Trust, and high standards',
+    short: 'Safe to speak up. Uncompromising about the work.',
+    text: 'People need to feel safe to speak up, and the work needs a bar that doesn’t bend. One without the other gets you a comfortable team or an anxious one. The bar is <a href="https://exploringkodawari.blog/what-is-kodawari/" target="_blank" rel="noopener noreferrer">kodawari<span class="visually-hidden"> (opens in a new tab)</span></a>, the Japanese idea of an uncompromising, personal commitment to craft, held by everyone, not enforced by me.',
   },
   {
-    title: 'Sweat the details no one sees.',
-    text: 'Shared standards, definitions of done, and launch reviews, so 70 people in seven countries ship to one uncompromised standard.',
+    title: 'Creativity, tested with real people',
+    short: 'Real customers settle debates, not rank.',
+    text: 'Diverse ideas are the raw material. Critique is feedback to test, not a verdict, so real customers settle debates instead of whoever is most senior.',
   },
   {
-    title: 'Measure it, then make it better.',
-    text: 'A personal commitment to craft means holding the work to account: we measure every outcome, learn from it, and always imagine something better.',
+    title: 'Growth, in people and results',
+    short: 'Better products, and better careers.',
+    text: 'When it works, both grow. An AI product finder lifted conversion 23%, and a redesigned quoting tool cut time on task 30%. At Siemens, a career-growth tool shows everyone the skills for the role they want next.',
+  },
+  {
+    title: 'Leaders at every level',
+    short: 'Who carry it all forward.',
+    text: 'Leadership is behavior, not title. The people I grow hold the values, co-create, flag questions and decisions early, and treat critique as something to test. More than ten have stepped into manager and director roles.',
   },
 ];
 

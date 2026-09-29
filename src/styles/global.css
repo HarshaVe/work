@@ -360,6 +360,113 @@ a:active {
   resize: vertical;
 }
 
+/* ---------- Jump links ----------
+   Pill links to sections further down the same page (About, Résumé), in a bar that
+   sticks under the site header while the page scrolls beneath it. Links, not buttons:
+   they navigate, they don't filter (the Work page's filter buttons do that). */
+:root {
+  --jump-bar-height: 4rem;
+}
+
+html:has(.jump-bar) {
+  scroll-padding-top: calc(var(--header-height) + var(--jump-bar-height) + 1rem);
+}
+
+.jump-bar {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 90;
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.jump-links {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--jump-bar-height);
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  /* One row always; on narrow screens it scrolls sideways instead of wrapping. */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.jump-links a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.jump-links a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* The section being read: same selected look as the Work page's filter buttons. */
+.jump-links a[aria-current="true"] {
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: var(--color-surface);
+  text-decoration: none;
+}
+
+/* Quotation from someone else (e.g. a recommendation), with its source below. */
+.pull-quote {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.quote-source {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.quote-source strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ---------- Page bands ----------
+   Full-width sections that alternate the page color and a light blue-grey tint,
+   so each topic reads as a new section (homepage, /for pages, About).
+   --band-bg lets things drawn on a band (like the timeline dots) match it. */
+.band {
+  --band-bg: var(--color-background);
+  padding: 5rem 0;
+  background: var(--band-bg);
+}
+
+.band-tint {
+  --band-bg: var(--color-accent-soft);
+}
+
+/* When the page ends on a band, let it meet the footer directly. */
+main:has(> .band:last-child) + .site-footer {
+  margin-top: 0;
+}
+
+@media (max-width: 560px) {
+  .band {
+    padding: 3.5rem 0;
+  }
+}
+
 /* ---------- Print ----------
    Used for the résumé PDF, and for anyone printing a page. Hides site chrome
    and switches to a compact type scale; colors stay on the same tokens. */
