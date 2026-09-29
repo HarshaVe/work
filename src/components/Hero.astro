@@ -1,0 +1,193 @@
+---
+// Shared hero for the homepage and the /for pages: headline, then byline with photo,
+// intro, and calls to action on the left, with a column of numbers on the right.
+import { contact } from '../data/site';
+
+interface Props {
+  stats: { value: string; label: string }[];
+  /** Small label above the headline (used on the /for pages). */
+  eyebrow?: string;
+}
+
+const { stats, eyebrow } = Astro.props;
+---
+
+<section class="container hero">
+  {eyebrow && <p class="eyebrow hero-eyebrow">{eyebrow}</p>}
+  <h1><slot name="headline" /></h1>
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-byline-row">
+        <img class="hero-photo" src="/images/harsha-headshot-192.jpg" srcset="/images/harsha-headshot-192.jpg 192w, /images/harsha-headshot-384.jpg 384w" sizes="88px" alt="Harsha Vemulapalli" width="192" height="192" />
+        <p class="hero-byline"><strong>Global Director, Experience Design &amp; Research at Siemens</strong>, leading design, research, and content strategy across seven countries</p>
+      </div>
+      <slot />
+      <div class="actions">
+        <a href="/contact" class="button button-primary">Get in touch</a>
+        <a href={contact.resumePdf} class="button button-secondary" download>Download résumé (PDF)</a>
+        <a href={contact.linkedin} class="button button-secondary" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </div>
+    <aside class="stats" aria-label="At a glance">
+      {stats.map((stat) => (
+        <div class="stat">
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  /* Intro on the left; the numbers run alongside it, from the byline to the last paragraph. */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: 4rem;
+  }
+
+  /* Intro paragraphs are slotted from the page (class "lede", styled globally). */
+  .hero-main :global(.lede) {
+    margin-bottom: 1.25rem;
+  }
+
+
+  /* Byline under the headline, introduced by a small portrait. */
+  .hero-byline-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-byline {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    text-wrap: balance;
+  }
+
+  .hero-byline strong {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .hero-photo {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-accent-strong), 0 8px 20px -2px var(--color-photo-shadow);
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stat:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .stat:last-child {
+    padding-bottom: 0;
+  }
+
+  .stat-value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: 1.5rem;
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid var(--color-text);
+    }
+
+    .stat,
+    .stat:first-child,
+    .stat:last-child {
+      padding: 1rem 0;
+      border-top: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .hero {
+      padding-top: 2.5rem;
+    }
+
+
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat:nth-child(n + 3) {
+      border-top: 1px solid var(--color-border);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-byline-row {
+      align-items: flex-start;
+    }
+
+    .hero-photo {
+      width: 72px;
+      height: 72px;
+    }
+
+  }
+</style>

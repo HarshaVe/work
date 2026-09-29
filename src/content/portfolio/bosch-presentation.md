@@ -1,8 +1,9 @@
 ---
 title: "Interactive Presentation: Living the Customer Journey"
 description: "Created an interactive executive workshop that drove $1.2M in journey mapping revenue and transformed how Bosch leadership understood customer experience."
+summary: "An executive workshop that turned journey mapping into a business line, closing at $1.2M against a $900K target."
 company: "Bosch"
-role: "Head of Experience Design"
+role: "Head of Design, North America"
 dates: "2016-2017"
 tags: ["Design Thinking", "Digital Transformation", "Thought Leadership", "eCommerce"]
 featured:
@@ -10,6 +11,8 @@ featured:
   systems: false
   enterprise: true
   ai: false
+  vehicle: false
+  commerce: false
 order: 4
 heroImage: "/images/portfolio/bosch-presentation/hero.png"
 gallery:

@@ -1,6 +1,7 @@
 ---
 title: "MyChevrolet"
 description: "Led the redesign of GM's mobile apps into a unified platform supporting 7 brands, 23 languages, and new service revenue streams."
+summary: "One pattern-driven system behind 7 owner apps, launched in 23 languages within a year and generating $1M+ in new revenue in its first year."
 company: "GM"
 role: "User Experience Manager"
 dates: "2015-2016"
@@ -8,14 +9,16 @@ tags: ["Brand Strategy", "Design System", "Experience Strategy", "Product Redesi
 featured:
   regulated: false
   systems: true
-  enterprise: true
+  enterprise: false
   ai: false
+  vehicle: true
+  commerce: true
 order: 7
 heroImage: "/images/portfolio/gm-mychevrolet/hero.jpg"
 gallery:
   - src: "/images/portfolio/gm-mychevrolet/old-mychevrolet-app.png"
     caption: "Old MyChevrolet App"
-  - src: "/images/portfolio/gm-mychevrolet/mychevrolet-dashboard.png"
+  - src: "/images/portfolio/gm-mychevrolet/mychevrolet-dashboard.jpg"
     caption: "MyChevrolet Dashboard"
   - src: "/images/portfolio/gm-mychevrolet/mychevrolet-vehicle-status.png"
     caption: "MyChevrolet Vehicle Status"
@@ -75,4 +78,4 @@ The redesign was successful immediately on three fronts:
 - **Expanded GM's connected vehicle services** — The effectiveness of the UI and speed of development allowed us to launch seven branded apps in dozens of countries, supporting 23 languages. We had never had such extensive coverage so quickly.
 - **Drive engagement and preserve value to owners** — Testing provided evidence that owners could recognize items that needed their attention at 4x the rate they could in the prior apps. In-app analytics were proving that they were exploring additional functions on the apps, such as parking features, which were the foundations of in-app service revenue gambits.
 
-Several years after my departure, the apps still leverage this design language and have extended service revenue capabilities, all while maintaining a 4.9 out of 5 app rating on the Apple store with over 378.2K ratings.
+Several years after my departure, the apps still leverage this design language and have extended service revenue capabilities, all while maintaining a 4.9 out of 5 rating on the Apple App Store with more than 300,000 ratings as of 2020.

@@ -1,402 +1,344 @@
 ---
-// src/pages/index.astro
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import Hero from '../components/Hero.astro';
+import { capabilities, contact, experience, headlineStats, homeLanes } from '../data/site';
+
+const entries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
+const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+const lanes = homeLanes.map((lane) => ({
+  ...lane,
+  entries: lane.flag
+    ? entries.filter((entry) => entry.data.featured[lane.flag!])
+    : (lane.caseStudies ?? []).map((slug) => {
+        const entry = bySlug.get(slug);
+        if (!entry) throw new Error(`Unknown case study "${slug}" in lane "${lane.key}"`);
+        return entry;
+      }),
+}));
 ---
 
-<Layout title="Home" showBackLink={false}>
-  <div class="homepage-hero">
-    <img src="/images/harsha-headshot.jpg" alt="Harsha Vemulapalli" class="hero-photo" />
-    
-    <h1>Harsha Vemulapalli</h1>
-    
-    <p class="tagline">
-      Scaling design from a service function into a strategic driver of business outcomes.
-    </p>
+<Layout title="Home">
+  <Hero stats={headlineStats}>
+    <Fragment slot="headline">Impact isn’t accidental—<br /><span class="keep-together">it’s crafted.</span></Fragment>
+    <p class="lede">Great experiences are how companies earn trust, whether it's an admin configuring an enterprise platform, a buyer comparing hundreds of thousands of products, or someone buying a vehicle online and caring for it for years after.</p>
+    <p class="lede">I also build and scale teams that are empowered to deliver the remarkable. At Bosch, I started as employee zero for our North American design org, and grew a ~120-person design practice. At Siemens, I took UX, research, and content strategy from 5 people to 70, across seven countries, growing every IC and future leader along the way.</p>
+    <p class="lede">And I'm still close to the pixels, hands-on in shaping how AI gets designed, built, and deployed, so it serves what people actually need, not just what the technology can do.</p>
+  </Hero>
 
-    <p class="intro">
-      I build and scale design organizations — from the ground up, not just after they exist. At Siemens, I grew our UX, research, and content strategy organization from 5 to 70 people across seven countries. At Bosch, I joined as employee 0 and built an internal design consultancy from scratch into a ~120-person practice. Between those, I've led design across Amazon, VMware, GM, CARFAX, and the CDC — spanning industrial automation, enterprise SaaS, connected vehicles, and public health.
-    </p>
+  <div class="band band-tint">
+  <section class="container" id="work">
+    <div class="pivot">
+      <div class="pivot-head">
+        <h2>The work behind the numbers.</h2>
+        <p class="section-intro">Pick a focus to see the most relevant work first — or browse it all.</p>
+      </div>
 
-    <p class="intro">
-      AI fluency has been a consistent thread, not a recent pivot — I've built AI-assisted design and research tooling since 2016, and currently lead an AI-native design practice at Siemens alongside the quality systems (design system governance, definitions of done, launch review frameworks) that let large, distributed teams ship consistently.
-    </p>
+      <div class="lane-buttons" role="group" aria-label="Focus the work">
+        {lanes.map((lane, i) => (
+          <button type="button" data-lane-button={lane.key} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls={`lane-${lane.key}`}>{lane.label}</button>
+        ))}
+      </div>
 
-    <p class="intro">
-      I'm exploring design leadership roles where I can build or scale a design organization at a real inflection point — a platform transformation, a category-defining product, or a team about to grow past what got it here.
-    </p>
+      {lanes.map((lane, i) => (
+        <div class="lane" id={`lane-${lane.key}`} data-lane={lane.key} hidden={i !== 0}>
+          <p class="lane-line">{lane.line}</p>
+          <div class="work-grid">
+            {lane.entries.map((entry) => <CaseStudyCard entry={entry} />)}
+          </div>
+          <div class="pivot-foot">
+            <a href="/portfolio" class="button button-secondary">See all case studies</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
   </div>
 
-  <section class="impact-section">
-    <h2>Transformation Track Record</h2>
-    
-    <div class="company-story">
-      <h3>Siemens <span class="role">Director, Experience Design & Research</span></h3>
-      <p>
-        Leading UX modernization across Siemens' complex B2B portfolio. I directly own and govern the One Siemens design system — unifying our marketing site, first- and third-party marketplace, and business-unit-specific selling channels into a single explorable product catalog, serving 3,000+ creators across 5,000+ pages and 150+ properties. Built an AI-native design practice: led an AI-powered product finder (+10% conversion, +15% engagement) and an AI research agent on Microsoft Copilot that cut time-to-insight and lifted data utilization by 20%. Grew the organization from 5 to 70 people across seven countries.
-      </p>
-      <a href="/portfolio/siemens-design-system" class="case-study-link">Read the case study →</a>
+  <div class="band">
+  <section class="container capabilities" aria-labelledby="kodawari-title">
+    <div class="capabilities-head">
+      <h2 id="kodawari-title">How I work</h2>
+      <p class="section-intro"><a href="https://exploringkodawari.blog/what-is-kodawari/" target="_blank" rel="noopener noreferrer">Kodawari<span class="visually-hidden"> (opens in a new tab)</span></a> is the Japanese idea of an uncompromising, personal commitment to craft. It’s how I believe design delivers its best results: the standard isn’t set by the deadline or the org chart; it’s set by the person on the other side of the experience.</p>
     </div>
-
-    <div class="company-story">
-      <h3>Amazon <span class="role">Senior Manager, UX Smart Vehicle</span></h3>
-      <p>
-        Co-led design strategy for Amazon's next-gen in-vehicle platform integrating commerce, media, and personalization. Directed a 13-person team across vehicle systems and cloud services, balancing safety, usability, and monetization. Introduced leaner UX processes that cut delivery timelines by 12%.
-      </p>
-    </div>
-
-    <div class="company-story">
-      <h3>VMware <span class="role">Senior Director, User Experience</span></h3>
-      <p>
-        Led design through VMware's Sub-to-SaaS transformation — a company-level inflection point — for an internal employee experience serving 35,000+ users. Modernized the CPQ platform, reducing time-on-task 30% and accelerating deal velocity. Built a 75-person distributed team across Palo Alto, Sofia, and Bangalore, and re-platformed post-COVID systems while holding 75%+ CSAT and cutting support load 20%.
-      </p>
-    </div>
-
-    <div class="company-story">
-      <h3>CARFAX <span class="role">Director, UX and Research</span></h3>
-      <p>
-        Directed end-to-end redesign of the vehicle history report experience, achieving a 7% conversion lift and a 26% reduction in dev churn. Led a 30-person team across UX, research, graphic design, and operations, and established a repeatable research cadence that improved brand consistency.
-      </p>
-    </div>
-
-    <div class="company-story">
-      <h3>Robert Bosch <span class="role">Head of Experience Design, North America</span></h3>
-      <p>
-        Joined as employee 0 and built Bosch's internal design consultancy from the ground up into a ~120-person practice (5 direct reports, 90 indirect), serving automotive, power tools retail, and IoT product lines. Led design of an AI/ML-powered infotainment platform balancing innovation, safety, and adoption, and drove service design initiatives that saved $6M.
-      </p>
-      <a href="/portfolio/bosch-infotainment" class="case-study-link">Read the case study →</a>
-    </div>
-
-    <div class="company-story">
-      <h3>General Motors <span class="role">User Experience Manager</span></h3>
-      <p>
-        Led research, UX, visual design, and front-end development for connected vehicle ecosystems across seven global brands. Designed a unified, pattern-driven system that launched seven mobile apps in 23 languages within one year, and created a mobile revenue stream exceeding $1M in its first year. Led a team that scaled to 140 across Detroit and Austin.
-      </p>
-      <a href="/portfolio/gm-mychevrolet" class="case-study-link">Read the case study →</a>
-    </div>
-
-    <div class="company-story">
-      <h3>Centers for Disease Control <span class="role">UX and Analytics Manager</span></h3>
-      <p>
-        Designed and launched CDC's first mobile app and responsive website under HIPAA compliance and Section 508 accessibility standards, increasing HIV testing conversions by 70%. Built the enterprise measurement framework the agency used for data-driven decisions at national scale.
-      </p>
-      <a href="/portfolio/cdc-hivtest" class="case-study-link">Read the case study →</a>
-    </div>
+    <ol class="capability-grid">
+      {capabilities.map((c, i) => (
+        <li class="capability">
+          <span class="capability-step" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+        </li>
+      ))}
+    </ol>
   </section>
+  </div>
 
-  <section class="how-section">
-    <h2>How Design Drives Outcomes</h2>
-    
-    <p>
-      I don't just manage designers—I establish the conditions for design to influence business strategy:
-    </p>
-
-    <div class="outcome-grid">
-      <div class="outcome-item">
-        <h3>Design Literacy Programs</h3>
-        <p>
-          Training product managers, engineers, and executives to think in terms of user outcomes, not features. At Siemens, established design governance frameworks across 5,000+ pages and federated business units.
-        </p>
-      </div>
-
-      <div class="outcome-item">
-        <h3>Cross-Functional Operating Models</h3>
-        <p>
-          Where design has clear decision rights and influence at roadmap planning stages. At VMware, created a centralized experience scorecard and measurement frameworks adopted company-wide.
-        </p>
-        <a href="/portfolio/vmware-measurement" class="case-study-link">Read the case study →</a>
-      </div>
-
-      <div class="outcome-item">
-        <h3>Metrics Frameworks</h3>
-        <p>
-          Connecting design decisions to business outcomes: 30% time-on-task reduction (VMware), 10% conversion + 15% engagement (Siemens), 70% testing conversions (CDC), 7% conversion lift (CARFAX), $6M savings (Bosch), $1M+ revenue (GM).
-        </p>
-      </div>
-
-      <div class="outcome-item">
-        <h3>Talent Development</h3>
-        <p>
-          Clear career paths and executive promotion readiness. Built mentorship programs, design critiques, and psychological safety practices fostering creativity and collaboration.
-        </p>
-      </div>
+  <div class="band band-tint">
+  <section class="container experience" id="experience">
+    <div class="experience-intro">
+      <h2>Experience</h2>
+      <p class="section-intro">The compressed version. The résumé has the same numbers; the case studies have the full story.</p>
+      <a href={contact.resumePdf} class="button button-secondary" download>Download résumé (PDF)</a>
     </div>
+    <dl class="experience-list">
+      {experience.map((job) => (
+        <div class="job">
+          <dt>{job.company}</dt>
+          <dd class="job-summary">{job.role} · {job.summary}</dd>
+          <dd class="job-years">{job.years}</dd>
+        </div>
+      ))}
+    </dl>
   </section>
-
-  <section class="impact-metrics">
-    <h2>Key Metrics</h2>
-    
-    <div class="metrics-grid">
-      <div class="metric">
-        <div class="metric-value">5→70</div>
-        <div class="metric-label">Grew the org, 7 countries<br><b>Siemens</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">Employee 0→120</div>
-        <div class="metric-label">Built the practice from scratch<br><b>Bosch</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">30%</div>
-        <div class="metric-label">Time-on-task reduction<br>CPQ<br><b>VMware</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">70%</div>
-        <div class="metric-label">Conversion increase<br>HIV Testing<br><b>CDC</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">$6M</div>
-        <div class="metric-label">Operational savings<br>Logistics Service Design<br><b>Bosch</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">7 apps→1 yr</div>
-        <div class="metric-label">Globally launched in 23 languages<br>MyChevrolet<br><b>General Motors</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">100k+</div>
-        <div class="metric-label">Product SKUs managed<br>Xcelerator Marketplace<br><b>Siemens</b></div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-value">3,000+</div>
-        <div class="metric-label">Creators using the design system<br>One Siemens<br><b>Siemens</b></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="research-section">
-    <h2>AI Integration Research</h2>
-    
-    <p>
-      Completing a 12-month research initiative examining AI adoption in enterprise UX organizations — 80 in-depth design leader interviews and 800+ practitioner survey responses exploring how design teams navigate AI transformation while maintaining human-centered practice.
-    </p>
-
-    <p>
-      Building frameworks for design teams to use AI tools effectively—from AI-assisted prototyping (Figma Make) to research automation (Microsoft Copilot agents) to conversational UX design. Currently developing an AI research agent that lets teams query validated insights through natural language.
-    </p>
-  </section>
-
-  <section class="thought-leadership">
-    <h2>Thought Leadership</h2>
-    
-    <ul class="speaking-list">
-      <li><strong>"Leading Teams through AI"</strong><br>Panel Speaker, UX Researchers' Guild, Dec 2025</li>
-      <li><strong>"Forrester Research: Leveraging AI for e-commerce in B2B Organizations"</strong><br>Featured, Forrester, 2025</li>
-      <li><strong>"IDC MarketScape: Digital B2B Ecosystems and Marketplaces"</strong><br>Featured, IDC, Sept 2025</li>
-      <li><strong>"Designing the Human Experience"</strong><br>Conference Speaker, Automotive Cockpit HMI Conference, 2018</li>
-      <li><strong>"Creating a Human-Centered Company"</strong><br>Conference Speaker, AV18 Autonomous Vehicle Conference, 2018</li>
-    </ul>
-  </section>
+  </div>
 </Layout>
 
+<script>
+  const buttons = document.querySelectorAll('[data-lane-button]');
+  const panels = document.querySelectorAll('.pivot [data-lane]');
+
+  function showLane(key) {
+    buttons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.laneButton === key));
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.lane !== key;
+    });
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => showLane(button.dataset.laneButton));
+  });
+</script>
+
 <style>
-  /* Hero Section - Text wraps around circular photo */
-  .homepage-hero {
-    margin-bottom: 4rem;
+
+  /* Full-width bands alternate off-white and light blue-grey so each topic reads as a new section. */
+  .band {
+    padding: 5rem 0;
   }
 
-  .hero-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    float: left;
-    margin: 0 2rem 1rem 0;
+  .band-tint {
+    background: var(--color-accent-soft);
   }
 
-  .homepage-hero h1 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 2.5rem;
-    line-height: 1.2;
-  }
-
-  .tagline {
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: #333;
-    margin: 1rem 0 1.5rem 0;
-    line-height: 1.4;
-  }
-
-  .intro {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #444;
-    margin-bottom: 1rem;
-  }
-
-  /* Clear float after hero section */
-  .homepage-hero::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /* Mobile: Center photo, no float */
-  @media (max-width: 768px) {
-    .hero-photo {
-      float: none;
-      display: block;
-      margin: 0 auto 1.5rem;
-    }
-
-    .homepage-hero {
-      text-align: center;
-    }
-
-    .homepage-hero h1 {
-      font-size: 2rem;
-    }
-
-    .tagline {
-      font-size: 1.1rem;
-    }
-  }
-
-  /* Sections */
-  section {
-    margin-bottom: 4rem;
-  }
-
-  section h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #222;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 0.5rem;
-  }
-
-  /* Company Stories */
-  .company-story {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .company-story:last-child {
-    border-bottom: none;
-  }
-
-  .company-story h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: #2c5282;
-  }
-
-  .company-story .role {
-    font-weight: 400;
-    font-size: 1rem;
-    color: #666;
-  }
-
-  .company-story p {
-    line-height: 1.7;
-    color: #444;
-  }
-
-  .case-study-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    color: #2c5282;
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .case-study-link:hover {
-    text-decoration: underline;
-  }
-
-  /* Outcome Grid */
-  .outcome-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .outcome-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.75rem;
-    color: #2c5282;
-  }
-
-  .outcome-item p {
-    line-height: 1.6;
-    color: #555;
-  }
-
-  /* Business Impact Metrics */
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .metric {
-    text-align: center;
-    padding: 1.5rem;
-    background: #f9f9f9;
-    border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .metric:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .metric-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #2c5282;
-    margin-bottom: 0.5rem;
-    line-height: 1;
-  }
-
-  .metric-label {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #555;
-  }
-
-  /* Research Section */
-  .research-section p {
-    line-height: 1.7;
-    color: #444;
-    margin-bottom: 1rem;
-  }
-
-  /* Thought Leadership Section */
-  .thought-leadership h2 {
+  /* When the page ends on a tinted band, let it meet the footer directly. */
+  :global(main:has(> .band:last-child) + .site-footer) {
     margin-top: 0;
   }
 
-  .speaking-list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0 0;
+  .keep-together {
+    white-space: nowrap;
   }
 
-  .speaking-list li {
-    padding: 1rem 0;
-    border-bottom: 1px solid #e0e0e0;
-    line-height: 1.6;
-    color: #444;
+  .pivot {
+    display: flex;
+    flex-direction: column;
   }
 
-  .speaking-list li:last-child {
-    border-bottom: none;
+  .pivot-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
   }
 
-  .speaking-list strong {
-    color: #2c5282;
+
+  .lane-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .lane-buttons button {
+    min-height: 48px;
+    padding: 0 1.25rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font: inherit;
+    font-size: 0.9375rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .lane-buttons button:hover {
+    border-color: var(--color-accent-strong);
+    box-shadow: inset 0 0 0 1px var(--color-accent-strong);
+    background: var(--color-accent-soft);
+    color: var(--color-accent-strong);
+  }
+
+  .lane-buttons button[aria-pressed="true"] {
+    background: var(--color-accent-strong);
+    border-color: var(--color-accent-strong);
+    color: var(--color-surface);
+  }
+
+  /* The content the buttons change, boxed so the relationship is obvious. */
+  .lane {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--color-accent-border);
+    border-radius: 16px;
+    background: var(--color-surface);
+  }
+
+  .lane-line {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .pivot-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+
+  .capabilities {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .capabilities-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .capability-step {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  .capability {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--color-text);
+  }
+
+
+  .capability p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .experience {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 4rem;
+  }
+
+  .experience-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+
+  .experience-list {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .job {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr) 6rem;
+    gap: 1.25rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .job:first-child {
+    border-top-color: var(--color-text);
+  }
+
+  .job dt {
+    font-weight: 700;
+  }
+
+  .job-summary {
+  }
+
+  .job-years {
+    text-align: right;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 1024px) {
+    .work-grid,
+    .capability-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 800px) {
+    .lane {
+      padding: 1.5rem;
+    }
+
+    .lane-buttons button {
+      flex: 1 1 auto;
+    }
+
+    .experience {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .job {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.25rem 1rem;
+    }
+
+    .job-summary {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+
+    .band {
+      padding: 3.5rem 0;
+    }
+
+    .work-grid,
+    .capability-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'portfolio'>;
+  /** Larger title and image for two-up layouts. */
+  large?: boolean;
+}
+
+const { entry, large = false } = Astro.props;
+const { title, company, dates, heroImage, summary, description } = entry.data;
+---
+
+<a href={`/portfolio/${entry.slug}`} class:list={['card', { large }]}>
+  {heroImage ? (
+    <img src={heroImage} alt="" loading="lazy" decoding="async" />
+  ) : (
+    <span class="image-placeholder" aria-hidden="true"></span>
+  )}
+  <span class="eyebrow card-meta">{company} · {dates.replace('-', '–').replace('Present', 'now')}</span>
+  <span class="card-title">{title}</span>
+  <span class="card-text">{summary ?? description}</span>
+  <span class="card-cta" aria-hidden="true">Read the case study →</span>
+</a>
+
+<style>
+  /* Padding + matching negative margin gives the hover state room to show
+     without shifting the layout. */
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 0.75rem;
+    margin: -0.75rem;
+    border-radius: var(--radius-large);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  /* Hover and keyboard focus: the whole card lifts off the page. */
+  .card:hover,
+  .card:focus-visible {
+    background: var(--color-surface);
+    box-shadow: 0 10px 24px -6px var(--color-raised-shadow), 0 1px 3px var(--color-raised-shadow-tight);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: none;
+    }
+  }
+
+  .card:hover {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .card img,
+  .image-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background: var(--color-placeholder);
+  }
+
+  .large img,
+  .large .image-placeholder {
+    aspect-ratio: 16 / 8;
+    border-radius: var(--radius-large);
+  }
+
+  .card-meta {
+    font-size: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .large .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .large .card-text {
+    font-size: 1rem;
+  }
+
+  /* Visible link cue: styled like every other text link (blue + underline). */
+  .card-cta {
+    margin-top: auto;
+    padding-top: 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-thickness 0.2s ease;
+  }
+
+  .card:hover .card-cta,
+  .card:focus-visible .card-cta {
+    color: var(--color-accent-hover);
+    text-decoration-thickness: 2px;
+  }
+</style>

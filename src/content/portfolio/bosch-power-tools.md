@@ -1,8 +1,9 @@
 ---
 title: "Power Tools User Research"
 description: "Led field research to understand brand loyalty in the power tools market, resulting in new B2B asset management revenue streams."
+summary: "Job-site field research that reframed brand loyalty and opened a new B2B asset-management revenue stream."
 company: "Bosch"
-role: "Head of Experience Design"
+role: "Head of Design, North America"
 dates: "2017-2018"
 tags: ["Hardware", "IoT", "User Research"]
 featured:
@@ -10,16 +11,18 @@ featured:
   systems: false
   enterprise: true
   ai: false
+  vehicle: false
+  commerce: true
 order: 5
-heroImage: "/images/portfolio/bosch-power-tools/hero.png"
+heroImage: "/images/portfolio/bosch-power-tools/hero.jpg"
 gallery:
   - src: "/images/portfolio/bosch-power-tools/buyers-journey-map.png"
     caption: "Buyers Journey Map"
   - src: "/images/portfolio/bosch-power-tools/users-journey-map.png"
     caption: "Users Journey Map"
-  - src: "/images/portfolio/bosch-power-tools/bluehound.png"
+  - src: "/images/portfolio/bosch-power-tools/bluehound.jpg"
     caption: "Bluehound Asset Management"
-  - src: "/images/portfolio/bosch-power-tools/bosch-community-fund-promo.png"
+  - src: "/images/portfolio/bosch-power-tools/bosch-community-fund-promo.jpg"
     caption: "Bosch Community Fund Promo"
 ---
 

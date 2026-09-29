@@ -1,6 +1,7 @@
 ---
 title: "HIVTest.org"
-description: "Led the redesign of the CDC's HIV testing locator, increasing conversion rates by 76% through responsive design and plain language content."
+description: "Led the redesign of the CDC's HIV testing locator, increasing conversion rates by more than 70% through responsive design and plain language content."
+summary: "Plain language and a responsive redesign, built under HIPAA and Section 508, that lifted HIV testing conversion 70%."
 company: "CDC"
 role: "User Experience and Analytics Manager"
 dates: "2011-2012"
@@ -10,8 +11,10 @@ featured:
   systems: false
   enterprise: false
   ai: false
+  vehicle: false
+  commerce: true
 order: 6
-heroImage: "/images/portfolio/cdc-hivtest/hero.png"
+heroImage: "/images/portfolio/cdc-hivtest/hero.jpg"
 gallery:
   - src: "/images/portfolio/cdc-hivtest/old-hivtest-site.png"
     caption: "Old HIVTest Site"
