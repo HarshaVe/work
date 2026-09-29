@@ -1,8 +1,9 @@
 ---
 title: "AI-Driven Infotainment"
 description: "Led design thinking processes to uncover compelling user scenarios for ML-driven infotainment, resulting in a partnership with Ford."
+summary: "ML-driven infotainment that cut about 3 seconds of eyes-off-road time per task and led to a Bosch–Ford development partnership."
 company: "Bosch"
-role: "Head of Experience Design"
+role: "Head of Design, North America"
 dates: "2017-2018"
 tags: ["AI", "Experience Strategy", "User Research"]
 featured:
@@ -10,6 +11,8 @@ featured:
   systems: false
   enterprise: true
   ai: true
+  vehicle: true
+  commerce: false
 order: 3
 heroImage: "/images/portfolio/bosch-infotainment/hero.png"
 gallery:

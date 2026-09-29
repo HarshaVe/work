@@ -1,298 +1,496 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ProtectedEmail from '../../components/ProtectedEmail.astro';
+import { contact } from '../../data/site';
 
-const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Resume' }
+// Master résumé. Numbers and phrasing here must match CLAUDE.md, the homepage, and the case studies.
+const skills = [
+  { title: 'Design org leadership & scaling', text: 'Leading large, distributed design orgs (70+ people, director-level reports, 16 years at this scale) · Managing managers · Org design & succession · Player/coach leadership · Culture & mentoring · Partnership with Product & Engineering · Executive alignment · Leading through inflection points' },
+  { title: 'AI-native design practice', text: 'Agentic & conversational UX · LLM integration & prompt design · Validation frameworks for LLM outputs · AI tooling adoption & workflow redesign · Building org-wide AI fluency · AI-assisted prototyping (Figma Make)' },
+  { title: 'Design systems & quality', text: 'Design system ownership at enterprise scale (100K+ pages, 150+ sites consolidated, 3,000+ creators) · Tokens, components & governance · Definitions of done · Launch review frameworks · Accessibility & privacy standards' },
+  { title: 'Growth, commerce & conversion', text: 'Marketing & purchase funnel design · Marketplace & e-commerce UX · Vehicle configurators · Experimentation (A/B, multivariate) · Data-informed iteration · Enterprise workflows (CPQ)' },
+  { title: 'Research & craft', text: 'UX research & research operations · Usability testing · Measurement frameworks · Behavioral science · Interaction & visual design · Data visualization · Web, native mobile & in-vehicle HMI' },
+  { title: 'Tools', text: 'Figma · FigJam · Figma Make · Microsoft Copilot · Miro · Dovetail · UserTesting · Jira · Notion · Adobe CC · HTML/CSS' },
 ];
 
-const actionLink = { label: '→ Download pdf', href: '/downloads/harsha-vemulapalli-resume.pdf' };
+interface Job {
+  role: string;
+  company: string;
+  dates: string;
+  summary: string;
+  groups: { heading?: string; items: string[] }[];
+}
+
+const jobs: Job[] = [
+  {
+    role: 'Global Director, Experience Design & Research',
+    company: 'Siemens',
+    dates: 'April 2023 – Present',
+    summary: 'Grew and lead a global UX, research, and content strategy organization from 5 to 70 people across seven countries, within a complex B2B ecosystem spanning industrial automation and AI-driven customer experiences.',
+    groups: [
+      { heading: 'Platform & commerce', items: [
+        'Own and govern the One Siemens design system. Put the first- and third-party marketplace at the center of Siemens’ digital experience and integrated the marketing site and business-unit selling channels around it: a single explorable catalog of hundreds of thousands of Siemens and third-party products, across 100K+ pages, consolidating 150+ sites into one',
+        'Own the design of the marketing and purchase funnels, partnering with Product and Engineering to improve usability and conversion through experimentation and data-informed iteration',
+        'Set governance for 3,000+ internal creators, and organized the catalog so customers navigate by their own needs rather than Siemens’ org structure',
+      ] },
+      { heading: 'AI-native practice', items: [
+        'Led design and research for an AI-powered product finder that increased conversion 23% and engagement 28%',
+        'Led strategy and training for an AI research agent on Microsoft Copilot that unified research repositories and lets stakeholders query insights in natural language, increasing data utilization 20% and cutting time-to-insight 34%',
+      ] },
+      { heading: 'Organization', items: [
+        'Manage managers (4 direct reports) and partner as a peer to Product and Engineering on sprint planning, backlog priorities, and technical tradeoffs',
+        'Built a career-growth tool that combines industry best-practice frameworks with self- and manager-scoring, helping every level of the team find and develop the skills for the roles they aspire to',
+      ] },
+    ],
+  },
+  {
+    role: 'Senior Manager UX, Smart Vehicle',
+    company: 'Amazon',
+    dates: 'September 2022 – January 2023',
+    summary: 'Directed design and research for Amazon’s next-gen in-vehicle platform, spanning embedded commerce, media, and personalization.',
+    groups: [{ items: [
+      'Led a 13-person team (3 direct reports) across UX design, research, conversational design, and visual design in Seattle, San Francisco, and Detroit',
+      'Designed vehicle-specific commerce and monetization features, balancing safety, usability, and business impact within hardware-freeze timelines',
+      'Introduced leaner design processes that increased collaboration and cut delivery timelines 12%',
+    ] }],
+  },
+  {
+    role: 'Sr. Design Director',
+    company: 'VMware',
+    dates: 'April 2021 – September 2022',
+    summary: 'Led design, research, and experience strategy for mission-critical enterprise tools through VMware’s Sub-to-SaaS transformation, a company-level inflection point.',
+    groups: [{ items: [
+      'Modernized the CPQ (configure-price-quote) platform, cutting time-on-task 30% and accelerating deal velocity across 35,000+ users, in direct partnership with Product and Engineering',
+      'Re-platformed digital systems for a post-COVID hybrid workforce while holding 75%+ CSAT and reducing support load 20%',
+      'Built a 75-person distributed team (9 direct reports) across UX strategy, design, research, content design, and design operations in Palo Alto, Sofia, and Bangalore',
+      'Designed a centralized experience scorecard and measurement framework adopted company-wide',
+      'Operated as player/coach, contributing directly to critical design work while mentoring senior ICs and scaling leadership capacity',
+    ] }],
+  },
+  {
+    role: 'Director, Digital Brand, UX and Research',
+    company: 'CARFAX',
+    dates: 'October 2019 – April 2021',
+    summary: 'Led UX, brand, and research across consumer touchpoints for one of the most recognized names in automotive.',
+    groups: [{ items: [
+      'Led an end-to-end product redesign that delivered a 7% conversion lift and a 26% reduction in development churn',
+      'Elevated the brand across consumer touchpoints, from mobile apps to dealer products, with a repeatable design process and research cadence',
+      'Led a 30-person team (3 direct reports) across UX design, research, graphic design, and design operations',
+    ] }],
+  },
+  {
+    role: 'Head of Design, North America',
+    company: 'Robert Bosch, LLC',
+    dates: 'October 2016 – October 2019',
+    summary: 'Joined as employee zero and built Bosch’s North American internal design consultancy into a ~120-person practice (5 direct reports, 90 indirect).',
+    groups: [{ items: [
+      'Ran an internal design agency and a design-thinking incubator that took non-design teams from early concept to launched products with startup-level agility',
+      'Led research and design of an AI/ML-powered radio and infotainment system, trading off physical controls and screen to lower glance times and improve customer sentiment while cutting hardware cost',
+      'Designed connected-vehicle and consumer services, including fleet maintenance, community and parking apps, and keyless access, plus B2C e-commerce for Power Tools',
+      'Drove service design initiatives that saved $6M while strengthening key industry partnerships',
+    ] }],
+  },
+  {
+    role: 'User Experience Manager',
+    company: 'General Motors',
+    dates: 'September 2014 – October 2016',
+    summary: 'Led the design of the full owner journey across seven global brands, from brand sites through ownership and trade-in.',
+    groups: [{ items: [
+      'Led the design of brand websites, the vehicle configurator, purchase and finance flows, OnStar onboarding, and ownership through maintenance and trade-in',
+      'Set purchase and finance interaction patterns adopted across Chevrolet, Cadillac, Buick, GMC, Opel, Vauxhall, and OnStar',
+      'Built a unified, pattern-driven design system that launched seven mobile apps in 23 languages within one year, with OnStar, CarPlay, and Android Auto integration',
+      'Created a new in-app services revenue stream exceeding $1M in its first year',
+      'Scaled and led a 140-person multidisciplinary team across research, UX, visual design, and front-end development in Detroit and Austin',
+    ] }],
+  },
+  {
+    role: 'Design Manager',
+    company: 'Air Mobility Command',
+    dates: 'May 2013 – September 2014',
+    summary: 'Led consulting teams delivering mission-critical planning and decision-support systems for U.S. Air Force operations.',
+    groups: [{ items: [
+      'Directed end-to-end design for high-urgency planning tools supporting 1,200+ daily missions, generating $2M+ in operational savings',
+      'Established command-wide human interaction design guidelines based on research-driven principles',
+    ] }],
+  },
+  {
+    role: 'User Experience and Analytics Manager',
+    company: 'Centers for Disease Control and Prevention',
+    dates: 'December 2010 – May 2013',
+    summary: 'Led UX, research, and analytics for the National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention: 18+ sites and tools with 70M+ page views a year.',
+    groups: [{ items: [
+      'Redesigned HIVTest.org as the center’s first responsive mobile site, under HIPAA and Section 508, lifting HIV testing conversion 70%',
+      'Launched the center’s first mobile app',
+      'Built the enterprise measurement framework used for data-driven experience decisions at national scale',
+    ] }],
+  },
+];
+
+const priorExperience = [
+  { title: 'Interaction Designer', detail: 'Blackbaud · Nov 2007 – Dec 2010' },
+  { title: 'Product Manager & Design Engineer', detail: 'Morris Digitalworks · Feb 2004 – Oct 2007' },
+  { title: 'Research Analyst', detail: 'Mirant, LLC · Aug 2001 – Oct 2003' },
+  { title: 'Designer', detail: 'SoftSys, LLC · May 1999 – Jul 2001' },
+];
+
+const thoughtLeadership = [
+  { title: 'Leading Teams through AI', detail: "Panel speaker, UX Researchers' Guild, Dec 2025" },
+  { title: 'IDC MarketScape: Digital B2B Ecosystems and Marketplaces', detail: 'Featured expert, IDC, Sept 2025' },
+  { title: 'Forrester: Leveraging AI for E-commerce in B2B Organizations', detail: 'Featured expert, Forrester, 2025' },
+  { title: 'Creating a Human-Centered Company', detail: 'AV18 Autonomous Vehicle Conference, 2018' },
+  { title: 'Designing the Human Experience', detail: 'Automotive Cockpit HMI, 2018' },
+  { title: 'Five Agile Challenges for Distributed Teams', detail: 'AgileConnection/TechWell, 2014' },
+  { title: 'Gaming & Mobile for Public Health', detail: 'CDC NPIN Health Webcast, 2013' },
+  { title: 'Usability in Public Health', detail: 'National HIV Prevention Conference, 2011' },
+];
+
+const education = [
+  { title: 'Bachelor of Science, Information Technology', detail: 'American InterContinental University, 2001' },
+  { title: 'Decision by Design', detail: 'Farnam Street, 2025' },
+  { title: 'Google AI Essentials', detail: 'Google, 2025' },
+  { title: 'Behavioral Design', detail: 'Irrational Labs, 2024' },
+  { title: 'UX Research certificate', detail: 'University of Denver, 2016' },
+  { title: 'Certified Agile Product Owner & Scrum Master', detail: 'Scrum Alliance, 2009' },
+];
+
+const sections = [
+  { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'thought-leadership', label: 'Thought leadership' },
+  { id: 'education', label: 'Education & certifications' },
+];
 ---
-
-<Layout title="Resume" breadcrumbs={breadcrumbs} actionLink={actionLink}>
-  <h1 id="top">Harsha Vemulapalli</h1>
-  <p>Detroit, MI • <a href="/contact">Contact Me</a> • <a href="https://www.linkedin.com/in/hvem/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
-  
-  <p class="intro">Strategic design executive with 25+ years driving digital experience transformation across financial services, B2B, B2C. Proven expertise leading large-scale design organizations (70+ person teams) that deliver measurable business impact through intuitive B2C and B2B experiences across web and mobile platforms. Deep experience navigating regulated industries, operationalizing enterprise design systems at scale, and partnering with Product, Engineering, and Business teams to modernize user flows that strengthen acquisition, retention, and customer satisfaction.</p>
-
-  <div class="page-nav">
-    <a href="#skills">Skills</a> • <a href="#experience">Experience</a> • <a href="#thought-leadership">Thought Leadership</a> • <a href="#education">Education</a>
-  </div>
-
-  <h2 id="skills">Skills & Expertise</h2>
-
-  <div class="skills-grid">
-    <div class="skill-category">
-      <h3>Experience Design Leadership & Strategy</h3>
-      <p>Executive leadership, Digital experience strategy, Product design, Product vision & strategy, Team building & mentorship, Cross-functional collaboration, Communications, Business Strategy, Servant leadership, Customer experience</p>
+<Layout title="Résumé" description="Résumé of Harsha Vemulapalli, design executive with 25+ years building and leading design and research organizations.">
+  <PageHeader
+    eyebrow="Résumé"
+    title="Harsha Vemulapalli"
+    lede="Design executive with 25+ years of experience, 16 of them leading and scaling design organizations with director-level reports. I build AI-native design and research practices, and the quality systems that let distributed teams ship at a consistently high bar, across enterprise platforms, commerce, connected vehicles, and regulated public health. Currently leading a 70-person UX, research, and content strategy organization at Siemens across seven countries."
+  >
+    <p class="contact-line">
+      {contact.location} · <ProtectedEmail /> · <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="print-only"> ({contact.linkedin.replace('https://www.', '')})</span></a><span class="print-only"> · harshav.com</span>
+    </p>
+    <div class="button-row no-print">
+      <a href={contact.resumePdf} class="button button-primary" download>Download PDF</a>
+      <a href="/contact" class="button button-secondary">Get in touch</a>
     </div>
+  </PageHeader>
 
-    <div class="skill-category">
-      <h3>Innovation & Emerging Technology</h3>
-      <p>AI-powered design workflows, Personalization at scale, Data-driven design, Emerging technology integration, Hybrid team operations (onshore/offshore)</p>
-    </div>
+  <div class="container resume">
+    <nav class="toc no-print" aria-label="Résumé sections">
+      {sections.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
+    </nav>
 
-    <div class="skill-category">
-      <h3>Design Excellence & User Experience</h3>
-      <p>Product design, User flows & journey mapping, Interaction design, Usability testing, Visual design excellence, Acquisition & retention optimization, Multi-platform experiences (web/mobile), Satisfaction measurement, Content strategy, Customer needs analysis</p>
-    </div>
+    <div class="resume-body">
+      <section id="experience" class="resume-section">
+        <h2>Experience</h2>
+        {jobs.map((job) => (
+          <article class="job">
+            <div class="job-head">
+              <h3>{job.role}</h3>
+              <p class="job-meta"><strong>{job.company}</strong> · {job.dates}</p>
+            </div>
+            <p class="job-summary">{job.summary}</p>
+            {job.groups.map((group) => (
+              <div class="job-group">
+                {group.heading && <h4>{group.heading}</h4>}
+                <ul>
+                  {group.items.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+            ))}
+          </article>
+        ))}
 
-    <div class="skill-category">
-      <h3>Technical Capabilities & Design Tools</h3>
-      <p>Front-end technologies (HTML, CSS, JavaScript), Figma, Adobe Creative Suite (Photoshop, Illustrator), Figma Make (AI-assisted prototyping), Miro, Jira, UserTesting, Dovetail, Design systems governance</p>
-    </div>
+        <h3 class="subsection">Earlier experience</h3>
+        <dl class="compact-list">
+          {priorExperience.map((item) => (
+            <div><dt>{item.title}</dt><dd>{item.detail}</dd></div>
+          ))}
+        </dl>
+      </section>
 
-    <div class="skill-category">
-      <h3>Regulated Industries</h3>
-      <p>Financial services platforms, Fintech user experience, Retirement & benefits systems, Regulatory standards & compliance, Privacy & accessibility standards, Financial product workflows, B2C consumer acquisition, Customer trust & retention</p>
-    </div>
-  </div>
+      <section id="skills" class="resume-section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          {skills.map((s) => (
+            <div class="skill">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-  <a href="#top" class="return-to-top">back to top</a>
+      <section id="thought-leadership" class="resume-section">
+        <h2>Thought leadership</h2>
+        <dl class="compact-list">
+          {thoughtLeadership.map((item) => (
+            <div><dt>{item.title}</dt><dd>{item.detail}</dd></div>
+          ))}
+        </dl>
+      </section>
 
-  <h2 id="experience">Professional Experience</h2>
-
-  <div class="resume-entry">
-    <h3>Director Experience Design and Research<span class="company">Siemens</span></h3>
-    <p class="meta">04/2025 - Present</p>
-    <p>Leading enterprise-wide digital experience modernization across Siemens' global portfolio, including financial services platforms, regulatory compliance systems, and consumer-facing marketplaces serving millions of users.</p>
-    
-    <h4>Strategic Leadership & Business Impact</h4>
-    <ul class="resume-list">
-      <li>Set and deliver unified UX/UI strategy across corporate, marketplace, and financial services platforms, partnering with Product, Engineering, and Business teams to align design with strategic priorities</li>
-      <li>Lead 70-person cross-functional teams (4 direct reports: Senior Managers and Managers) spanning UX design, visual design, content strategy, user research (qual/quant), taxonomy, and operations across San Francisco, Munich, and remote locations</li>
-      <li>Built culture of creativity, collaboration, and continuous learning through mentorship programs, design critiques, and psychological safety practices</li>
-      <li>Advise executive leadership (C-level) on experience strategy, digital transformation efforts, and design maturity acceleration</li>
-    </ul>
-
-    <h4>Design Systems & Scalability</h4>
-    <ul class="resume-list">
-      <li>Evolved and operationalized enterprise design system for 3,000+ internal creators and hundreds of agency partners, ensuring consistency, scalability, and innovation across 150+ digital properties</li>
-      <li>Established design governance frameworks ensuring all experiences meet accessibility, privacy, and regulatory standards</li>
-      <li>Scaled unified design and content system adopted across 5,000+ pages and multiple federated business units</li>
-    </ul>
-
-    <h4>User Experience & Business Outcomes</h4>
-    <ul class="resume-list">
-      <li>Simplified and modernized user flows for financial services workflows, improving acquisition and reducing time-on-task for complex transaction processes</li>
-      <li>Led design of AI-powered product finder that increased conversion by 10% and engagement by 15% through intuitive user flows and personalization</li>
-      <li>Delivered measurable impact through product scorecards: boosted engagement by 26% and conversion by 17%</li>
-      <li>Developed hybrid onshore/offshore delivery model and applied AI tools (Microsoft Copilot) to enhance quality and reduce time-to-insight by 20%</li>
-    </ul>
-
-    <h4>User Research & Insights</h4>
-    <ul class="resume-list">
-      <li>Partnered with UX research to uncover customer needs and inspire design innovation through global user research panels</li>
-      <li>Built AI-powered research agent enabling teams to query validated insights, accelerating data-driven decision-making across product development</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>Senior Manager UX Smart Vehicle<span class="company">Amazon</span></h3>
-    <p class="meta">September 2022–January 2023</p>
-    <p>Co-led design strategy for Amazon's next-gen in-vehicle consumer platform integrating commerce, media, and personalization across vehicle hardware and cloud services.</p>
-    <ul class="resume-list">
-      <li>Directed design for complex multi-service user flows across vehicle systems, AWS services, and embedded apps balancing safety, usability, and business KPIs</li>
-      <li>Designed vehicle-specific monetization flows and consumer acquisition features through iterative, user-centered design</li>
-      <li>Led 13-person team (3 directs: Principal and Senior ICs) across UX design, research, conversational design, and visual design in Seattle, San Francisco, and Detroit</li>
-      <li>Introduced lean UX processes increasing collaboration and reducing delivery timelines by 12%</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>Senior Director User Experience Design & Research<span class="company">VMware</span></h3>
-    <p class="meta">April 2021–September 2022</p>
-    <p>Led design, research, and service design transformation for VMware's internal employee experience, including financial systems, HR benefits, and enterprise workflow tools serving 35,000+ users.</p>
-
-    <h4>Platform Experience & Regulatory Compliance</h4>
-    <ul class="resume-list">
-      <li>Directed modernization of SAP Commerce-powered CPQ and subscription billing systems, reducing time-on-task by 30% and enabling VMware's subscription-to-SaaS transformation</li>
-      <li>Integrated Workday HR workflows with benefits administration, ITSM, and compliance tools, ensuring privacy and regulatory standards for vaccination attestations and hybrid work systems</li>
-      <li>Re-platformed post-COVID digital systems maintaining 75%+ CSAT while reducing support load by 20%</li>
-    </ul>
-
-    <h4>Team Leadership & Measurement</h4>
-    <ul class="resume-list">
-      <li>Built and mentored 75-person distributed team (9 directs: Directors, Senior Managers, and Staff-level ICs) across UX strategy, design, research, visual/motion design, content design, and design operations in Palo Alto, Sofia, and Bangalore</li>
-      <li>Designed centralized experience scorecard and measurement frameworks adopted company-wide, enabling data-driven decision-making</li>
-      <li>Operated as player/coach, directly contributing to critical design efforts while scaling leadership capacity</li>
-    </ul>
-
-    <h4>Executive Advisory</h4>
-    <ul class="resume-list">
-      <li>Guided C-suite stakeholders through platform strategy, experience operating model transformation, and design maturity roadmaps</li>
-      <li>Ran platform discovery sessions, opportunity mapping, and cross-functional alignment workshops</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>Director UX and Research<span class="company">CARFAX</span></h3>
-    <p class="meta">October 2019–April 2021</p>
-    <p>Led UX, visual design, and research teams elevating B2C consumer trust and brand consistency across digital and physical touchpoints for millions of vehicle buyers.</p>
-    <ul class="resume-list">
-      <li>Directed end-to-end redesign of vehicle history report experience, achieving 7% conversion lift and strengthening customer acquisition through trust-building design patterns</li>
-      <li>Modernized cross-platform experiences across mobile, web, and dealer tools, increasing consumer engagement and satisfaction</li>
-      <li>Established repeatable user research cadence and design process improving brand consistency and customer retention</li>
-      <li>Led 30-person team (3 directs: Senior Managers and Managers) across UX design, research, graphic design, and design operations in Centreville, Columbia, and London</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>Head of Experience Design<span class="company">Robert Bosch, LLC</span></h3>
-    <p class="meta">October 2016–October 2019</p>
-    <p>Built and led Bosch's internal design consultancy serving automotive, power tools retail (B2C), and IoT product lines.</p>
-    <ul class="resume-list">
-      <li>Directed UX strategy for AI/ML-powered infotainment platform and autonomous driving systems, balancing innovation, safety, and consumer adoption</li>
-      <li>Led B2C e-commerce design for Power Tools direct sales, optimizing user flows and checkout experiences for retail customers</li>
-      <li>Drove service design initiatives saving $6M while optimizing design-to-sales processes</li>
-      <li>Scaled 120-person design organization (5 directs, 90 indirect reports) across Detroit, Sunnyvale, Chicago, Boston, Guadalajara, and Mississauga</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>User Experience Manager<span class="company">General Motors</span></h3>
-    <p class="meta">September 2014–October 2016</p>
-    <p>Led UX and research for connected-vehicle ecosystems across seven global brands.</p>
-    <ul class="resume-list">
-      <li>Directed UX for OnStar, CarPlay, and Android Auto integration.</li>
-      <li>Unified design systems across mobile and in-vehicle launching seven apps in 23 languages within one year.</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>Design Manager<span class="company">Air Mobility Command</span></h3>
-    <p class="meta">May 2013–September 2014</p>
-    <p>Led consulting teams delivering mission-critical planning and decision-support systems for U.S. Air Force operations.</p>
-    <ul class="resume-list">
-      <li>Directed end-to-end design for high-urgency planning tools supporting 1,200+ daily missions, generating $2M+ in operational savings</li>
-      <li>Established command-wide human interaction design guidelines based on research-driven principles</li>
-      <li>Co-led proposal development and competitive bids resulting in multi-year contract extensions</li>
-    </ul>
-  </div>
-
-  <div class="resume-entry">
-    <h3>User Experience and Analytics Manager<span class="company">Centers for Disease Control and Prevention</span></h3>
-    <p class="meta">Dec 2010–May 2013</p>
-    <p>Led UX, research, and analytics for CDC's National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention supporting 14+ websites and three mobile apps in a highly regulated environment.</p>
-    <ul class="resume-list">
-      <li>Designed and launched CDC's first mobile app and responsive website, increasing HIV testing conversions by 70% through optimized user flows</li>
-      <li>Built enterprise measurement and effectiveness framework for data-driven experience decisions at national scale</li>
-      <li>Navigated HIPAA compliance and federal accessibility standards (Section 508) while modernizing digital experiences</li>
-      <li>Developed and won multiple follow-on contracts through proposal development and RFP responses</li>
-    </ul>
-  </div>
-
-  <h3>Prior Experience</h3>
-
-  <div class="two-column-grid">
-    <div class="resume-entry">
-      <h3>Interaction Designer<span class="company">Blackbaud</span></h3>
-      <p class="meta">Nov 2007–Dec 2010</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Product Manager & Design Engineer<span class="company">Morris Digitalworks</span></h3>
-      <p class="meta">Feb 2004–Oct 2007</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Research Analyst<span class="company">Mirant, LLC</span></h3>
-      <p class="meta">Aug 2001–Oct 2003</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Designer<span class="company">SoftSys, LLC</span></h3>
-      <p class="meta">May 1999–Jul 2001</p>
+      <section id="education" class="resume-section">
+        <h2>Education &amp; certifications</h2>
+        <dl class="compact-list">
+          {education.map((item) => (
+            <div><dt>{item.title}</dt><dd>{item.detail}</dd></div>
+          ))}
+        </dl>
+      </section>
     </div>
   </div>
-
-  <a href="#top" class="return-to-top">back to top</a>
-
-  <h2 id="thought-leadership">Thought Leadership</h2>
-
-  <div class="two-column-grid">
-    <div class="resume-entry">
-      <h3>Leading Teams through AI</h3>
-      <p class="meta">Panel Speaker, UX Researchers' Guild, Dec 2025</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>IDC MarketScape: Digital B2B Ecosystems and Marketplaces</h3>
-      <p class="meta">IDC, Sept 2025</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Forrester Research: Leveraging AI for e-commerce in B2B Organizations</h3>
-      <p class="meta">Forrester, 2025</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Creating a Human-Centered Company</h3>
-      <p class="meta">AV18 Autonomous Vehicle Conference, 2018</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Designing the Human Experience</h3>
-      <p class="meta">Automotive Cockpit HMI, 2018</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Five Agile Challenges for Distributed Teams</h3>
-      <p class="meta">AgileConnection/TechWell, Jul 2, 2014</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Gaming & Mobile for a Public Health</h3>
-      <p class="meta">CDC NPIN Health Webcast Presentation, 2013</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Usability in Public Health</h3>
-      <p class="meta">National HIV Prevention Conference, 2011</p>
-    </div>
-  </div>
-
-  <a href="#top" class="return-to-top">back to top</a>
-
-  <h2 id="education">Education</h2>
-
-  <div class="two-column-grid">
-    <div class="resume-entry">
-      <h3>Decision by Design</h3>
-      <p class="meta">Farnam Street, 2025 (in-progress)</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Google AI Essentials</h3>
-      <p class="meta">Google, 2025 (in-progress)</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Behavioral Design Bootcamp</h3>
-      <p class="meta">Irrational Labs, 2023</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Certificate User Experience Research</h3>
-      <p class="meta">University of Denver, 2016</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Certificate Agile Scrum Master</h3>
-      <p class="meta">Scrum Alliance, 2009</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Certificate Agile Product Owner</h3>
-      <p class="meta">Scrum Alliance, 2009</p>
-    </div>
-
-    <div class="resume-entry">
-      <h3>Bachelors of Science, Information Technology</h3>
-      <p class="meta">American Intercontinental University, 2001</p>
-    </div>
-  </div>
-
-  <a href="#top" class="return-to-top">back to top</a>
-
 </Layout>
+
+<style>
+  .contact-line {
+    color: var(--color-text-muted);
+  }
+
+  .resume {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    gap: 4rem;
+    padding-top: 1rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-text);
+  }
+
+  .toc a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .resume-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: var(--max-width-reading);
+  }
+
+  .resume-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .skill {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border-radius: var(--radius-large);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+
+  .skill p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .job {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .job:first-of-type {
+    border-top-color: var(--color-text);
+  }
+
+  .job-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+
+  .job-meta {
+    color: var(--color-text-muted);
+  }
+
+  .job-meta strong {
+    color: var(--color-text);
+  }
+
+  .job-summary {
+  }
+
+  .job-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .job-group h4 {
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .job-group ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+  }
+
+  .job-group li::marker {
+    color: var(--color-text-muted);
+  }
+
+  .job + .job {
+    margin-top: 1rem;
+  }
+
+  .subsection {
+    margin-top: 1.5rem;
+  }
+
+  .compact-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .compact-list div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .compact-list dt {
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .compact-list dd {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .resume {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+      padding-top: 0;
+    }
+
+    .toc {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-top: none;
+    }
+
+    .toc a {
+      padding: 0 1rem;
+      border: 1px solid var(--color-border-strong);
+      border-radius: 999px;
+    }
+  }
+
+  /* The downloadable PDF is printed from this page (see scripts/build-resume-pdf.sh). */
+  @media print {
+    .resume {
+      display: block;
+      padding-top: 0;
+    }
+
+    .resume-body,
+    .resume-section,
+    .job,
+    .job-group,
+    .job-group ul {
+      display: block;
+      max-width: none;
+    }
+
+    .resume-section + .resume-section {
+      margin-top: 1.25rem;
+    }
+
+    .resume-section h2 {
+      margin-bottom: 0.25rem;
+    }
+
+    .job {
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .job-summary,
+    .job-group {
+      margin-top: 0.25rem;
+    }
+
+    .job-group li,
+    .job-head {
+      break-inside: avoid-page;
+    }
+
+    .skills-grid {
+      gap: 0.375rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .skill {
+      padding: 0;
+      border: none;
+      gap: 0.125rem;
+    }
+
+    .compact-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .compact-list div {
+      padding: 0.375rem 0;
+    }
+
+    .subsection {
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .skills-grid,
+    .compact-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

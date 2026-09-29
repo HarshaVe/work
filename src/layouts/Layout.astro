@@ -1,119 +1,324 @@
 ---
-// test
 import '../styles/global.css';
+import { contact } from '../data/site';
 
 interface Props {
   title: string;
-  breadcrumbs?: Array<{label: string, href?: string}>;
-  actionLink?: {label: string, href: string};
+  description?: string;
+  /** The "Let's talk" heading and buttons; off on the contact pages themselves. */
+  showContactBand?: boolean;
+  /** Wide image for link previews (e.g. a case study hero); defaults to the headshot. */
+  image?: string;
+  /** Keep direct-link-only pages (the /for pages) out of search results. */
+  noindex?: boolean;
 }
 
-const { title, breadcrumbs, actionLink } = Astro.props;
-const currentPath = Astro.url.pathname;
+const {
+  title,
+  description = 'Global Director, Experience Design & Research at Siemens. Design and research leadership, from employee zero to 120-person practices.',
+  showContactBand = true,
+  image,
+  noindex = false,
+} = Astro.props;
 
-const isHome = currentPath === "/";
-const isAbout = currentPath === "/about" || currentPath === "/about/";
-const isPortfolio = currentPath === "/portfolio" || currentPath === "/portfolio/";
-const isResume = currentPath === "/resume" || currentPath === "/resume/";
-const isContact = currentPath === "/contact" || currentPath === "/contact/";
+// Link previews (Slack, email, LinkedIn): absolute URLs built from `site` in astro.config.mjs.
+const pageTitle = title === 'Home' ? 'Harsha Vemulapalli — Design Leadership' : `${title} | Harsha Vemulapalli`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const previewImage = new URL(image ?? '/images/harsha-headshot-768.jpg', Astro.site);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { label: 'Work', href: '/portfolio' },
+  { label: 'About', href: '/about' },
+  { label: 'Résumé', href: '/resume' },
+];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>{title} | Harsha Vemulapalli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..800;1,400&display=swap" rel="stylesheet" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Harsha Vemulapalli" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={previewImage} />
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={previewImage} />
   </head>
   <body>
-    <div class="hero-banner">
-      <div class="hero-overlay"></div>
-    </div>
-    
+    <slot name="banner" />
+
     <header class="site-header">
-      <nav>
-        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-          <span class="hamburger"></span>
-        </button>
-        <div class="nav-links">
-          <a href="/" class={isHome ? "active" : ""}>Home</a>
-          <a href="/about" class={isAbout ? "active" : ""}>About</a>
-          <a href="/portfolio" class={isPortfolio ? "active" : ""}>Portfolio</a>
-          <a href="/resume" class={isResume ? "active" : ""}>Resume</a>
-          <a href="/contact" class={isContact ? "active" : ""}>Contact</a>
-        </div>
-      </nav>
+      <div class="container header-inner">
+        <a href="/" class="site-name">Harsha Vemulapalli</a>
+        <nav aria-label="Main">
+          <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+            <span class="hamburger"></span>
+          </button>
+          <div class="nav-links" id="nav-links">
+            {navItems.map((item) => (
+              <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a>
+            ))}
+            <a href="/contact" class="nav-cta" aria-current={currentPath === '/contact' ? 'page' : undefined}>Get in touch</a>
+          </div>
+        </nav>
+      </div>
     </header>
-    
+
     <main>
-      <div class="content-wrapper">
-        {(breadcrumbs || actionLink) && (
-          <div class="subheader">
-            {breadcrumbs && breadcrumbs.length > 0 && (
-              <div class="breadcrumbs">
-                {breadcrumbs.map((crumb, index) => (
-                  <>
-                    {crumb.href ? (
-                      <a href={crumb.href}>{crumb.label}</a>
-                    ) : (
-                      <span class="current">{crumb.label}</span>
-                    )}
-                    {index < breadcrumbs.length - 1 && <span class="separator">/</span>}
-                  </>
-                ))}
-              </div>
-            )}
-            {actionLink && (
-              <a href={actionLink.href} class="action-link">{actionLink.label}</a>
-            )}
+      <slot />
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container footer-inner">
+        <div class="footer-pitch">
+          {showContactBand && <p class="footer-title">Let's talk.</p>}
+          <p class="footer-details">
+            Made by <a href="/about/">me</a>, in Detroit, with some technical help from <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>.
+            Built on <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> and hosted on <a href="https://netlify.com" target="_blank" rel="noopener noreferrer">Netlify</a>.
+          </p>
+        </div>
+        {showContactBand && (
+          <div class="footer-actions">
+            <a href={contact.linkedin} class="button button-secondary" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a href={contact.resumePdf} class="button button-secondary" download>Résumé (PDF)</a>
+            <a href="/contact" class="button button-primary">Get in touch</a>
           </div>
         )}
-        
-        <slot />
-      </div>
-    </main>
-    
-    <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-links">
-          <a href="/resume" class="cta-button">View Resume</a>
-           <span class="footer-separator">·</span>
-          <a href="https://www.linkedin.com/in/harshavemulapalli/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <span class="footer-separator">·</span>
-          <a href="/contact">Contact</a>
-        </div>
-        <div class="footer-credit">
-          <p>This site was designed and coded by <a href="/about/">me</a> with some technical help from <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>.<br /> It is powered by <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>, and hosted on <a href="https://netlify.com" target="_blank" rel="noopener noreferrer">Netlify</a>.</p>
-        </div>
       </div>
     </footer>
 
     <script>
       const menuToggle = document.querySelector('.menu-toggle');
       const navLinks = document.querySelector('.nav-links');
-      
-      menuToggle?.addEventListener('click', () => {
-        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
-        navLinks?.classList.toggle('open');
-      });
 
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!menuToggle?.contains(e.target as Node) && !navLinks?.contains(e.target as Node)) {
-          menuToggle?.setAttribute('aria-expanded', 'false');
-          navLinks?.classList.remove('open');
-        }
-      });
+      function closeMenu() {
+        if (!menuToggle || !navLinks) return;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('open');
+      }
 
-      // Close menu when clicking a link
-      navLinks?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          menuToggle?.setAttribute('aria-expanded', 'false');
-          navLinks?.classList.remove('open');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+          menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+          navLinks.classList.toggle('open', !isExpanded);
         });
-      });
+
+        document.addEventListener('click', (event) => {
+          if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) closeMenu();
+        });
+
+        navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      }
     </script>
   </body>
 </html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 76px;
+    position: relative;
+  }
+
+  .site-name,
+  .site-name:hover {
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .nav-links a[aria-current="page"] {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
+  .nav-links a.nav-cta {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 1.125rem;
+    border-radius: var(--radius);
+    background: var(--color-accent-strong);
+    color: var(--color-surface);
+    font-weight: 600;
+  }
+
+  .nav-links a.nav-cta:hover {
+    background: var(--color-accent-strong-hover);
+    color: var(--color-surface);
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before { top: -6px; }
+  .hamburger::after { top: 6px; }
+
+  .menu-toggle[aria-expanded="true"] .hamburger { background: transparent; }
+  .menu-toggle[aria-expanded="true"] .hamburger::before { transform: rotate(45deg); top: 0; }
+  .menu-toggle[aria-expanded="true"] .hamburger::after { transform: rotate(-45deg); top: 0; }
+
+  @media (max-width: 720px) {
+    .menu-toggle {
+      display: inline-flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.5rem var(--page-gutter) 1rem;
+      background: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-links a.nav-cta {
+      justify-content: center;
+      margin-top: 0.75rem;
+      border-bottom: none;
+    }
+  }
+
+  /* Footer: tucked under the page — a thin edge and a soft shadow cast onto a flat grey band. */
+  .site-footer {
+    margin-top: 5rem;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--color-footer-edge);
+    background: var(--color-footer-background);
+    box-shadow: inset 0 18px 22px -16px var(--color-footer-shadow);
+    color: var(--color-text);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem 2rem;
+  }
+
+  .footer-title {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-text);
+  }
+
+  .footer-details {
+    margin: 0;
+    color: var(--color-text);
+    text-wrap: pretty;
+  }
+
+  .footer-pitch {
+    flex: 1 1 22rem;
+  }
+
+  .footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-actions .button-secondary {
+    background: var(--color-surface);
+  }
+
+</style>

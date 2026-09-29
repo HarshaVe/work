@@ -1,0 +1,5 @@
+# Old audience pages, replaced by /for/* and the portfolio filters
+/enterprise   /for/enterprise              301
+/regulated    /for/enterprise              301
+/systems      /portfolio?filter=systems    301
+/ai           /portfolio?filter=ai         301

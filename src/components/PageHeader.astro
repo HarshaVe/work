@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lede?: string;
+  back?: { href: string; label: string };
+}
+
+const { title, eyebrow, lede, back } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<header class:list={['container', 'page-header', { 'has-aside': hasAside }]}>
+  <div class="page-header-text">
+    {back && <a href={back.href} class="back-link">← {back.label}</a>}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+  {hasAside && (
+    <div class="page-header-aside">
+      <slot name="aside" />
+    </div>
+  )}
+</header>
+
+<style>
+  .page-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+    align-items: end;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .page-header.has-aside {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
+  }
+
+  .page-header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    max-width: 52rem;
+  }
+
+  .back-link {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+
+
+  @media (max-width: 800px) {
+    .page-header,
+    .page-header.has-aside {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+      padding-top: 2.5rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+</style>

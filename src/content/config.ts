@@ -5,6 +5,8 @@ const portfolio = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    /** Short card text for the homepage and /for pages; falls back to description. */
+    summary: z.string().optional(),
     company: z.string(),
     role: z.string(),
     dates: z.string(),
@@ -14,6 +16,8 @@ const portfolio = defineCollection({
       systems: z.boolean().default(false),
       enterprise: z.boolean().default(false),
       ai: z.boolean().default(false),
+      vehicle: z.boolean().default(false),
+      commerce: z.boolean().default(false),
     }),
     order: z.number().default(99),
     image: z.string().optional(),

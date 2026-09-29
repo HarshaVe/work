@@ -1,8 +1,9 @@
 ---
-title: "Core Design System"
-description: "Led the unification of Siemens' design systems across three CMS platforms, establishing token-driven foundations and governance for 150+ digital properties."
+title: "One Siemens: Marketplace-Led Platform"
+description: "Put the first- and third-party marketplace at the center of Siemens' digital experience and unified the marketing site and business-unit selling channels around it — one explorable catalog of hundreds of thousands of products, consolidating 150+ sites into one experience across 100K+ pages."
+summary: "Put the marketplace at the center of Siemens' digital experience and rebuilt the site around it, making hundreds of thousands of Siemens and third-party products easier to find, compare, and buy."
 company: "Siemens"
-role: "Director Experience Design and Research"
+role: "Global Director, Experience Design & Research"
 dates: "2024-Present"
 tags: ["Design System", "Digital Transformation", "Enterprise SaaS", "Experience Strategy"]
 featured:
@@ -10,22 +11,24 @@ featured:
   systems: true
   enterprise: true
   ai: false
+  vehicle: false
+  commerce: false
 order: 1
 heroImage: "/images/portfolio/siemens-design-system/hero.png"
 gallery:
   - src: "/images/portfolio/siemens-design-system/design-systems-mapping.png"
     caption: "Design Systems Mapping"
-  - src: "/images/portfolio/siemens-design-system/system-harmonization.png"
+  - src: "/images/portfolio/siemens-design-system/system-harmonization.jpg"
     caption: "System Harmonization"
   - src: "/images/portfolio/siemens-design-system/color-management-system.jpg"
     caption: "Color Management System"
-  - src: "/images/portfolio/siemens-design-system/home-siemens-global.png"
+  - src: "/images/portfolio/siemens-design-system/home-siemens-global.jpg"
     caption: "Siemens Global Homepage"
-  - src: "/images/portfolio/siemens-design-system/new-siemens-home.png"
+  - src: "/images/portfolio/siemens-design-system/new-siemens-home.jpg"
     caption: "New Siemens Homepage"
-  - src: "/images/portfolio/siemens-design-system/siemens-digital-industries-software.png"
+  - src: "/images/portfolio/siemens-design-system/siemens-digital-industries-software.jpg"
     caption: "Siemens Digital Industries Software"
-  - src: "/images/portfolio/siemens-design-system/siemens-xcelerator-marketplace.png"
+  - src: "/images/portfolio/siemens-design-system/siemens-xcelerator-marketplace.jpg"
     caption: "Siemens Xcelerator Marketplace"
 ---
 

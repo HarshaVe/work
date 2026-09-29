@@ -1,0 +1,21 @@
+---
+// Email link that never appears as plain text in the page source, so address-harvesting
+// bots can't scrape it. The browser assembles the real address after the page loads;
+// without JavaScript, visitors see a readable "name [at] domain [dot] tld" version.
+import { contact } from '../data/site';
+
+const [user, domain] = contact.email.split('@');
+const lastDot = domain.lastIndexOf('.');
+const host = domain.slice(0, lastDot);
+const tld = domain.slice(lastDot + 1);
+---
+
+<a href="/contact" data-protected-email data-u={user} data-h={host} data-t={tld}>{user} [at] {host} [dot] {tld}</a>
+
+<script>
+  document.querySelectorAll('[data-protected-email]').forEach((link) => {
+    const address = link.dataset.u + '@' + link.dataset.h + '.' + link.dataset.t;
+    link.setAttribute('href', 'mailto:' + address);
+    link.textContent = address;
+  });
+</script>

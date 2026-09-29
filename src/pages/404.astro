@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout noindex title="Page not found" description="This page doesn't exist, or it has moved.">
+  <PageHeader
+    eyebrow="404"
+    title="This page doesn’t exist."
+    lede="It may have moved when the site was rebuilt. The work, the résumé, and a way to reach me are all a click away."
+  >
+    <div class="button-row">
+      <a href="/" class="button button-primary">Go to the homepage</a>
+      <a href="/portfolio" class="button button-secondary">See the case studies</a>
+      <a href="/resume" class="button button-secondary">Résumé</a>
+    </div>
+  </PageHeader>
+</Layout>

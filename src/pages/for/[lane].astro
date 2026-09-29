@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import Hero from '../../components/Hero.astro';
+import { focusPages, type FocusPage } from '../../data/site';
+
+export function getStaticPaths() {
+  return focusPages.map((page) => ({ params: { lane: page.key }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: FocusPage };
+const entries = await getCollection('portfolio');
+const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+const caseStudies = page.caseStudies.map((slug) => {
+  const entry = bySlug.get(slug);
+  if (!entry) throw new Error(`Unknown case study "${slug}" on /for/${page.key}`);
+  return entry;
+});
+---
+
+<Layout noindex title={page.label} description={`${page.headline} Harsha Vemulapalli's work on ${page.banner}.`}>
+  <div class="focus-banner" slot="banner">
+    <div class="container focus-banner-inner">
+      <span>A focused look at my work on <strong>{page.banner}</strong></span>
+      <a href="/">See the full site →</a>
+    </div>
+  </div>
+
+  <Hero stats={page.proof} eyebrow={page.label}>
+    <Fragment slot="headline">{page.headline}</Fragment>
+    {page.intro.map((paragraph) => <p class="lede">{paragraph}</p>)}
+  </Hero>
+
+  <div class="band band-tint">
+    <section class="container section" id="work">
+      <div class="section-head">
+        <h2>Case studies to start with</h2>
+        <a href="/portfolio" class="button button-secondary">All case studies</a>
+      </div>
+      <div class="work-grid">
+        {caseStudies.map((entry) => <CaseStudyCard entry={entry} large />)}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .focus-banner {
+    background: var(--color-accent-soft);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .focus-banner-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    min-height: 44px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Same full-width band treatment as the homepage. */
+  .band {
+    padding: 5rem 0;
+  }
+
+  .band-tint {
+    background: var(--color-accent-soft);
+  }
+
+  :global(main:has(> .band:last-child) + .site-footer) {
+    margin-top: 0;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+  }
+
+  @media (max-width: 800px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .band {
+      padding: 3.5rem 0;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

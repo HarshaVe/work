@@ -1,8 +1,9 @@
 ---
 title: "Finder"
-description: "Led the design of a personalized content discovery tool that reduced clicks to content from 77 to 4, with 50% of users reaching conversion-focused results."
+description: "Led the design of an AI-powered product finder that reduced clicks to content from 77 to 4 and, at scale, increased conversion by 23% and engagement by 28%."
+summary: "An AI-powered product finder that took clicks-to-content from 77 to 4, lifting conversion 23% and engagement 28%."
 company: "Siemens"
-role: "Director Experience Design and Research"
+role: "Global Director, Experience Design & Research"
 dates: "2024-Present"
 tags: ["Content Strategy", "Enterprise SaaS", "Experience Strategy", "User Research"]
 featured:
@@ -10,22 +11,24 @@ featured:
   systems: false
   enterprise: true
   ai: true
+  vehicle: false
+  commerce: true
 order: 2
 heroImage: "/images/portfolio/siemens-finder/hero.png"
 gallery:
   - src: "/images/portfolio/siemens-finder/kickoff-workshop.png"
     caption: "Kickoff Workshop"
-  - src: "/images/portfolio/siemens-finder/initial-concepts.png"
+  - src: "/images/portfolio/siemens-finder/initial-concepts.jpg"
     caption: "Initial Concepts"
   - src: "/images/portfolio/siemens-finder/initial-wireframes.png"
     caption: "Initial Wireframes"
   - src: "/images/portfolio/siemens-finder/initial-prototype.png"
     caption: "Initial Prototype"
-  - src: "/images/portfolio/siemens-finder/measuring-criteria-for-success.png"
+  - src: "/images/portfolio/siemens-finder/measuring-criteria-for-success.jpg"
     caption: "Measuring Criteria for Success"
-  - src: "/images/portfolio/siemens-finder/mini-finder-test-page-control.png"
+  - src: "/images/portfolio/siemens-finder/mini-finder-test-page-control.jpg"
     caption: "Mini Finder Test Page - Control"
-  - src: "/images/portfolio/siemens-finder/mini-finder-test-page-variation.png"
+  - src: "/images/portfolio/siemens-finder/mini-finder-test-page-variation.jpg"
     caption: "Mini Finder Test Page - Variation"
 ---
 
@@ -56,7 +59,7 @@ I took several key actions:
 
 ## Results
 
-The "Finder" project is still being vetted, but early indications are promising:
+Finder moved from early testing to a scaled launch:
 
 - **Dramatically Reduced Clicks to Content** — In user testing, we saw a substantial reduction in the number of clicks required to access relevant content. For example, accessing information related to "Intro to Mechanical Design" went from 77 clicks to just 4. This demonstrates a significant improvement in content discoverability.
 - **Improved Customer Journey** — From our preference testing customer shared that "Finder" facilitated a smoother and more intuitive customer journey, guiding users toward solutions that addressed their specific needs. This laid the groundwork for increased customer engagement.
@@ -64,3 +67,4 @@ The "Finder" project is still being vetted, but early indications are promising:
 - **A/B Testing** — We build a fixed option version of finder (no back-end calls) to A/B test the solution. This is our final milestone to calling it a win and scaling it across our sites with deep integration to our taxonomy and an AI driven effort to create questions and options. Initial data indicates (low statistical confidence) that:
   - **50% percent of users who interact with "Finder" arrive at a results page** that presents them with leads further into the funnel content (trials, purchase…).
   - **~20% of that group is converting to those leads**.
+- **Results at Scale** — After the A/B test, we scaled Finder across our sites as an AI-powered product finder. It increased conversion by 23% and engagement by 28%.

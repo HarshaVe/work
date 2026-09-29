@@ -1,6 +1,7 @@
 ---
 title: "Experience Measurement Framework"
-description: "Created a standardized scorecard for measuring colleague experience across VMware, increasing eNPS by 3% and delivering 70%+ CSAT for mission-critical applications."
+description: "Created a standardized scorecard for measuring colleague experience across VMware, increasing eNPS by 3% and delivering 75%+ CSAT for mission-critical applications."
+summary: "A company-wide experience measurement program: research that gave every product team one scorecard, lifted eNPS 3%, and delivered 75%+ CSAT."
 company: "VMware"
 role: "Senior Director User Experience Design & Research"
 dates: "2021-2022"
@@ -10,6 +11,8 @@ featured:
   systems: false
   enterprise: true
   ai: false
+  vehicle: false
+  commerce: false
 order: 8
 heroImage: "/images/portfolio/vmware-measurement/hero.png"
 gallery:
@@ -58,7 +61,7 @@ The final phase for this iteration was distributing the lo-fi dashboard to the i
 While still focusing on a prioritized list of tools, in the first three months, we:
 
 - Increased eNPS by 3%
-- Delivered CSAT scores of 70%+ for mission-critical applications by empowering product teams to make meaningful changes to offerings quickly.
+- Delivered CSAT scores of 75%+ for mission-critical applications by empowering product teams to make meaningful changes to offerings quickly.
 
 The effort was a massive win for us as a company. While it has yet to be rainbows and unicorns, we have gone from vague sentiments and opinions of experience to a clear understanding of what needs attention.
 

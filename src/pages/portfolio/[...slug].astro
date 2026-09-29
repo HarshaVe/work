@@ -1,138 +1,372 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
 
 export async function getStaticPaths() {
-  const portfolioEntries = await getCollection('portfolio');
-  return portfolioEntries.map(entry => ({
+  const portfolioEntries = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
+  return portfolioEntries.map((entry, index) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry, next: portfolioEntries[(index + 1) % portfolioEntries.length] },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, next } = Astro.props;
 const { Content } = await entry.render();
-
-const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: entry.data.title }
-];
-
-const actionLink = { label: 'view entire portfolio', href: '/portfolio' };
-
-// Get hero and gallery images from frontmatter
-const heroImage = entry.data.heroImage;
-const galleryImages = entry.data.gallery || [];
-const downloadFile = entry.data.downloadFile;
+const { title, description, company, role, dates, tags, heroImage, gallery = [], downloadFile } = entry.data;
 const downloadLabel = entry.data.downloadLabel || 'Download PDF';
+const displayDates = dates.replace('-', '–').replace('Present', 'now');
 ---
 
-<Layout title={entry.data.title} breadcrumbs={breadcrumbs} actionLink={actionLink}>
-  {heroImage && (
-    <div class="portfolio-hero" style={`background-image: url('${heroImage}')`}></div>
-  )}
-  
-  <h1>{entry.data.title}</h1>
-  <p class="meta">{entry.data.company} · {entry.data.role} · {entry.data.dates}</p>
-  
-  <article>
-    <Content />
-  </article>
+<Layout title={title} description={description} image={heroImage}>
+  <PageHeader back={{ href: '/portfolio', label: 'All case studies' }} eyebrow={company} title={title} lede={description} />
 
-  {downloadFile && (
-    <div class="portfolio-download">
-      <a href={downloadFile} target="_blank">{downloadLabel}</a>
+  {heroImage && (
+    <div class="container">
+      <img class="hero-image" src={heroImage} alt="" />
     </div>
   )}
 
-  {galleryImages.length > 0 && (
-    <div class="portfolio-gallery">
-      <h2>Project Artifacts</h2>
+  <div class="container case-body">
+    <aside class="facts" aria-label="Project details">
+      <dl>
+        <div><dt>Company</dt><dd>{company}</dd></div>
+        <div><dt>Role</dt><dd>{role}</dd></div>
+        <div><dt>When</dt><dd>{displayDates}</dd></div>
+        <div><dt>Focus</dt><dd>{tags.join(', ')}</dd></div>
+      </dl>
+      {downloadFile && <a href={downloadFile} class="button button-secondary" target="_blank" rel="noopener">{downloadLabel}</a>}
+    </aside>
+
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+
+  {gallery.length > 0 && (
+    <section class="container gallery" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Project artifacts</h2>
       <div class="gallery-grid">
-        {galleryImages.map((image: {src: string, caption: string}, index: number) => (
-          <div class="gallery-item" data-index={index}>
-            <img src={image.src} alt={image.caption} draggable="false" />
-            <div class="gallery-item-caption">{image.caption}</div>
-          </div>
+        {gallery.map((image, index) => (
+          <button type="button" class="gallery-item" data-index={index} aria-label={`Enlarge: ${image.caption}`}>
+            <img src={image.src} alt="" loading="lazy" decoding="async" draggable="false" />
+            <span class="gallery-caption">{image.caption}</span>
+          </button>
         ))}
       </div>
-    </div>
+    </section>
   )}
 
-  {galleryImages.length > 0 && (
-    <div class="lightbox" id="lightbox">
-      <div class="lightbox-content">
-        <button class="lightbox-close" aria-label="Close">&times;</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Previous">&lsaquo;</button>
-        <button class="lightbox-nav lightbox-next" aria-label="Next">&rsaquo;</button>
+  <section class="container next" aria-labelledby="next-title">
+    <h2 id="next-title">Next case study</h2>
+    <div class="next-card">
+      <CaseStudyCard entry={next} large />
+    </div>
+  </section>
+
+  {gallery.length > 0 && (
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project artifact" hidden>
+      <figure class="lightbox-content">
         <img src="" alt="" draggable="false" />
-        <div class="lightbox-caption"></div>
-      </div>
+        <figcaption class="lightbox-caption"></figcaption>
+      </figure>
+      <button type="button" class="lightbox-close" aria-label="Close">×</button>
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous">‹</button>
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Next">›</button>
     </div>
   )}
 
-  <script define:vars={{ galleryImages }}>
-    // Lightbox functionality
+  <script is:inline define:vars={{ gallery }}>
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox?.querySelector('img');
-    const lightboxCaption = lightbox?.querySelector('.lightbox-caption');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    let currentIndex = 0;
+    if (lightbox) {
+      const lightboxImg = lightbox.querySelector('img');
+      const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+      const closeButton = lightbox.querySelector('.lightbox-close');
+      let currentIndex = 0;
+      let opener = null;
 
-    function openLightbox(index) {
-      currentIndex = index;
-      updateLightbox();
-      lightbox?.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox?.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function updateLightbox() {
-      if (lightboxImg && lightboxCaption && galleryImages[currentIndex]) {
-        lightboxImg.src = galleryImages[currentIndex].src;
-        lightboxImg.alt = galleryImages[currentIndex].caption;
-        lightboxCaption.textContent = galleryImages[currentIndex].caption;
+      function update() {
+        lightboxImg.src = gallery[currentIndex].src;
+        lightboxImg.alt = gallery[currentIndex].caption;
+        lightboxCaption.textContent = gallery[currentIndex].caption;
       }
+
+      function open(index, trigger) {
+        currentIndex = index;
+        opener = trigger;
+        update();
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      }
+
+      function close() {
+        lightbox.hidden = true;
+        document.body.style.overflow = '';
+        if (opener) opener.focus();
+      }
+
+      function step(delta) {
+        currentIndex = (currentIndex + delta + gallery.length) % gallery.length;
+        update();
+      }
+
+      document.querySelectorAll('.gallery-item').forEach((item) => {
+        item.addEventListener('click', () => open(Number(item.dataset.index), item));
+      });
+
+      closeButton.addEventListener('click', close);
+      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => step(-1));
+      lightbox.querySelector('.lightbox-next').addEventListener('click', () => step(1));
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) close();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (lightbox.hidden) return;
+        if (event.key === 'Escape') close();
+        if (event.key === 'ArrowRight') step(1);
+        if (event.key === 'ArrowLeft') step(-1);
+      });
+
+      document.querySelectorAll('.gallery-item img, .lightbox-content img').forEach((img) => {
+        img.addEventListener('contextmenu', (event) => event.preventDefault());
+      });
     }
-
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % galleryImages.length;
-      updateLightbox();
-    }
-
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-      updateLightbox();
-    }
-
-    // Event listeners
-    galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => openLightbox(index));
-    });
-
-    lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
-    lightbox?.querySelector('.lightbox-prev')?.addEventListener('click', prevImage);
-    lightbox?.querySelector('.lightbox-next')?.addEventListener('click', nextImage);
-
-    lightbox?.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox?.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') nextImage();
-      if (e.key === 'ArrowLeft') prevImage();
-    });
-
-    // Disable right-click on images
-    document.querySelectorAll('.gallery-item img, .lightbox-content img').forEach(img => {
-      img.addEventListener('contextmenu', (e) => e.preventDefault());
-    });
   </script>
 </Layout>
+
+<style>
+  .hero-image {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius-large);
+    background: var(--color-placeholder);
+  }
+
+  .case-body {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    gap: 4rem;
+    padding-top: 3.5rem;
+  }
+
+  .facts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+    align-self: start;
+  }
+
+  .facts dl {
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .facts dl div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .facts dl div:first-child {
+    border-top-color: var(--color-text);
+  }
+
+  .facts dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .facts dd {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 5rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    text-align: left;
+    cursor: zoom-in;
+    -webkit-touch-callout: none;
+  }
+
+  .gallery-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    user-select: none;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .gallery-item:hover img {
+    opacity: 0.88;
+  }
+
+  .gallery-caption {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .next {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 5rem;
+  }
+
+  .next-card {
+    max-width: 36rem;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5rem;
+    background: var(--color-overlay);
+  }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100%;
+    max-height: 100%;
+    -webkit-touch-callout: none;
+  }
+
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: calc(100vh - 10rem);
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .lightbox-caption {
+    font-size: 0.9375rem;
+    color: var(--color-inverse-text);
+    text-align: center;
+  }
+
+  .lightbox-close,
+  .lightbox-nav {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-inverse-border);
+    border-radius: 999px;
+    background: var(--color-inverse-background);
+    color: var(--color-inverse-text);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .lightbox-close:hover,
+  .lightbox-nav:hover {
+    border-color: var(--color-inverse-text);
+  }
+
+  .lightbox-close {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lightbox-prev {
+    left: 1rem;
+  }
+
+  .lightbox-next {
+    right: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .case-body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2.5rem;
+      padding-top: 2.5rem;
+    }
+
+    .facts {
+      position: static;
+    }
+
+    .facts dl {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.5rem;
+    }
+
+    .facts dl div:nth-child(2) {
+      border-top-color: var(--color-text);
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .lightbox {
+      padding: 4.5rem 1rem;
+    }
+
+    .lightbox-nav {
+      top: auto;
+      bottom: 1rem;
+      transform: none;
+    }
+  }
+</style>

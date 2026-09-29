@@ -1,15 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const breadcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Message Sent' }
-];
+import PageHeader from '../../components/PageHeader.astro';
 ---
 
-<Layout title="Message Sent" breadcrumbs={breadcrumbs}>
-  <h1>Thank you for reaching out.</h1>
-  <p class="intro"> Honestly, this is already the most interesting thing in my inbox—beating out a 20% off coupon from Gap and three LinkedIn 'congratulations' notifications. I'll get back to you soon.</p>
-  <p><a href="/">Return to homepage</a></p>
+<Layout title="Message Sent" showContactBand={false}>
+  <PageHeader
+    eyebrow="Message sent"
+    title="Thank you for reaching out."
+    lede="Honestly, this is already the most interesting thing in my inbox—beating out a 20% off coupon from Gap and three LinkedIn 'congratulations' notifications. I'll get back to you soon."
+  >
+    <div class="button-row">
+      <a href="/" class="button button-primary">Back to the homepage</a>
+      <a href="/portfolio" class="button button-secondary">Browse the work</a>
+    </div>
+  </PageHeader>
 </Layout>
