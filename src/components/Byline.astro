@@ -1,0 +1,58 @@
+---
+// Small circular portrait with a line of text beside it. Used under the headline
+// on the homepage, the /for pages (via Hero), and the About page.
+interface Props {
+  /** Base path without the size suffix, e.g. "/images/harsha-headshot" (needs -192 and -384 .jpg files). */
+  photo: string;
+  alt: string;
+}
+
+const { photo, alt } = Astro.props;
+---
+
+<div class="byline-row">
+  <img class="byline-photo" src={`${photo}-192.jpg`} srcset={`${photo}-192.jpg 192w, ${photo}-384.jpg 384w`} sizes="88px" alt={alt} width="192" height="192" />
+  <p class="byline"><slot /></p>
+</div>
+
+<style>
+  .byline-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .byline {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    text-wrap: balance;
+  }
+
+  .byline :global(strong) {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .byline-photo {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-accent-strong), 0 8px 20px -2px var(--color-photo-shadow);
+  }
+
+  @media (max-width: 560px) {
+    .byline-row {
+      align-items: flex-start;
+    }
+
+    .byline-photo {
+      width: 72px;
+      height: 72px;
+    }
+  }
+</style>

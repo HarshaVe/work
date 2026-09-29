@@ -63,18 +63,6 @@ const caseStudies = page.caseStudies.map((slug) => {
     padding-bottom: 0.5rem;
   }
 
-  /* Same full-width band treatment as the homepage. */
-  .band {
-    padding: 5rem 0;
-  }
-
-  .band-tint {
-    background: var(--color-accent-soft);
-  }
-
-  :global(main:has(> .band:last-child) + .site-footer) {
-    margin-top: 0;
-  }
 
   h2 {
     margin: 0;
@@ -111,10 +99,6 @@ const caseStudies = page.caseStudies.map((slug) => {
   }
 
   @media (max-width: 560px) {
-    .band {
-      padding: 3.5rem 0;
-    }
-
     h2 {
       font-size: 2rem;
     }

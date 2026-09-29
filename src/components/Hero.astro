@@ -1,6 +1,7 @@
 ---
 // Shared hero for the homepage and the /for pages: headline, then byline with photo,
 // intro, and calls to action on the left, with a column of numbers on the right.
+import Byline from './Byline.astro';
 import { contact } from '../data/site';
 
 interface Props {
@@ -17,10 +18,7 @@ const { stats, eyebrow } = Astro.props;
   <h1><slot name="headline" /></h1>
   <div class="hero-grid">
     <div class="hero-main">
-      <div class="hero-byline-row">
-        <img class="hero-photo" src="/images/harsha-headshot-192.jpg" srcset="/images/harsha-headshot-192.jpg 192w, /images/harsha-headshot-384.jpg 384w" sizes="88px" alt="Harsha Vemulapalli" width="192" height="192" />
-        <p class="hero-byline"><strong>Global Director, Experience Design &amp; Research at Siemens</strong>, leading design, research, and content strategy across seven countries</p>
-      </div>
+      <Byline photo="/images/harsha-headshot" alt="Harsha Vemulapalli"><strong>Global Director, Experience Design &amp; Research at Siemens</strong>, leading design, research, and content strategy across seven countries</Byline>
       <slot />
       <div class="actions">
         <a href="/contact" class="button button-primary">Get in touch</a>
@@ -65,36 +63,6 @@ const { stats, eyebrow } = Astro.props;
     margin-bottom: 1.25rem;
   }
 
-
-  /* Byline under the headline, introduced by a small portrait. */
-  .hero-byline-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-byline {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--color-text-secondary);
-    text-wrap: balance;
-  }
-
-  .hero-byline strong {
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .hero-photo {
-    flex-shrink: 0;
-    width: 88px;
-    height: 88px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px var(--color-accent-strong), 0 8px 20px -2px var(--color-photo-shadow);
-  }
 
   .stats {
     display: flex;
@@ -179,15 +147,4 @@ const { stats, eyebrow } = Astro.props;
     }
   }
 
-  @media (max-width: 560px) {
-    .hero-byline-row {
-      align-items: flex-start;
-    }
-
-    .hero-photo {
-      width: 72px;
-      height: 72px;
-    }
-
-  }
 </style>

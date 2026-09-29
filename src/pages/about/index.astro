@@ -1,212 +1,211 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import Byline from '../../components/Byline.astro';
+import JumpNav from '../../components/JumpNav.astro';
+import { contact, cycle, workThesis } from '../../data/site';
 
-const timeline = [
-  { year: '1973', title: 'Born in Bombay', text: 'I was born in the spring of 1973, the second son of a nuclear engineer and his artistic wife.' },
-  { year: '1978', title: 'Arrived in America', text: "My father specialized in the start-up phase of nuclear reactors, which meant we moved every 2-3 years—Vicksburg, Long Island, South Jersey, Pittsburgh, Augusta, Rochester. Being an immigrant kid in places where immigration was uncommon taught me to be an observer, to read people, to understand them from their perspective. I didn't know it then, but I was training for UX." },
-  { year: '1991', title: 'Physics & Engineering', text: "I started college as a Physics and Engineering major—following the quantitative path that felt natural. But something was missing. The work felt devoid of humanity, like I was only using half my abilities. My superpowers were people, and quant world hadn't embraced them, yet." },
-  { year: '1993', title: 'The Restaurant Years', text: "I swung the pendulum the other way. Restaurants were energetic, vibrant, purely human. I spent five years managing bars and restaurants—local spots, Applebee's, Ruby Tuesday's—learning to perform under pressure and read rooms full of people. But eventually I realized they were all human, no quant. I needed both." },
-  { year: '1998', title: 'Back to School', text: 'I returned to college in Atlanta. It was here, presenting projects to executives from Andersen Consulting and Coca-Cola, that I discovered my ability to connect the what with the why—to dig deeper into the customer, the "for who." The pendulum was finally finding center.' },
-  { year: '2001', title: 'First Design Job', text: 'A friend connected me with the SVP of Research at Mirant, an energy trading company. He gave me his book on energy risk management; I read it in a week and came back with two pages of questions. He hired me for my curiosity and quant skills. I built interfaces for Monte Carlo simulations that predicted commodity prices.' },
-  { year: '2002', title: 'First Big Failure, First Big Lesson', highlight: true, text: 'We launched a trading tool and watched usage drop from 800 users to 3 in two days. Dr. Eydeland told me to stop developing and go figure out why. I spent a week on the trading floor earning trust and gathering insights. What I learned changed everything—we redesigned the system around how traders actually worked. It was my first real UX research project, before I knew what UX was.' },
-  { year: '2003', title: 'Married', text: 'Found a bestie willing to follow me through the next chapter of moves and adventures.' },
-  { year: '2005', title: 'Daughter Born', text: 'Became a father. Twenty years later, watching her navigate technology with native fluency continues to fascinate me while revealing my own biases.' },
-  { year: '2007', title: 'Found My Path', highlight: true, text: 'At Morris DigitalWorks, I was doing front-end development for a social engagement product I had also designed, researched, and product-managed. The full stack of human-centered work. I realized the people aspects were what fascinated me—not just making things, but understanding who they were for and why they mattered.' },
-  { year: '2010', title: 'First Leadership Role', highlight: true, text: 'Joined the CDC and faced a triple challenge: unifying a fragmented team of contractors, earning credibility in a scientific organization that valued data over opinion, and adapting UX methods to work in a world where "Apple does this" meant nothing—only evidence mattered. When the Analytics manager left, the team came to me. My first promotion followed: UX and Analytics Manager.' },
-  { year: '2014', title: 'Detroit & Automotive', text: "Moved to Detroit to work at General Motors. The automotive world was colliding with consumer electronics—we brought Apple CarPlay and Android Auto to life. More importantly, I learned to be strategic. UX wasn't just about usability anymore; leadership expected us to grow revenue and build customer loyalty." },
-  { year: '2018', title: 'First C-Suite Presentation', highlight: true, text: `At Bosch, I presented an interactive customer journey workshop that changed how leadership's understanding of the buzzword "Customer Journey" and how design and research related to it. It was the moment I realized design leaders don't just make things—they change how organizations think.` },
-  { year: '2023', title: 'Global Design Leadership', text: 'Today I lead a 70-person global team at Siemens—researchers, designers, content strategists, and taxonomists across San Francisco, Munich, and beyond. We ship experiences used by millions, powered by design systems used by thousands. The quant kid and the people-reader finally work as one.' },
-  { year: 'Future', title: "What's Next", text: 'Two of my grandmothers were college professors, as were several uncles. Teaching is in my blood. As I wind down my professional career, I plan to become a full-time researcher and teacher—helping others find the tools to discover truth in a world where technology constantly reshapes it.' },
-];
-
-const throughLines = [
-  { title: 'Design obsession.', text: "Whether it's pens, watches, cars, or digital interfaces—I've always been fascinated by design decisions. The 24 cars I've owned weren't collecting; they were experiencing. Like some people love to try food, I love to live with cars and understand the thinking behind them." },
-  { title: 'Quantitative curiosity.', text: "I'm still enamored with black holes, time as a fourth dimension, and the boundaries of what we can know. More practically, I've learned exactly how much to trust my hunches versus data—and when each one matters." },
-  { title: 'Service.', text: "I believe deeply in servant leadership—the idea that the best leaders grow others, not just outcomes. I'm as proud of the careers I've helped develop as the products I've shipped. Beyond corporate life, I've built design curricula for high school programs, led courses at General Assembly, and guest-lectured at universities. Helping others find their own truth in complexity is the work I want to do for the rest of my life." },
+// From LinkedIn recommendations, quoted word for word; "…" marks a cut. LinkedIn has no
+// link to a single recommendation, so the link points to the profile's Recommendations list.
+const recommendationsUrl = `${contact.linkedin}details/recommendations/`;
+const quotes = [
+  {
+    text: 'When Harsha speaks, people listen. … In one meeting, I could tell that I was talking to the design leader that I’ve always wanted to be. … His command of user experience ensures user advocacy at the most senior levels.',
+    name: 'Jorge (Jay) Bustamante',
+    context: 'reported to me at VMware',
+    note: 'Joined my team from Polaris Alpha, where he was Director of Marketing & Design Services',
+  },
+  {
+    text: 'His leadership and mentorship enabled other employees to grow and take on new responsibilities that weren’t possible before. Harsha made it possible to grow the team while expanding the potential of all involved. … Anyone looking to build a world class user experience department would be lucky to have him on the team.',
+    name: 'Micah Stroud',
+    context: 'my manager at General Motors',
+    note: 'Later Head of Product, Digital at Lucid Motors',
+  },
 ];
 ---
 
-<Layout title="About" description="How Harsha Vemulapalli got from nuclear physics and restaurant floors to leading global design teams.">
-  <PageHeader
-    eyebrow="About"
-    title="The quant kid and the people-reader."
-    lede="I'm a design leader who spent years searching for the intersection of quantitative rigor and human-centered thinking. The search took me from nuclear physics to restaurant floors to trading desks to the CDC—and eventually to leading global design teams that ship experiences used by millions."
-  >
-    <figure class="polaroid" slot="aside">
-      <img src="/images/harsha-childhood.jpg" alt="Young Harsha with a Chevrolet, circa 1979" />
-      <figcaption>Mississippi, 1979</figcaption>
-    </figure>
+<Layout title="About" description="How Harsha Vemulapalli leads: from a trading floor and the CDC to building and scaling global design and research organizations.">
+  <PageHeader eyebrow="About" title="A creative who trusts the numbers.">
+    <Byline photo="/images/harsha-childhood" alt="Harsha at five, leaning on his father’s Chevrolet Impala"><strong>Curious from the start.</strong><br />Me at five, with my father’s Chevrolet Impala, Vicksburg, Mississippi.</Byline>
+    <p class="lede">Great products need the imagination to see something better, the systems that let hundreds of people build it well, and the evidence that it truly works for customers. I’ve spent my career building teams that bring all three together, and growing the people who lead them.</p>
   </PageHeader>
 
-  <section class="container timeline-section" aria-labelledby="timeline-title">
-    <h2 id="timeline-title">How I got here</h2>
-    <ol class="timeline">
-      {timeline.map((item) => (
-        <li class:list={['moment', { highlight: item.highlight }]}>
-          <span class="year">{item.year}</span>
-          <div class="moment-body">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
+  <JumpNav items={[
+    { href: '#story-title', label: 'How I got here' },
+    { href: '#how-i-work', label: 'How I work' },
+    { href: '#quotes-title', label: 'In their words' },
+    { href: '#outside-title', label: 'Outside work' },
+  ]} />
+
+  <div class="band band-tint">
+  <section class="container story" aria-labelledby="story-title">
+    <h2 id="story-title">How I got here</h2>
+    <div class="prose">
+      <p>My mother was an artist. My father was a quality control engineer who worked on nuclear reactors during their startup phase, and each new plant meant a new town every two or three years: Vicksburg, Long Island, South Jersey, Pittsburgh, Augusta… Being the new kid taught me to watch closely, understand people, and see things from their side.</p>
+      <p>I started college in physics and engineering, which was all numbers and no people. Then I spent five years running restaurants, which was all people and no numbers. Back in school in Atlanta, I found the middle: understanding why people do what they do, and being able to build on that understanding.</p>
+      <p>My first real lesson came at an energy trading company, when usage of a trading tool I’d designed fell from 800 people to 3 in two days. I spent a week on the trading floor learning how traders actually worked, and we rebuilt the tool around them. Every project I’ve led since has started the same way.</p>
+      <p>At the CDC I took on my first leadership role, in a scientific culture where only evidence counted; our redesign of HIVTest.org lifted HIV testing conversion 70%. At General Motors I led the design of the owner journey across seven brands, and learned that design was expected to grow revenue and loyalty. At Bosch I joined as employee zero in North America and built a practice of about 120 people, and learned that design leaders don’t just make things: they change how organizations think. At VMware I led design and research through the company’s move to SaaS.</p>
+      <p>Today at Siemens I lead a 70-person design, research, and content organization across seven countries, with AI built into how we work. It’s the biggest stage yet for bringing the creative and the quantitative together.</p>
+    </div>
+  </section>
+  </div>
+
+  <div class="band">
+  <section class="container how-i-work" id="how-i-work" aria-labelledby="how-i-work-title">
+    <div class="how-i-work-head">
+      <h2 id="how-i-work-title">How I work</h2>
+      <p class="section-intro">{workThesis}</p>
+    </div>
+    <ol class="cycle">
+      {cycle.map((step, i) => (
+        <li class="cycle-step">
+          <span class="cycle-number" aria-hidden="true">{i + 1}</span>
+          <div class="cycle-body">
+            <h3>{step.title}</h3>
+            <p set:html={step.text} />
           </div>
         </li>
       ))}
     </ol>
+    <p class="cycle-return"><span class="cycle-number" aria-hidden="true">↻</span>Then it starts again, with more leaders to carry it.</p>
   </section>
+  </div>
 
-  <section class="container through-lines" aria-labelledby="through-lines-title">
-    <div class="through-lines-head">
-      <h2 id="through-lines-title">The through lines</h2>
-      <p class="section-intro">A few things have stayed constant across all these chapters:</p>
-    </div>
-    <div class="through-grid">
-      {throughLines.map((line) => (
-        <div class="through-line">
-          <h3>{line.title}</h3>
-          <p>{line.text}</p>
-        </div>
+  <div class="band band-tint">
+  <section class="container quotes" aria-labelledby="quotes-title">
+    <h2 id="quotes-title">In their words</h2>
+    <div class="quote-grid">
+      {quotes.map((q) => (
+        <figure class="quote">
+          <blockquote class="pull-quote"><p>“{q.text}”</p></blockquote>
+          <figcaption class="quote-source"><strong>{q.name}</strong>, {q.context}<br />{q.note}</figcaption>
+        </figure>
       ))}
     </div>
+    <p><a href={recommendationsUrl} target="_blank" rel="noopener noreferrer">Read the full recommendations on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></p>
   </section>
+  </div>
+
+  <div class="band">
+  <section class="container outside" aria-labelledby="outside-title">
+    <h2 id="outside-title">Outside work</h2>
+    <p class="section-intro">I’m fascinated by how things are designed: pens, watches, and especially cars. I’ve owned 24 of them, not to collect, but to live with each one and understand the thinking behind it. I’m still enamored with black holes and time as a fourth dimension. And watching my daughter navigate technology with native fluency keeps revealing my own biases.</p>
+  </section>
+  </div>
 </Layout>
 
 <style>
-  .polaroid {
-    justify-self: center;
-    max-width: 220px;
-    padding: 0.75rem 0.75rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    transform: rotate(2deg);
-  }
-
-  .polaroid img {
-    display: block;
-    width: 100%;
-  }
-
-  .polaroid figcaption {
-    margin-top: 0.625rem;
-    text-align: center;
-    font-size: 0.8125rem;
-    font-style: italic;
-    color: var(--color-text-muted);
-  }
-
-  .timeline-section {
+  .story {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding-top: 1rem;
   }
 
-  .timeline {
-    list-style: none;
-    border-top: 2px solid var(--color-text);
-  }
-
-  .moment {
-    display: grid;
-    grid-template-columns: 9rem minmax(0, 1fr);
-    gap: 2rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .year {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--color-text-muted);
-  }
-
-  .highlight .year {
-    color: var(--color-text);
-  }
-
-  .moment-body {
+  .how-i-work {
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    gap: 2rem;
+  }
+
+  .how-i-work-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
     max-width: var(--max-width-reading);
   }
 
+  /* The cycle: numbered steps down a vertical line (like the old timeline),
+     ending with a note that loops back to step 1. */
+  .cycle {
+    --marker: 2.25rem;
+    list-style: none;
+    max-width: var(--max-width-reading);
+  }
 
-
-  .highlight {
+  .cycle-step {
     position: relative;
-  }
-
-  .highlight .moment-body h3::after {
-    content: 'Turning point';
-    display: inline-block;
-    margin-left: 0.625rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 999px;
-    background: var(--color-surface-muted);
-    color: var(--color-text-secondary);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    vertical-align: 0.2em;
-  }
-
-  .through-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-top: 5rem;
-  }
-
-  .through-lines-head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-
-  .through-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: var(--marker) minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-bottom: 1.75rem;
+  }
+
+  /* The line, from this marker down to the next one (and on to the loop note). */
+  .cycle-step::after {
+    content: '';
+    position: absolute;
+    left: calc(var(--marker) / 2 - 1px);
+    top: var(--marker);
+    bottom: 0;
+    width: 2px;
+    background: var(--color-border-strong);
+  }
+
+  .cycle-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--marker);
+    height: var(--marker);
+    border: 2px solid var(--color-text);
+    border-radius: 50%;
+    background: var(--band-bg);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .cycle-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding-top: 0.25rem;
+  }
+
+  .cycle-return {
+    --marker: 2.25rem;
+    display: grid;
+    grid-template-columns: var(--marker) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: center;
+    max-width: var(--max-width-reading);
+    font-weight: 600;
+  }
+
+  .quotes {
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
   }
 
-  .through-line {
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 3rem;
+  }
+
+  .quote {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin: 0;
     padding-top: 1rem;
     border-top: 2px solid var(--color-text);
   }
 
+  .outside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 
-  .through-line p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
+  .outside .section-intro {
+    max-width: var(--max-width-reading);
   }
 
   @media (max-width: 900px) {
-    .through-grid {
+    .quote-grid {
       grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  @media (max-width: 600px) {
-    .moment {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.5rem;
-    }
-
-    .year {
-      font-size: 1.125rem;
-    }
-
-    .polaroid {
-      justify-self: start;
-      max-width: 180px;
-      transform: rotate(1deg);
     }
   }
 </style>

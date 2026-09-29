@@ -1,0 +1,81 @@
+---
+// Row of pill links to sections further down the page (About, Résumé). It sticks
+// under the site header while the page scrolls beneath it. Place it directly in the
+// page body (not inside the page header), or it stops sticking once that ends.
+// Styles live in global.css (.jump-bar, .jump-links).
+interface Props {
+  items: { href: string; label: string }[];
+  label?: string;
+}
+
+const { items, label = 'On this page' } = Astro.props;
+---
+
+<nav class="jump-bar no-print" aria-label={label}>
+  <div class="container jump-links">
+    {items.map((item, i) => <a href={item.href} aria-current={i === 0 ? 'true' : undefined}>{item.label}</a>)}
+  </div>
+</nav>
+
+<script>
+  // Marks the pill for the section being read. A section counts as current once its
+  // heading has scrolled up to just below the bar; at the very bottom of the page the
+  // last section wins, since a short last section may never reach that point. A clicked
+  // pill stays selected (even if the page can't scroll its section all the way up)
+  // until the reader scrolls on their own again.
+  const bar = document.querySelector('.jump-bar');
+  const links = bar ? [...bar.querySelectorAll('a')] : [];
+  const targets = links.map((link) => document.querySelector(link.getAttribute('href')));
+
+  let pinned = -1;
+
+  function update() {
+    if (pinned >= 0) return select(pinned);
+    const line = bar.getBoundingClientRect().bottom + 24;
+    let current = 0;
+    targets.forEach((target, i) => {
+      if (target && target.getBoundingClientRect().top <= line) current = i;
+    });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      current = links.length - 1;
+    }
+    select(current);
+  }
+
+  function select(current) {
+    links.forEach((link, i) => {
+      if (i === current) {
+        link.setAttribute('aria-current', 'true');
+        // Keep the selected pill visible when the row scrolls sideways on phones.
+        const row = link.parentElement;
+        if (link.offsetLeft < row.scrollLeft || link.offsetLeft + link.offsetWidth > row.scrollLeft + row.clientWidth) {
+          row.scrollTo({ left: link.offsetLeft - 16, behavior: 'smooth' });
+        }
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  if (links.length) {
+    let queued = false;
+    window.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    links.forEach((link, i) => link.addEventListener('click', () => {
+      pinned = i;
+      select(i);
+    }));
+    const unpin = () => {
+      pinned = -1;
+    };
+    ['wheel', 'touchstart', 'keydown'].forEach((type) => window.addEventListener(type, unpin, { passive: true }));
+    update();
+  }
+</script>

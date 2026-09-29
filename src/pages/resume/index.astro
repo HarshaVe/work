@@ -2,11 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import ProtectedEmail from '../../components/ProtectedEmail.astro';
+import JumpNav from '../../components/JumpNav.astro';
 import { contact } from '../../data/site';
 
 // Master résumé. Numbers and phrasing here must match CLAUDE.md, the homepage, and the case studies.
 const skills = [
-  { title: 'Design org leadership & scaling', text: 'Leading large, distributed design orgs (70+ people, director-level reports, 16 years at this scale) · Managing managers · Org design & succession · Player/coach leadership · Culture & mentoring · Partnership with Product & Engineering · Executive alignment · Leading through inflection points' },
+  { title: 'Design org leadership & scaling', text: 'Leading large, distributed design orgs (teams of 100+, director-level reports, 16 years leading design orgs) · Managing managers · Org design & succession · Player/coach leadership · Culture & mentoring · Partnership with Product & Engineering · Executive alignment · Leading through inflection points' },
   { title: 'AI-native design practice', text: 'Agentic & conversational UX · LLM integration & prompt design · Validation frameworks for LLM outputs · AI tooling adoption & workflow redesign · Building org-wide AI fluency · AI-assisted prototyping (Figma Make)' },
   { title: 'Design systems & quality', text: 'Design system ownership at enterprise scale (100K+ pages, 150+ sites consolidated, 3,000+ creators) · Tokens, components & governance · Definitions of done · Launch review frameworks · Accessibility & privacy standards' },
   { title: 'Growth, commerce & conversion', text: 'Marketing & purchase funnel design · Marketplace & e-commerce UX · Vehicle configurators · Experimentation (A/B, multivariate) · Data-informed iteration · Enterprise workflows (CPQ)' },
@@ -176,10 +177,9 @@ const sections = [
     </div>
   </PageHeader>
 
+  <JumpNav label="Résumé sections" items={sections.map((s) => ({ href: `#${s.id}`, label: s.label }))} />
+
   <div class="container resume">
-    <nav class="toc no-print" aria-label="Résumé sections">
-      {sections.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
-    </nav>
 
     <div class="resume-body">
       <section id="experience" class="resume-section">
@@ -249,35 +249,7 @@ const sections = [
   }
 
   .resume {
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
-    gap: 4rem;
-    padding-top: 1rem;
-  }
-
-  .toc {
-    position: sticky;
-    top: calc(var(--header-height) + 1.5rem);
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--color-text);
-  }
-
-  .toc a {
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-    border-bottom: 1px solid var(--color-border);
-    font-size: 0.9375rem;
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .toc a:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
+    padding-top: 3rem;
   }
 
   .resume-body {
@@ -404,23 +376,7 @@ const sections = [
 
   @media (max-width: 900px) {
     .resume {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 2rem;
-      padding-top: 0;
-    }
-
-    .toc {
-      position: static;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      border-top: none;
-    }
-
-    .toc a {
-      padding: 0 1rem;
-      border: 1px solid var(--color-border-strong);
-      border-radius: 999px;
+      padding-top: 2rem;
     }
   }
 
