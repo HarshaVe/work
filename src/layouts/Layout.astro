@@ -65,7 +65,30 @@ const navItems = [
 
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="site-name">Harsha Vemulapalli</a>
+        <a href="/" class:list={['site-name', { 'is-home': currentPath === '/' }]} aria-label="Harsha Vemulapalli, home">
+          <svg class="site-mark" viewBox="0 0 100 100" aria-hidden="true">
+            <path class="site-mark-disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
+            <path class="site-mark-stroke" pathLength="1" style="--w: 0.5s; --d: 0.22s" d="M29 34 C29.6 46,28.8 58,29.4 68" />
+            <path class="site-mark-stroke" pathLength="1" style="--w: 0.68s; --d: 0.22s" d="M45 33 C45.4 45,44.8 58,45.3 69" />
+            <path class="site-mark-stroke" pathLength="1" style="--w: 0.86s; --d: 0.18s" d="M28 51.5 C33 50.6,39 51.8,45.5 50.4" />
+            <path class="site-mark-stroke" pathLength="1" style="--w: 1s; --d: 0.35s" d="M54 34 C57 46,60 57,63.5 68 C66.5 57,69.5 45,73 33" />
+          </svg>
+          <span class="site-name-text">
+            <span class="site-name-default">Harsha Vemulapalli</span>
+            <span class="site-name-hover" aria-hidden="true">Return to homepage</span>
+          </span>
+        </a>
+        <script is:inline>
+          // The HV mark lands and draws itself once per visit. Runs inline, before first
+          // paint, so it never flashes.
+          (function () {
+            var mark = document.querySelector('.site-name .site-mark');
+            if (!mark || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var seen = false;
+            try { seen = sessionStorage.getItem('hv-drawn') === '1'; sessionStorage.setItem('hv-drawn', '1'); } catch (e) {}
+            if (!seen) mark.classList.add('draw');
+          })();
+        </script>
         <nav aria-label="Main">
           <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
             <span class="hamburger"></span>
@@ -147,13 +170,115 @@ const navItems = [
     position: relative;
   }
 
-  .site-name,
-  .site-name:hover {
-    text-decoration: none;
+  /* Hand-drawn HV mark + name. It's the link home: on hover the name changes to
+     "Return to homepage". */
+  .site-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
     font-size: 1.125rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--color-text);
+    text-decoration: none;
+  }
+
+  /* HV mark: a hand-drawn solid navy circle with white hand-drawn letters. Once per
+     visit the circle drops in and lands with a small squash (a "thud"), then each letter
+     stroke draws in (stroke-dashoffset 1 → 0; --w is a stroke's delay, --d its
+     duration). Hovering doesn't animate it; the name changes instead. */
+  .site-mark {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    overflow: visible;
+  }
+
+  .site-mark-disc {
+    fill: var(--color-accent-strong);
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+
+  .site-mark-stroke {
+    fill: none;
+    stroke: var(--color-surface);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .site-mark.draw .site-mark-disc {
+    animation: land 0.5s cubic-bezier(0.5, 0, 0.3, 1) both;
+  }
+
+  .site-mark.draw .site-mark-stroke {
+    animation: draw-stroke var(--d, 0.3s) cubic-bezier(0.6, 0.05, 0.3, 1) var(--w, 0s) both;
+  }
+
+  @keyframes land {
+    0% {
+      opacity: 0;
+      transform: translateY(-60%) scale(0.85);
+    }
+
+    55% {
+      opacity: 1;
+      transform: translateY(0) scale(1.1, 0.88);
+    }
+
+    75% {
+      transform: translateY(0) scale(0.96, 1.04);
+    }
+
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes draw-stroke {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Both labels share one grid cell, so swapping them never shifts the header. */
+  .site-name-text {
+    display: grid;
+  }
+
+  .site-name-default,
+  .site-name-hover {
+    grid-area: 1 / 1;
+    transition: opacity 0.15s;
+  }
+
+  /* The name matches the mark's navy, so the two read as one lockup. */
+  .site-name-default {
+    color: var(--color-accent-strong);
+  }
+
+  .site-name-hover {
+    opacity: 0;
+    font-weight: 400;
+    color: var(--color-accent);
+  }
+
+  /* On hover (not on the homepage itself), the name becomes "Return to homepage". */
+  .site-name:not(.is-home):hover .site-name-default,
+  .site-name:not(.is-home):focus-visible .site-name-default {
+    opacity: 0;
+  }
+
+  .site-name:not(.is-home):hover .site-name-hover,
+  .site-name:not(.is-home):focus-visible .site-name-hover {
+    opacity: 1;
   }
 
   .nav-links {
