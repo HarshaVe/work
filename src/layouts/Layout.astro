@@ -66,17 +66,33 @@ const navItems = [
     <header class="site-header">
       <div class="container header-inner">
         <a href="/" class="site-name" title="Home" aria-label="Harsha Vemulapalli, home">
-          <svg class="site-mark" viewBox="0 0 64 64" aria-hidden="true">
-            <circle cx="32" cy="32" r="32" />
-            <g transform="translate(-2 0)">
-              <rect x="10" y="18" width="7" height="28" />
-              <rect x="24" y="18" width="7" height="28" />
-              <rect x="10" y="29" width="21" height="6" />
-              <polygon points="34,18 41.5,18 46,36.5 50.5,18 58,18 50,46 42,46" />
-            </g>
+          <svg class="site-mark" viewBox="0 0 100 100" aria-hidden="true">
+            <path pathLength="1" style="--d: 0.7s" stroke-width="5.5" d="M70 14 C52 4,22 10,12 34 C3 56,14 84,40 91 C66 98,90 80,91 55 C92 33,81 19,63 12 C59 11,55 11,51 12" />
+            <path pathLength="1" style="--w: 0.6s; --d: 0.22s" stroke-width="6.5" d="M29 34 C29.6 46,28.8 58,29.4 68" />
+            <path pathLength="1" style="--w: 0.78s; --d: 0.22s" stroke-width="6.5" d="M45 33 C45.4 45,44.8 58,45.3 69" />
+            <path pathLength="1" style="--w: 0.96s; --d: 0.18s" stroke-width="6.5" d="M28 51.5 C33 50.6,39 51.8,45.5 50.4" />
+            <path pathLength="1" style="--w: 1.1s; --d: 0.35s" stroke-width="6.5" d="M54 34 C57 46,60 57,63.5 68 C66.5 57,69.5 45,73 33" />
           </svg>
           <span class="site-name-text">Harsha Vemulapalli</span>
         </a>
+        <script is:inline>
+          // The HV mark draws itself once per visit and again on hover (the hint that
+          // it's the link home). Runs inline, before first paint, so it never flashes.
+          (function () {
+            var link = document.querySelector('.site-name');
+            var mark = link && link.querySelector('.site-mark');
+            if (!mark || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            function draw() {
+              mark.classList.remove('draw');
+              void mark.getBoundingClientRect();
+              mark.classList.add('draw');
+            }
+            var seen = false;
+            try { seen = sessionStorage.getItem('hv-drawn') === '1'; sessionStorage.setItem('hv-drawn', '1'); } catch (e) {}
+            if (!seen) draw();
+            link.addEventListener('mouseenter', draw);
+          })();
+        </script>
         <nav aria-label="Main">
           <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
             <span class="hamburger"></span>
@@ -158,9 +174,8 @@ const navItems = [
     position: relative;
   }
 
-  /* HV monogram (same mark as the favicon) + name. It's the link home, so on hover it
-     behaves like the nav links: the name turns blue and underlines, and the circle
-     gets a ring. */
+  /* Hand-drawn HV mark + name. It's the link home, so on hover it behaves like the nav
+     links (the name turns blue and underlines) and the mark redraws itself. */
   .site-name {
     display: inline-flex;
     align-items: center;
@@ -172,20 +187,35 @@ const navItems = [
     text-decoration: none;
   }
 
+  /* Hand-drawn HV mark in the brand navy. Each stroke draws in (stroke-dashoffset
+     1 → 0); --w is its delay and --d its duration. */
   .site-mark {
     flex-shrink: 0;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    transition: box-shadow 0.15s;
+    width: 40px;
+    height: 40px;
   }
 
-  .site-mark circle {
-    fill: var(--color-accent-strong);
+  .site-mark path {
+    fill: none;
+    stroke: var(--color-accent-strong);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
   }
 
-  .site-mark g {
-    fill: var(--color-surface);
+  .site-mark.draw path {
+    animation: draw-stroke var(--d, 0.5s) cubic-bezier(0.6, 0.05, 0.3, 1) var(--w, 0s) both;
+  }
+
+  @keyframes draw-stroke {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .site-name:hover .site-name-text {
@@ -193,10 +223,6 @@ const navItems = [
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
-  }
-
-  .site-name:hover .site-mark {
-    box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-accent-strong);
   }
 
   .nav-links {
