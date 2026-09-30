@@ -79,22 +79,14 @@ const navItems = [
           </span>
         </a>
         <script is:inline>
-          // The HV mark lands and draws itself once per visit; on hover the letters rewrite
-          // (the hint that it's the link home). Runs inline, before first paint, so it never flashes.
+          // The HV mark lands and draws itself once per visit. Runs inline, before first
+          // paint, so it never flashes.
           (function () {
-            var link = document.querySelector('.site-name');
-            var mark = link && link.querySelector('.site-mark');
+            var mark = document.querySelector('.site-name .site-mark');
             if (!mark || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            // "draw" = circle lands, then letters; "rewrite" = letters only (on hover).
-            function play(kind) {
-              mark.classList.remove('draw', 'rewrite');
-              void mark.getBoundingClientRect();
-              mark.classList.add(kind);
-            }
             var seen = false;
             try { seen = sessionStorage.getItem('hv-drawn') === '1'; sessionStorage.setItem('hv-drawn', '1'); } catch (e) {}
-            if (!seen) play('draw');
-            link.addEventListener('mouseenter', function () { play('rewrite'); });
+            if (!seen) mark.classList.add('draw');
           })();
         </script>
         <nav aria-label="Main">
@@ -178,8 +170,8 @@ const navItems = [
     position: relative;
   }
 
-  /* Hand-drawn HV mark + name. It's the link home: on hover the mark redraws itself and
-     the name changes to "Return to homepage". */
+  /* Hand-drawn HV mark + name. It's the link home: on hover the name changes to
+     "Return to homepage". */
   .site-name {
     display: inline-flex;
     align-items: center;
@@ -191,10 +183,10 @@ const navItems = [
     text-decoration: none;
   }
 
-  /* HV mark: a hand-drawn solid navy circle with white hand-drawn letters. On first
-     load the circle drops in and lands with a small squash (a "thud"), then each letter
-     stroke draws in; on hover only the letters redraw. Strokes animate
-     stroke-dashoffset 1 → 0; --w is a stroke's delay, --d its duration. */
+  /* HV mark: a hand-drawn solid navy circle with white hand-drawn letters. Once per
+     visit the circle drops in and lands with a small squash (a "thud"), then each letter
+     stroke draws in (stroke-dashoffset 1 → 0; --w is a stroke's delay, --d its
+     duration). Hovering doesn't animate it; the name changes instead. */
   .site-mark {
     flex-shrink: 0;
     width: 40px;
@@ -224,11 +216,6 @@ const navItems = [
 
   .site-mark.draw .site-mark-stroke {
     animation: draw-stroke var(--d, 0.3s) cubic-bezier(0.6, 0.05, 0.3, 1) var(--w, 0s) both;
-  }
-
-  /* On hover only the letters rewrite, starting right away (no landing to wait for). */
-  .site-mark.rewrite .site-mark-stroke {
-    animation: draw-stroke var(--d, 0.3s) cubic-bezier(0.6, 0.05, 0.3, 1) calc(var(--w, 0.5s) - 0.5s) both;
   }
 
   @keyframes land {
