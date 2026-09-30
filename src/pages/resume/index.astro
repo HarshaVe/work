@@ -5,7 +5,7 @@ import ProtectedEmail from '../../components/ProtectedEmail.astro';
 import JumpNav from '../../components/JumpNav.astro';
 import { contact } from '../../data/site';
 
-// Master résumé. Numbers and phrasing here must match CLAUDE.md, the homepage, and the case studies.
+// Master resume. Numbers and phrasing here must match CLAUDE.md, the homepage, and the case studies.
 const skills = [
   { title: 'Design org leadership & scaling', text: 'Leading large, distributed design orgs (teams of 100+, director-level reports, 16 years leading design orgs) · Managing managers · Org design & succession · Player/coach leadership · Culture & mentoring · Partnership with Product & Engineering · Executive alignment · Leading through inflection points' },
   { title: 'AI-native design practice', text: 'Agentic & conversational UX · LLM integration & prompt design · Validation frameworks for LLM outputs · AI tooling adoption & workflow redesign · Building org-wide AI fluency · AI-assisted prototyping (Figma Make)' },
@@ -57,7 +57,7 @@ const jobs: Job[] = [
     ] }],
   },
   {
-    role: 'Sr. Design Director',
+    role: 'Senior Director User Experience Design & Research',
     company: 'VMware',
     dates: 'April 2021 – September 2022',
     summary: 'Led design, research, and experience strategy for mission-critical enterprise tools through VMware’s Sub-to-SaaS transformation, a company-level inflection point.',
@@ -156,15 +156,16 @@ const education = [
 ];
 
 const sections = [
+  { id: 'intro', label: 'Summary' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'thought-leadership', label: 'Thought leadership' },
   { id: 'education', label: 'Education & certifications' },
 ];
 ---
-<Layout title="Résumé" description="Résumé of Harsha Vemulapalli, design executive with 25+ years building and leading design and research organizations.">
+<Layout title="Resume" description="Resume of Harsha Vemulapalli, design executive with 25+ years building and leading design and research organizations.">
   <PageHeader
-    eyebrow="Résumé"
+    eyebrow="Resume"
     title="Harsha Vemulapalli"
     lede="Design executive with 25+ years of experience, 16 of them leading and scaling design organizations with director-level reports. I build AI-native design and research practices, and the quality systems that let distributed teams ship at a consistently high bar, across enterprise platforms, commerce, connected vehicles, and regulated public health. Currently leading a 70-person UX, research, and content strategy organization at Siemens across seven countries."
   >
@@ -172,14 +173,13 @@ const sections = [
       {contact.location} · <ProtectedEmail /> · <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="print-only"> ({contact.linkedin.replace('https://www.', '')})</span></a><span class="print-only"> · harshav.com</span>
     </p>
     <div class="button-row no-print">
-      <a href={contact.resumePdf} class="button button-primary" download>Download PDF</a>
-      <a href="/contact" class="button button-secondary">Get in touch</a>
+      <a href="/contact" class="button button-primary">Get in touch</a>
+      <a href={contact.resumePdf} class="button button-secondary" download>Download resume</a>
     </div>
   </PageHeader>
 
-  <JumpNav label="Résumé sections" items={sections.map((s) => ({ href: `#${s.id}`, label: s.label }))} />
-
-  <div class="container resume">
+  <div class="container resume has-rail">
+    <JumpNav label="Resume sections" items={sections.map((s) => ({ href: `#${s.id}`, label: s.label }))} />
 
     <div class="resume-body">
       <section id="experience" class="resume-section">
@@ -377,6 +377,10 @@ const sections = [
   @media (max-width: 900px) {
     .resume {
       padding-top: 2rem;
+    }
+
+    .resume-body {
+      padding-top: 1.5rem;
     }
   }
 

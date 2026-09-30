@@ -30,71 +30,82 @@ const quotes = [
     <p class="lede">Great products need the imagination to see something better, the systems that let hundreds of people build it well, and the evidence that it truly works for customers. I’ve spent my career building teams that bring all three together, and growing the people who lead them.</p>
   </PageHeader>
 
-  <JumpNav items={[
-    { href: '#story-title', label: 'How I got here' },
-    { href: '#how-i-work', label: 'How I work' },
-    { href: '#quotes-title', label: 'In their words' },
-    { href: '#outside-title', label: 'Outside work' },
-  ]} />
 
-  <div class="band band-tint">
-  <section class="container story" aria-labelledby="story-title">
-    <h2 id="story-title">How I got here</h2>
-    <div class="prose">
-      <p>My mother was an artist. My father was a quality control engineer who worked on nuclear reactors during their startup phase, and each new plant meant a new town every two or three years: Vicksburg, Long Island, South Jersey, Pittsburgh, Augusta… Being the new kid taught me to watch closely, understand people, and see things from their side.</p>
-      <p>I started college in physics and engineering, which was all numbers and no people. Then I spent five years running restaurants, which was all people and no numbers. Back in school in Atlanta, I found the middle: understanding why people do what they do, and being able to build on that understanding.</p>
-      <p>My first real lesson came at an energy trading company, when usage of a trading tool I’d designed fell from 800 people to 3 in two days. I spent a week on the trading floor learning how traders actually worked, and we rebuilt the tool around them. Every project I’ve led since has started the same way.</p>
-      <p>At the CDC I took on my first leadership role, in a scientific culture where only evidence counted; our redesign of HIVTest.org lifted HIV testing conversion 70%. At General Motors I led the design of the owner journey across seven brands, and learned that design was expected to grow revenue and loyalty. At Bosch I joined as employee zero in North America and built a practice of about 120 people, and learned that design leaders don’t just make things: they change how organizations think. At VMware I led design and research through the company’s move to SaaS.</p>
-      <p>Today at Siemens I lead a 70-person design, research, and content organization across seven countries, with AI built into how we work. It’s the biggest stage yet for bringing the creative and the quantitative together.</p>
+
+  <div class="container has-rail about-rail">
+    <JumpNav items={[
+      { href: '#intro', label: 'Intro' },
+      { href: '#story-title', label: 'How I got here' },
+      { href: '#how-i-work', label: 'How I work' },
+      { href: '#quotes-title', label: 'In their words' },
+      { href: '#outside-title', label: 'Outside work' },
+    ]} />
+    <div>
+      <div class="band band-tint">
+      <section class="story" aria-labelledby="story-title">
+        <h2 id="story-title">How I got here</h2>
+        <div class="prose">
+          <p>My mother was an artist. My father was a quality control engineer who worked on nuclear reactors during their startup phase, and each new plant meant a new town every two or three years: Vicksburg, Long Island, South Jersey, Pittsburgh, Augusta… Being the new kid taught me to watch closely, understand people, and see things from their side.</p>
+          <p>I started college in physics and engineering, which was all numbers and no people. Then I spent five years running restaurants, which was all people and no numbers. Back in school in Atlanta, I found the middle: understanding why people do what they do, and being able to build on that understanding.</p>
+          <p>My first real lesson came at an energy trading company, when usage of a trading tool I’d designed fell from 800 people to 3 in two days. I spent a week on the trading floor learning how traders actually worked, and we rebuilt the tool around them. Every project I’ve led since has started the same way.</p>
+          <p>At the CDC I took on my first leadership role, in a scientific culture where only evidence counted; our redesign of HIVTest.org lifted HIV testing conversion 70%. At General Motors I led the design of the owner journey across seven brands, and learned that design was expected to grow revenue and loyalty. At Bosch I joined as employee zero in North America and built a practice of about 120 people, and learned that design leaders don’t just make things: they change how organizations think. At VMware I led design and research through the company’s move to SaaS.</p>
+          <p>Today at Siemens I lead a 70-person design, research, and content organization across seven countries, with AI built into how we work. It’s the biggest stage yet for bringing the creative and the quantitative together.</p>
+        </div>
+      </section>
+      </div>
+
+      <div class="band">
+      <section class="how-i-work" id="how-i-work" aria-labelledby="how-i-work-title">
+        <div class="how-i-work-head">
+          <h2 id="how-i-work-title">How I work</h2>
+          <p class="section-intro">{workThesis}</p>
+        </div>
+        <ol class="cycle">
+          {cycle.map((step, i) => (
+            <li class="cycle-step">
+              <span class="cycle-number" aria-hidden="true">{i + 1}</span>
+              <div class="cycle-body">
+                <h3>{step.title}</h3>
+                <p set:html={step.text} />
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="cycle-return"><span class="cycle-number" aria-hidden="true">↻</span>Then it starts again, with more leaders to carry it.</p>
+      </section>
+      </div>
+
+      <div class="band band-tint">
+      <section class="quotes" aria-labelledby="quotes-title">
+        <h2 id="quotes-title">In their words</h2>
+        <div class="quote-grid">
+          {quotes.map((q) => (
+            <figure class="quote">
+              <blockquote class="pull-quote"><p>“{q.text}”</p></blockquote>
+              <figcaption class="quote-source"><strong>{q.name}</strong>, {q.context}<br />{q.note}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p><a href={recommendationsUrl} target="_blank" rel="noopener noreferrer">Read the full recommendations on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+      </section>
+      </div>
+
+      <div class="band">
+      <section class="outside" aria-labelledby="outside-title">
+        <h2 id="outside-title">Outside work</h2>
+        <p class="section-intro">I’m fascinated by how things are designed: pens, watches, and especially cars. I’ve owned 24 of them, not to collect, but to live with each one and understand the thinking behind it. I’m still enamored with black holes and time as a fourth dimension. And watching my daughter navigate technology with native fluency keeps revealing my own biases.</p>
+      </section>
+      </div>
     </div>
-  </section>
-  </div>
-
-  <div class="band">
-  <section class="container how-i-work" id="how-i-work" aria-labelledby="how-i-work-title">
-    <div class="how-i-work-head">
-      <h2 id="how-i-work-title">How I work</h2>
-      <p class="section-intro">{workThesis}</p>
-    </div>
-    <ol class="cycle">
-      {cycle.map((step, i) => (
-        <li class="cycle-step">
-          <span class="cycle-number" aria-hidden="true">{i + 1}</span>
-          <div class="cycle-body">
-            <h3>{step.title}</h3>
-            <p set:html={step.text} />
-          </div>
-        </li>
-      ))}
-    </ol>
-    <p class="cycle-return"><span class="cycle-number" aria-hidden="true">↻</span>Then it starts again, with more leaders to carry it.</p>
-  </section>
-  </div>
-
-  <div class="band band-tint">
-  <section class="container quotes" aria-labelledby="quotes-title">
-    <h2 id="quotes-title">In their words</h2>
-    <div class="quote-grid">
-      {quotes.map((q) => (
-        <figure class="quote">
-          <blockquote class="pull-quote"><p>“{q.text}”</p></blockquote>
-          <figcaption class="quote-source"><strong>{q.name}</strong>, {q.context}<br />{q.note}</figcaption>
-        </figure>
-      ))}
-    </div>
-    <p><a href={recommendationsUrl} target="_blank" rel="noopener noreferrer">Read the full recommendations on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></p>
-  </section>
-  </div>
-
-  <div class="band">
-  <section class="container outside" aria-labelledby="outside-title">
-    <h2 id="outside-title">Outside work</h2>
-    <p class="section-intro">I’m fascinated by how things are designed: pens, watches, and especially cars. I’ve owned 24 of them, not to collect, but to live with each one and understand the thinking behind it. I’m still enamored with black holes and time as a fourth dimension. And watching my daughter navigate technology with native fluency keeps revealing my own biases.</p>
-  </section>
   </div>
 </Layout>
 
 <style>
+  /* Line the rail up with the first section heading (the band's top padding). */
+  .about-rail {
+    --rail-offset: 5rem;
+  }
+
   .story {
     display: flex;
     flex-direction: column;
