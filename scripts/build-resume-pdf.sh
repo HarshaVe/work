@@ -1,5 +1,5 @@
 #!/bin/sh
-# Regenerates public/downloads/harsha-vemulapalli-resume.pdf from the Résumé page,
+# Regenerates public/downloads/harsha-vemulapalli-resume.pdf from the Resume page,
 # so the PDF and the page never drift apart. Run with the dev server up (npm run dev).
 set -e
 URL="${1:-http://localhost:4321/resume/}"

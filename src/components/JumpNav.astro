@@ -1,8 +1,8 @@
 ---
-// Row of pill links to sections further down the page (About, Résumé). It sticks
-// under the site header while the page scrolls beneath it. Place it directly in the
-// page body (not inside the page header), or it stops sticking once that ends.
-// Styles live in global.css (.jump-bar, .jump-links).
+// "On this page" rail for long pages (About, Resume). Place it as the first child of
+// a `.has-rail` grid, with the page content in the second column. Desktop: a sticky
+// list beside the content. Phones: underlined tabs that stick under the site header.
+// Styles live in global.css (.has-rail, .rail).
 interface Props {
   items: { href: string; label: string }[];
   label?: string;
@@ -11,27 +11,32 @@ interface Props {
 const { items, label = 'On this page' } = Astro.props;
 ---
 
-<nav class="jump-bar no-print" aria-label={label}>
-  <div class="container jump-links">
-    {items.map((item, i) => <a href={item.href} aria-current={i === 0 ? 'true' : undefined}>{item.label}</a>)}
-  </div>
+<nav class="rail no-print" aria-label={label}>
+  <p class="rail-label">On this page</p>
+  <ul>
+    {items.map((item, i) => <li><a href={item.href} aria-current={i === 0 ? 'true' : undefined}>{item.label}</a></li>)}
+  </ul>
 </nav>
 
 <script>
-  // Marks the pill for the section being read. A section counts as current once its
-  // heading has scrolled up to just below the bar; at the very bottom of the page the
-  // last section wins, since a short last section may never reach that point. A clicked
-  // pill stays selected (even if the page can't scroll its section all the way up)
-  // until the reader scrolls on their own again.
-  const bar = document.querySelector('.jump-bar');
-  const links = bar ? [...bar.querySelectorAll('a')] : [];
+  // Marks the link for the section being read. A section counts as current once its
+  // heading has scrolled into the top quarter of the screen, below the site header (or
+  // below the tab row on phones). At the very bottom of the page the last section wins,
+  // since a short last section may never reach that point. A clicked link stays selected
+  // (even if the page can't scroll its section all the way up) until the reader scrolls
+  // on their own again.
+  const nav = document.querySelector('.rail');
+  const header = document.querySelector('.site-header');
+  const links = nav ? [...nav.querySelectorAll('a')] : [];
   const targets = links.map((link) => document.querySelector(link.getAttribute('href')));
+  const phone = window.matchMedia('(max-width: 900px)');
 
   let pinned = -1;
 
   function update() {
     if (pinned >= 0) return select(pinned);
-    const line = bar.getBoundingClientRect().bottom + 24;
+    const edge = phone.matches ? nav.getBoundingClientRect().bottom : header.getBoundingClientRect().bottom;
+    const line = edge + Math.min(160, window.innerHeight * 0.25);
     let current = 0;
     targets.forEach((target, i) => {
       if (target && target.getBoundingClientRect().top <= line) current = i;
@@ -46,9 +51,9 @@ const { items, label = 'On this page' } = Astro.props;
     links.forEach((link, i) => {
       if (i === current) {
         link.setAttribute('aria-current', 'true');
-        // Keep the selected pill visible when the row scrolls sideways on phones.
-        const row = link.parentElement;
-        if (link.offsetLeft < row.scrollLeft || link.offsetLeft + link.offsetWidth > row.scrollLeft + row.clientWidth) {
+        // On phones, keep the selected tab visible when the row scrolls sideways.
+        const row = link.closest('ul');
+        if (phone.matches && (link.offsetLeft < row.scrollLeft || link.offsetLeft + link.offsetWidth > row.scrollLeft + row.clientWidth)) {
           row.scrollTo({ left: link.offsetLeft - 16, behavior: 'smooth' });
         }
       } else {

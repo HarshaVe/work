@@ -11,7 +11,7 @@ const { title, eyebrow, lede, back } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 
-<header class:list={['container', 'page-header', { 'has-aside': hasAside }]}>
+<header id="intro" class:list={['container', 'page-header', { 'has-aside': hasAside }]}>
   <div class="page-header-text">
     {back && <a href={back.href} class="back-link">← {back.label}</a>}
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}

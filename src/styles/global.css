@@ -360,67 +360,111 @@ a:active {
   resize: vertical;
 }
 
-/* ---------- Jump links ----------
-   Pill links to sections further down the same page (About, Résumé), in a bar that
-   sticks under the site header while the page scrolls beneath it. Links, not buttons:
-   they navigate, they don't filter (the Work page's filter buttons do that). */
-:root {
-  --jump-bar-height: 4rem;
+/* ---------- On-this-page rail ----------
+   Links to the sections of a long page (About, Resume). On desktop it's a list in a
+   sticky left column beside the content, with a black bar marking the section being
+   read (same idea as the underline on the current page in the top nav). On phones it
+   becomes a row of underlined tabs that sticks under the site header. Links, not
+   buttons: they navigate, they don't filter. */
+.has-rail {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 3.5rem;
 }
 
-html:has(.jump-bar) {
-  scroll-padding-top: calc(var(--header-height) + var(--jump-bar-height) + 1rem);
-}
-
-.jump-bar {
+.rail {
   position: sticky;
-  top: var(--header-height);
-  z-index: 90;
-  background: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
+  top: calc(var(--header-height) + 2rem);
+  z-index: 5;
+  align-self: start;
+  /* Pages can push the list down to line up with their first heading. */
+  padding-top: var(--rail-offset, 0);
 }
 
-.jump-links {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: var(--jump-bar-height);
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem;
-  /* One row always; on narrow screens it scrolls sideways instead of wrapping. */
-  overflow-x: auto;
-  scrollbar-width: none;
+.rail-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
 }
 
-.jump-links a {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 1rem;
-  border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
-  background: var(--color-surface);
+.rail ul {
+  list-style: none;
+}
+
+.rail a {
+  display: block;
+  padding: 0.4375rem 0 0.4375rem 0.875rem;
+  border-left: 1px solid var(--color-border-strong);
   font-size: 0.9375rem;
-  white-space: nowrap;
+  line-height: 1.35;
   color: var(--color-text);
   text-decoration: none;
 }
 
-.jump-links a:hover {
-  border-color: var(--color-accent);
+.rail a:hover {
   color: var(--color-accent);
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
 
-/* The section being read: same selected look as the Work page's filter buttons. */
-.jump-links a[aria-current="true"] {
-  background: var(--color-accent-strong);
-  border-color: var(--color-accent-strong);
-  color: var(--color-surface);
-  text-decoration: none;
+.rail a[aria-current="true"] {
+  padding-left: calc(0.875rem - 1px);
+  border-left: 2px solid var(--color-text);
+  font-weight: 600;
+}
+
+/* Bands inside a rail layout still run edge to edge behind it. */
+.has-rail .band {
+  box-shadow: 0 0 0 100vmax var(--band-bg);
+  clip-path: inset(0 -100vmax);
+}
+
+main:has(> .has-rail:last-child > div > .band:last-child) + .site-footer {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  html:has(.rail) {
+    scroll-padding-top: calc(var(--header-height) + 4rem);
+  }
+
+  .has-rail {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .rail {
+    top: var(--header-height);
+    z-index: 90;
+    margin: 0 calc(-1 * var(--page-gutter));
+    padding: 0 var(--page-gutter);
+    background: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .rail-label {
+    display: none;
+  }
+
+  .rail ul {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .rail a,
+  .rail a[aria-current="true"] {
+    padding: 0.875rem 0 0.75rem;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .rail a[aria-current="true"] {
+    border-bottom-color: var(--color-text);
+  }
 }
 
 /* Quotation from someone else (e.g. a recommendation), with its source below. */
@@ -468,7 +512,7 @@ main:has(> .band:last-child) + .site-footer {
 }
 
 /* ---------- Print ----------
-   Used for the résumé PDF, and for anyone printing a page. Hides site chrome
+   Used for the resume PDF, and for anyone printing a page. Hides site chrome
    and switches to a compact type scale; colors stay on the same tokens. */
 .print-only {
   display: none;
@@ -492,6 +536,10 @@ main:has(> .band:last-child) + .site-footer {
     font-size: 9pt;
     line-height: 1.4;
     background: var(--color-surface);
+  }
+
+  .has-rail {
+    display: block;
   }
 
   .site-header,

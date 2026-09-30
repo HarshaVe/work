@@ -1,5 +1,5 @@
 // Single source for contact details, the experience summary, and the
-// homepage pivots / direct-link pages. Keep numbers in sync with the résumé.
+// homepage pivots / direct-link pages. Keep numbers in sync with the resume.
 
 export const contact = {
   email: 'hello@harshav.com',
@@ -52,7 +52,7 @@ export const cycle = [
 export const experience = [
   { company: 'Siemens', role: 'Global Director, Experience Design & Research', summary: '5→70 org, One Siemens catalog, AI product finder (+23% conversion)', years: '2023–now' },
   { company: 'Amazon', role: 'Sr. Manager, UX Smart Vehicle', summary: '13-person team, next-gen in-vehicle platform', years: '2022–23' },
-  { company: 'VMware', role: 'Sr. Design Director', summary: 'Sub-to-SaaS transformation, CPQ −30% time-on-task', years: '2021–22' },
+  { company: 'VMware', role: 'Senior Director User Experience Design & Research', summary: 'Sub-to-SaaS transformation, CPQ −30% time-on-task', years: '2021–22' },
   { company: 'CARFAX', role: 'Director, Digital Brand UX & Research', summary: '+7% conversion, −26% dev churn', years: '2019–21' },
   { company: 'Robert Bosch', role: 'Head of Design, North America', summary: 'Employee zero → ~120-person practice, $6M saved', years: '2016–19' },
   { company: 'General Motors', role: 'UX Manager', summary: '7 apps in 23 languages in a year, $1M+ new revenue', years: '2014–16' },
