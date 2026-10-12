@@ -26,6 +26,14 @@ const portfolio = defineCollection({
       src: z.string(),
       caption: z.string(),
     })).optional(),
+    /** "At a glance" box at the top of the case study (from Harsha's Oct 2026 spreadsheet). */
+    glance: z.object({
+      outcome: z.string(),
+      did: z.array(z.string()),
+      team: z.string(),
+      partners: z.string(),
+      org: z.string(),
+    }).optional(),
     downloadFile: z.string().optional(),
     downloadLabel: z.string().optional(),
   }),

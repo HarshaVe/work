@@ -486,6 +486,72 @@ main:has(> .has-rail:last-child > div > .band:last-child) + .site-footer {
   color: var(--color-text);
 }
 
+/* ---------- Case study "At a glance" box ----------
+   Sits above the long write-up: outcome, what Harsha personally did, the project
+   team, partners, and the org he led at the time. Labels are grey metadata; the
+   answers are near-black, with the outcome slightly stronger. */
+.glance {
+  max-width: var(--max-width-reading);
+  margin-bottom: 3rem;
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-radius: var(--radius-large);
+  background: var(--color-accent-soft);
+}
+
+.glance .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.glance dl > div {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-accent-border);
+}
+
+.glance dl > div:first-child {
+  border-top: none;
+}
+
+.glance dt {
+  padding-top: 0.125rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.glance dd {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.glance-outcome dd {
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.glance dd ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding-left: 1.125rem;
+}
+
+@media (max-width: 600px) {
+  .glance {
+    padding: 1.25rem;
+  }
+
+  .glance dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+}
+
 /* ---------- Page bands ----------
    Full-width sections that alternate the page color and a light blue-grey tint,
    so each topic reads as a new section (homepage, /for pages, About).

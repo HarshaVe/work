@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { entry, next } = Astro.props;
 const { Content } = await entry.render();
-const { title, description, company, role, dates, tags, heroImage, gallery = [], downloadFile } = entry.data;
+const { title, description, company, role, dates, tags, heroImage, gallery = [], downloadFile, glance } = entry.data;
 const downloadLabel = entry.data.downloadLabel || 'Download PDF';
 const displayDates = dates.replace('-', '–').replace('Present', 'now');
 ---
@@ -39,9 +39,24 @@ const displayDates = dates.replace('-', '–').replace('Present', 'now');
       {downloadFile && <a href={downloadFile} class="button button-secondary" target="_blank" rel="noopener">{downloadLabel}</a>}
     </aside>
 
-    <article class="prose">
-      <Content />
-    </article>
+    <div class="case-main">
+      {glance && (
+        <section class="glance" aria-labelledby="glance-title">
+          <h2 id="glance-title" class="eyebrow">At a glance</h2>
+          <dl>
+            <div class="glance-outcome"><dt>Outcome</dt><dd>{glance.outcome}</dd></div>
+            <div><dt>What I did</dt><dd><ul>{glance.did.map((item) => <li>{item}</li>)}</ul></dd></div>
+            <div><dt>Project team</dt><dd>{glance.team}</dd></div>
+            <div><dt>Worked with</dt><dd>{glance.partners}</dd></div>
+            <div><dt>The org I led</dt><dd>{glance.org}</dd></div>
+          </dl>
+        </section>
+      )}
+
+      <article class="prose">
+        <Content />
+      </article>
+    </div>
   </div>
 
   {gallery.length > 0 && (

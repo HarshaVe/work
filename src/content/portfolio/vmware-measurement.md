@@ -22,6 +22,15 @@ gallery:
     caption: "Experience Scorecard"
   - src: "/images/portfolio/vmware-measurement/proof-of-concept-intranet-scorecard.png"
     caption: "Proof of Concept - Intranet Scorecard"
+glance:
+  outcome: "eNPS +3%; 75%+ CSAT on mission-critical apps; a scorecard used by thousands of colleagues"
+  did:
+    - "Spotted the need for one experience scorecard across VMware"
+    - "Led the research and design-thinking process with stakeholders"
+    - "Built the proof of concept across three tools and ran the pilot"
+  team: "5 across user research and design operations, with the CIO’s chief of staff"
+  partners: "The CIO, the CEO, and the VP of Colleague Experience"
+  org: "75 people across Palo Alto, Sofia, and Bangalore (9 direct reports)"
 ---
 
 ## Situation

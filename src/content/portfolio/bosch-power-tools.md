@@ -24,6 +24,15 @@ gallery:
     caption: "Bluehound Asset Management"
   - src: "/images/portfolio/bosch-power-tools/bosch-community-fund-promo.jpg"
     caption: "Bosch Community Fund Promo"
+glance:
+  outcome: "Reframed brand loyalty; opened a new B2B asset-management revenue stream"
+  did:
+    - "Convinced the President of Power Tools to run a leadership workshop"
+    - "Led the partnership with a design agency to add research capacity"
+    - "Directed field studies on job sites and the user and buyer journey maps"
+  team: "10 across user research, service design, Power Tools marketing, and agency contractors"
+  partners: "Bosch Power Tools’ SVP of Marketing"
+  org: "~120 people (5 direct reports)"
 ---
 
 ## Situation

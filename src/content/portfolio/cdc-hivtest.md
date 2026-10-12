@@ -26,6 +26,16 @@ gallery:
     caption: "HIVTest Redesign Web Metrics"
 downloadFile: "/downloads/hivtest-redesign-mockups.pdf"
 downloadLabel: "Download Design Mockups"
+glance:
+  outcome: "HIV testing conversion +70% (72% in the first month, 76% over five months)"
+  did:
+    - "Led a mixed CDC and contractor team"
+    - "Used web metrics and user testing to find the plain-language and mobile problems"
+    - "Led the responsive, plain-language redesign under HIPAA and Section 508"
+    - "Coordinated the launch with state agencies and advocacy groups"
+  team: "3 across UX design, web analytics, and development"
+  partners: "The center’s communications manager and director, the head of the HIV division, and the head of the center (NCHHSTP)"
+  org: "5 people (all direct reports)"
 ---
 
 ## Situation
