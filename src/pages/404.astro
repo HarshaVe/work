@@ -4,15 +4,108 @@ import PageHeader from '../components/PageHeader.astro';
 ---
 
 <Layout noindex title="Page not found" description="This page doesn't exist, or it has moved.">
-  <PageHeader
-    eyebrow="404"
-    title="This page doesn’t exist."
-    lede="It may have moved when the site was rebuilt. The work, the resume, and a way to reach me are all a click away."
-  >
+  <PageHeader eyebrow="Research finding #404" title="The page you wanted isn’t here.">
+    <section class="glance finding" aria-label="Finding details">
+      <dl>
+        <div><dt>Severity</dt><dd>Low. Everything else on the site works.</dd></div>
+        <div><dt>Frequency</dt><dd>Rare, but it happens to the best-tested sites.</dd></div>
+        <div><dt>Likely cause</dt><dd>A link from before the site was rebuilt, or a typo in the address.</dd></div>
+        <div><dt>Next step</dt><dd>Pick up where you meant to go:</dd></div>
+      </dl>
+    </section>
     <div class="button-row">
       <a href="/" class="button button-primary">Go to the homepage</a>
       <a href="/portfolio" class="button button-secondary">See the case studies</a>
       <a href="/resume" class="button button-secondary">Resume</a>
     </div>
+
+    <!-- The header's hand-drawn mark, writing "404": the circle lands with a thud, then
+         each stroke draws in (--w is a stroke's delay, --d its duration). -->
+    <svg class="mark-404" slot="aside" viewBox="5.5 5.5 89 89" role="img" aria-label="404">
+      <path class="disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
+      <path class="stroke" pathLength="1" style="--w: 0.5s; --d: 0.3s" d="M32 34 C28 42,24 50,20 57 C26 56.6,31 57.4,37 56.8" />
+      <path class="stroke" pathLength="1" style="--w: 0.78s; --d: 0.18s" d="M32.5 44 C32.8 52,32.2 61,32.6 68" />
+      <path class="stroke" pathLength="1" style="--w: 0.98s; --d: 0.4s" d="M50 33.5 C44 33.5,42 42,42 50.5 C42 60,44.5 68,50 68 C55.5 68,58 60,58 50.5 C58 41,55.8 33.5,49 34" />
+      <path class="stroke" pathLength="1" style="--w: 1.4s; --d: 0.3s" d="M76 34 C72 42,68 50,64 57 C70 56.6,75 57.4,81 56.8" />
+      <path class="stroke" pathLength="1" style="--w: 1.68s; --d: 0.18s" d="M76.5 44 C76.8 52,76.2 61,76.6 68" />
+    </svg>
   </PageHeader>
 </Layout>
+
+<style>
+  .finding {
+    margin-bottom: 0;
+  }
+
+  .mark-404 {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    overflow: visible;
+  }
+
+  .mark-404 .disc {
+    fill: var(--color-accent-strong);
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: land 0.5s cubic-bezier(0.5, 0, 0.3, 1) both;
+  }
+
+  .mark-404 .stroke {
+    fill: none;
+    stroke: var(--color-surface);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    animation: draw-stroke var(--d, 0.3s) cubic-bezier(0.6, 0.05, 0.3, 1) var(--w, 0s) both;
+  }
+
+  @keyframes land {
+    0% {
+      opacity: 0;
+      transform: translateY(-60%) scale(0.85);
+    }
+
+    55% {
+      opacity: 1;
+      transform: translateY(0) scale(1.1, 0.88);
+    }
+
+    75% {
+      transform: translateY(0) scale(0.96, 1.04);
+    }
+
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes draw-stroke {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mark-404 .disc,
+    .mark-404 .stroke {
+      animation: none;
+    }
+  }
+
+  /* On phones, show the mark first (above the headline) so the animation is seen. */
+  @media (max-width: 800px) {
+    .mark-404 {
+      max-width: 120px;
+    }
+
+    :global(.page-header-aside) {
+      order: -1;
+    }
+  }
+</style>
