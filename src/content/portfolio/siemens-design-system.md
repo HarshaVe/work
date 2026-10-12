@@ -4,7 +4,7 @@ description: "Put the first- and third-party marketplace at the center of Siemen
 summary: "Put the marketplace at the center of Siemens' digital experience and rebuilt the site around it, making hundreds of thousands of Siemens and third-party products easier to find, compare, and buy."
 company: "Siemens"
 role: "Global Director, Experience Design & Research"
-dates: "2024-Present"
+dates: "2025-2026"
 tags: ["Design System", "Digital Transformation", "Enterprise SaaS", "Experience Strategy"]
 featured:
   regulated: false
@@ -141,7 +141,18 @@ To ensure the system was sustainable, I led the effort to put structure around h
 
 This transformed the design system from a library to a managed product with clear accountability.
 
+### 7. Built the marketplace for partners, not just Siemens
+
+Partnered as a peer with VP and SVP business leaders on the Xcelerator Marketplace go-live (I owned the experience; they owned revenue targets) and built third-party page templates so partner products and services sit alongside Siemens' own.
+
 ## Results
+
+### By the numbers
+
+- 150+ sites consolidated into one experience across 100K+ pages
+- 3,000+ content creators working from shared components and governance
+- 38 regions and 32 languages, with AI-assisted localization
+- Workflow automation that validates design-system, brand, accessibility, and content-strategy compliance
 
 As I document this, it is early days for the transformation, but we have already realized some outcomes:
 

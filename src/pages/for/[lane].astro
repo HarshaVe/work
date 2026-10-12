@@ -19,15 +19,20 @@ const caseStudies = page.caseStudies.map((slug) => {
 });
 ---
 
-<Layout noindex title={page.label} description={`${page.headline} Harsha Vemulapalli's work on ${page.banner}.`}>
+<Layout
+  noindex
+  title={page.title ?? page.label}
+  description={page.description ?? `${page.headline} Harsha Vemulapalli's work on ${page.banner}.`}
+  resumePdf={page.resumePdf}
+>
   <div class="focus-banner" slot="banner">
     <div class="container focus-banner-inner">
-      <span>A focused look at my work on <strong>{page.banner}</strong></span>
+      <span>{page.bannerLead ?? 'A focused look at my work on'} <strong>{page.banner}</strong></span>
       <a href="/">See the full site →</a>
     </div>
   </div>
 
-  <Hero stats={page.proof} eyebrow={page.label}>
+  <Hero stats={page.proof} eyebrow={page.eyebrow ?? page.label} resumePdf={page.resumePdf} domain={page.domain}>
     <Fragment slot="headline">{page.headline}</Fragment>
     {page.intro.map((paragraph) => <p class="lede">{paragraph}</p>)}
   </Hero>

@@ -30,7 +30,7 @@ export const cycle = [
   {
     title: 'Trust, and high standards',
     short: 'Safe to speak up. Uncompromising about the work.',
-    text: 'People need to feel safe to speak up, and the work needs a bar that doesn’t bend. One without the other gets you a comfortable team or an anxious one. The bar is <a href="https://exploringkodawari.blog/what-is-kodawari/" target="_blank" rel="noopener noreferrer">kodawari<span class="visually-hidden"> (opens in a new tab)</span></a>, the Japanese idea of an uncompromising, personal commitment to craft, held by everyone, not enforced by me.',
+    text: 'People need to feel safe to speak up, and the work needs a bar that doesn’t bend. One without the other gets you a comfortable team or an anxious one. The bar is <a href="https://exploringkodawari.blog/what-is-kodawari/" target="_blank" rel="noopener noreferrer">kodawari<span class="visually-hidden"> (opens in a new tab)</span></a>, the Japanese idea of an uncompromising, personal commitment to craft, held by everyone, not enforced by me. In practice, it’s simple: at every final design review I ask what the accessibility review found. Everyone learns quickly that no UI goes to development without one.',
   },
   {
     title: 'Creativity, tested with real people',
@@ -50,12 +50,12 @@ export const cycle = [
 ];
 
 export const experience = [
-  { company: 'Siemens', role: 'Global Director, Experience Design & Research', summary: '5→70 org, One Siemens catalog, AI product finder (+23% conversion)', years: '2023–now' },
-  { company: 'Amazon', role: 'Sr. Manager, UX Smart Vehicle', summary: '13-person team, next-gen in-vehicle platform', years: '2022–23' },
-  { company: 'VMware', role: 'Senior Director User Experience Design & Research', summary: 'Sub-to-SaaS transformation, CPQ −30% time-on-task', years: '2021–22' },
-  { company: 'CARFAX', role: 'Director, Digital Brand UX & Research', summary: '+7% conversion, −26% dev churn', years: '2019–21' },
+  { company: 'Siemens', role: 'Global Director (2025–now), promoted from Director of UX', summary: '5→70 org, One Siemens catalog, AI product finder (+23% conversion)', years: '2023–now' },
+  { company: 'Amazon', role: 'Senior Manager, UX Smart Vehicle', summary: '13-person team, next-gen in-vehicle platform', years: '2022–23' },
+  { company: 'VMware', role: 'Senior Director, User Experience Design & Research', summary: 'Sub-to-SaaS transformation, CPQ −30% time-on-task', years: '2021–22' },
+  { company: 'CARFAX', role: 'Director, Digital Brand, UX and Research', summary: '+7% conversion, −26% dev churn', years: '2019–21' },
   { company: 'Robert Bosch', role: 'Head of Design, North America', summary: 'Employee zero → ~120-person practice, $6M saved', years: '2016–19' },
-  { company: 'General Motors', role: 'UX Manager', summary: '7 apps in 23 languages in a year, $1M+ new revenue', years: '2014–16' },
+  { company: 'General Motors', role: 'User Experience Manager', summary: '7 apps in 23 languages in a year, $1M+ new revenue', years: '2014–16' },
   { company: 'Air Mobility Command', role: 'Design Manager', summary: 'Planning tools for 1,200+ daily missions, $2M+ in operational savings', years: '2013–14' },
   { company: 'CDC', role: 'UX & Analytics Manager', summary: 'HIPAA / Section 508, +70% HIV testing conversion', years: '2010–13' },
 ];
@@ -82,8 +82,20 @@ export interface FocusPage extends Lane {
   proof: Proof[];
   /** Completes "A focused look at my work on …" */
   banner: string;
+  /** Replaces "A focused look at my work on" before the banner (defaults to that). */
+  bannerLead?: string;
   headline: string;
   intro: string[];
+  /** Browser-tab title (defaults to `label`). */
+  title?: string;
+  /** Small label above the headline (defaults to `label`). */
+  eyebrow?: string;
+  /** Meta description (defaults to the headline plus the banner). */
+  description?: string;
+  /** Resume PDF for this page's download buttons (defaults to contact.resumePdf). */
+  resumePdf?: string;
+  /** Domain added to the end of the photo caption's first line (optional). */
+  domain?: string;
 }
 
 export const allLane: Lane = {
@@ -129,6 +141,32 @@ export const focusPages: FocusPage[] = [
       { value: '0 → ~120', label: 'Bosch’s North American design practice, built from employee zero' },
     ],
     caseStudies: ['siemens-finder', 'siemens-design-system', 'gm-mychevrolet', 'bosch-infotainment'],
+  },
+  {
+    // Tailored page for design-org leadership roles. Unlisted (noindex, not linked).
+    key: 'design-org',
+    label: 'Design & research leadership',
+    line: 'Building AI-native design organizations for B2B platforms.',
+    title: 'Design organization leadership',
+    eyebrow: 'Design & research leadership',
+    bannerLead: 'A focused look at my work',
+    banner: 'building AI-native design organizations for B2B platforms',
+    headline: 'I build AI-native design orgs, and the quality systems that let them ship at scale.',
+    description: 'I build AI-native design orgs, and the quality systems that let them ship at scale. Design, research, design systems, content, and localization leadership for B2B platforms.',
+    intro: [
+      'At Siemens I lead a 70-person organization across seven countries spanning UX design, research, design systems, content, and localization. AI is built into how it works: a Copilot research agent that cut time-to-insight 34%, a persona agent that has to prove its accuracy before wider rollout, AI-assisted localization across 38 regions and 32 languages, and an AI-powered product finder that lifted conversion 23%.',
+      'Quality is a system, not a hope. No UI moves to development without an accessibility review, and workflow automation checks design-system, brand, accessibility, and content-strategy compliance before anything ships. I partner as a peer with Product, Engineering, and business leaders. On the Xcelerator Marketplace, I owned the experience while they owned revenue, in a channel that reached €9.4B and grew 19% in FY2025.',
+      'I’ve led design through inflection points before, including VMware’s shift from subscriptions to SaaS, where we redesigned quoting workflows for 35,000+ users and cut time-on-task 30%.',
+    ],
+    proof: [
+      { value: '5 → 70', label: 'Design, research, and content org grown across seven countries' },
+      { value: '€9.4B', label: 'Xcelerator Marketplace digital sales in FY2025, up 19%' },
+      { value: '32 · 38', label: 'Languages and regions localized, with AI-assisted tailoring' },
+      { value: '−34%', label: 'Time-to-insight from an AI research agent' },
+    ],
+    caseStudies: ['siemens-finder', 'siemens-design-system', 'vmware-measurement', 'gm-mychevrolet'],
+    resumePdf: '/downloads/harsha-vemulapalli-resume-design-org.pdf',
+    domain: 'Enterprise SaaS & platforms',
   },
 ];
 
