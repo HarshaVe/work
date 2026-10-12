@@ -1,9 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <circle cx="32" cy="32" r="32" fill="#073D5E"/>
-  <g fill="#FFFFFF" transform="translate(-2 0)">
-    <rect x="10" y="18" width="7" height="28"/>
-    <rect x="24" y="18" width="7" height="28"/>
-    <rect x="10" y="29" width="21" height="6"/>
-    <polygon points="34,18 41.5,18 46,36.5 50.5,18 58,18 50,46 42,46"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="5.5 5.5 89 89">
+  <!-- Same hand-drawn HV mark as the site header (src/layouts/Layout.astro), in the brand
+       navy (the accent-strong color token) with white letters. Strokes are a little heavier so
+       they stay legible at 16px. -->
+  <path fill="#073D5E" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M29 34 C29.6 46,28.8 58,29.4 68"/>
+    <path d="M45 33 C45.4 45,44.8 58,45.3 69"/>
+    <path d="M28 51.5 C33 50.6,39 51.8,45.5 50.4"/>
+    <path d="M54 34 C57 46,60 57,63.5 68 C66.5 57,69.5 45,73 33"/>
   </g>
 </svg>
