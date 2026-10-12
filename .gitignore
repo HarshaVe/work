@@ -26,3 +26,9 @@ pnpm-debug.log*
 # local-only notes and tooling (this repo is public)
 CLAUDE.md
 .claude/
+
+# Supplied files (resumes, briefs) that must never be committed
+files.zip
+/site-update-brief.md
+/*.docx
+/*.pdf

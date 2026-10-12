@@ -3,8 +3,8 @@ title: "Finder"
 description: "Led the design of an AI-powered product finder that reduced clicks to content from 77 to 4 and, at scale, increased conversion by 23% and engagement by 28%."
 summary: "An AI-powered product finder that took clicks-to-content from 77 to 4, lifting conversion 23% and engagement 28%."
 company: "Siemens"
-role: "Global Director, Experience Design & Research"
-dates: "2024-Present"
+role: "Director of User Experience, DISW"
+dates: "2024-2025"
 tags: ["Content Strategy", "Enterprise SaaS", "Experience Strategy", "User Research"]
 featured:
   regulated: false
@@ -36,9 +36,9 @@ gallery:
 
 Siemens Digital Industries Software (DISW) provides B2B software and services across industry domains allowing businesses to become more agile, flexible and adaptable from design to production.
 
-As the head of the Experience Design team within Marketing for DISW, my team was responsible for creating touch-points that engaged customers across their journey.
+Customers come to DISW at very different points in their journey, from early research into a problem to choosing a specific product. As head of the Experience Design team within Marketing for DISW, I led the team responsible for the touch-points that engage them along the way.
 
-That work was fairly straight forward in the parts of the journey where the customer already knows what solution or solution space they need. Earlier in their journey, customers are still creating their mental models to better understand their own challenges. At this stage, the work of creating an exceptional user experience is more challenging.
+That work was fairly straightforward in the parts of the journey where the customer already knows what solution or solution space they need. Earlier in their journey, customers are still creating their mental models to better understand their own challenges. At this stage, the work of creating an exceptional user experience is more challenging.
 
 Our website contained a wealth of valuable content, but customers struggled to find what was relevant to their needs and stage in the customer journey. This resulted in low content consumption, a frustrating user experience, and lost opportunities to engage potential and current customers. We lacked a cohesive strategy for guiding users through our content, leading to a disjointed and inefficient experience. Stakeholders were focused on individual pieces of content rather than the overall customer journey.
 
@@ -52,19 +52,20 @@ I took several key actions:
 
 - **Initiated and Led Workshops** — I initiated and led internal workshops to identify customer pain points related to content navigation and consumption. This involved gathering insights from various teams and fostering a collaborative environment.
 - **Developed the "Finder" Concept** — Based on the workshop findings, including my own initial concept, I oversaw the development of "Finder," a CMS component designed to provide personalized content recommendations.
+- **Hands-on from sketch to ship** — I drew the initial layout, refined the visual design through 5-second and data-driven testing, and saw it through from FigJam workshops and Figma Make prototypes to a React build on Contentful, measured in Amplitude.
 - **Shepherded the Concept from Ideation through Adoption** — I managed the research, design processes, sat in with the teams as it went in through development to ensure the development matched the concept and that user feedback was incorporated at each stage. This included wireframing, prototyping, and user testing.
 - **Championed the "Mini Finder" Strategy** — When the team became bogged down in the complexities of aligning every piece of content with every possible customer question, I intervened and championed the "mini finder" strategy. This agile approach allowed us to validate the core concept quickly and efficiently, focusing on getting the customer to the next step in the funnel. This involved refocusing the team on a smaller, more manageable problem and proving the value of personalized recommendations before scaling the solution.
 - **Facilitated Cross-Functional Alignment** — I facilitated cross-functional workshops to align teams on common goals and foster collaboration. This was crucial for overcoming the challenges posed by disparate stakeholder perspectives.
-- **Established Success Criteria** — Initially the success criteria was undefined, I drove our Product and Analytics teams to construct a tiered group of measures to assess the performance of the effort.
+- **Established Success Criteria** — Success criteria were undefined at the start, so I drove our Product and Analytics teams to construct a tiered group of measures to assess the performance of the effort.
 
 ## Results
 
 Finder moved from early testing to a scaled launch:
 
-- **Dramatically Reduced Clicks to Content** — In user testing, we saw a substantial reduction in the number of clicks required to access relevant content. For example, accessing information related to "Intro to Mechanical Design" went from 77 clicks to just 4. This demonstrates a significant improvement in content discoverability.
-- **Improved Customer Journey** — From our preference testing customer shared that "Finder" facilitated a smoother and more intuitive customer journey, guiding users toward solutions that addressed their specific needs. This laid the groundwork for increased customer engagement.
-- **Increased Potential for Conversions** — Through user testing, more people were seeing content that was further down the funnel, including "Buy" options. By improving content discoverability and personalization, "Finder" positions us to drive higher conversion rates and build stronger relationships with our target audience.
-- **A/B Testing** — We build a fixed option version of finder (no back-end calls) to A/B test the solution. This is our final milestone to calling it a win and scaling it across our sites with deep integration to our taxonomy and an AI driven effort to create questions and options. Initial data indicates (low statistical confidence) that:
-  - **50% percent of users who interact with "Finder" arrive at a results page** that presents them with leads further into the funnel content (trials, purchase…).
-  - **~20% of that group is converting to those leads**.
 - **Results at Scale** — After the A/B test, we scaled Finder across our sites as an AI-powered product finder. It increased conversion by 23% and engagement by 28%.
+- **Dramatically Reduced Clicks to Content** — In user testing, we saw a substantial reduction in the number of clicks required to access relevant content. For example, accessing information related to "Intro to Mechanical Design" went from 77 clicks to just 4. This demonstrates a significant improvement in content discoverability.
+- **Improved Customer Journey** — In preference testing, customers shared that "Finder" facilitated a smoother and more intuitive customer journey, guiding users toward solutions that addressed their specific needs. This laid the groundwork for increased customer engagement.
+- **Increased Potential for Conversions** — Through user testing, more people were seeing content that was further down the funnel, including "Buy" options. By improving content discoverability and personalization, "Finder" positions us to drive higher conversion rates and build stronger relationships with our target audience.
+- **Pilot results (before scaling)** — We built a fixed-option version of finder (no back-end calls) to A/B test the solution. This is our final milestone to calling it a win and scaling it across our sites with deep integration to our taxonomy and an AI driven effort to create questions and options. Initial data indicates (low statistical confidence) that:
+  - **50% of users who interact with "Finder" arrive at a results page** that presents them with leads further into the funnel content (trials, purchase…).
+  - **~20% of that group is converting to those leads**.

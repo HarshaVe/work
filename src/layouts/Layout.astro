@@ -11,6 +11,8 @@ interface Props {
   image?: string;
   /** Keep direct-link-only pages (the /for pages) out of search results. */
   noindex?: boolean;
+  /** Resume PDF for the footer's download button (a /for page may use a tailored one). */
+  resumePdf?: string;
 }
 
 const {
@@ -19,10 +21,11 @@ const {
   showContactBand = true,
   image,
   noindex = false,
+  resumePdf = contact.resumePdf,
 } = Astro.props;
 
 // Link previews (Slack, email, LinkedIn): absolute URLs built from `site` in astro.config.mjs.
-const pageTitle = title === 'Home' ? 'Harsha Vemulapalli — Design Leadership' : `${title} | Harsha Vemulapalli`;
+const pageTitle = title === 'Home' ? 'Harsha Vemulapalli — Design & Research Executive' : `${title} | Harsha Vemulapalli`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const previewImage = new URL(image ?? '/images/harsha-headshot-768.jpg', Astro.site);
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -119,7 +122,7 @@ const navItems = [
         {showContactBand && (
           <div class="footer-actions">
             <a href={contact.linkedin} class="button button-secondary" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
-            <a href={contact.resumePdf} class="button button-secondary" download>Download resume</a>
+            <a href={resumePdf} class="button button-secondary" download>Download resume</a>
             <a href="/contact" class="button button-primary">Get in touch</a>
           </div>
         )}

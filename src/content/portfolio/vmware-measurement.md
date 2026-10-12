@@ -3,7 +3,7 @@ title: "Experience Measurement Framework"
 description: "Created a standardized scorecard for measuring colleague experience across VMware, increasing eNPS by 3% and delivering 75%+ CSAT for mission-critical applications."
 summary: "A company-wide experience measurement program: research that gave every product team one scorecard, lifted eNPS 3%, and delivered 75%+ CSAT."
 company: "VMware"
-role: "Senior Director User Experience Design & Research"
+role: "Senior Director, User Experience Design & Research"
 dates: "2021-2022"
 tags: ["Enterprise SaaS", "Experience Strategy", "Thought Leadership", "User Research"]
 featured:
@@ -38,16 +38,16 @@ After talking with multiple teams who reached out for research support, I identi
 
 To bring this vision to life, we followed a Design Thinking process. We began the work by aligning the team on the desired outcomes and the iterative approach we would take.
 
-Our next step was to understand the problem better and frame the opportunity. We researched how other frameworks functioned and explored their limitations and advantages. We also interviewed our stakeholders to understand better their needs and how they would utilize this information.
+Our next step was to understand the problem better and frame the opportunity. We researched how other frameworks functioned and explored their limitations and advantages. We also interviewed our stakeholders to better understand their needs and how they would utilize this information.
 
-After completing our research, we huddled together and synthesized the data together. We choose the more arduous path of synthesizing together because it forces conversations about what particular data points mean and how they correlate with other data points. The final benefit to the road less traveled is that the team arrives at a shared understanding of what we learned.
+After completing our research, we huddled together and synthesized the data together. We chose the more arduous path of synthesizing together because it forces conversations about what particular data points mean and how they correlate with other data points. The final benefit to the road less traveled is that the team arrives at a shared understanding of what we learned.
 
 With a clear and shared understanding of our opportunity, we started ideating on a solution. We had some creative iterations and even a few wild explorations. Still, we settled on a more approachable framework that leveraged known mental models and delivered value to executive teams and hands-on keyboard product teams.
 
 With the idea for our framework firmed up, we built a proof of concept around three tools representing different levels of complexity.
 
 - **Simple** — Our corporate intranet has little app functionality but is a valuable centralized source of information critical to our colleagues.
-- **Complex** — Our CPQ (Configure, Price, Quote) tool deals with thousands and thousands of skews across all VMware's business units globally. It has a clearly defined set of user groups, but those groups have disparate needs.
+- **Complex** — Our CPQ (Configure, Price, Quote) tool deals with thousands and thousands of SKUs across all VMware's business units globally. It has a clearly defined set of user groups, but those groups have disparate needs.
 - **Oddball** — Beyond measuring apps and sites, we also considered the measurement of colleagues' experiences in our newly revised "Future of Work" offices.
 
 We met with stakeholders from each team and built a pilot program to determine what to assess and which tools to use and launch the data capture efforts.
@@ -63,6 +63,8 @@ While still focusing on a prioritized list of tools, in the first three months, 
 - Increased eNPS by 3%
 - Delivered CSAT scores of 75%+ for mission-critical applications by empowering product teams to make meaningful changes to offerings quickly.
 
-The effort was a massive win for us as a company. While it has yet to be rainbows and unicorns, we have gone from vague sentiments and opinions of experience to a clear understanding of what needs attention.
+The scorecard shipped and is used by thousands of colleagues across the company.
+
+The effort was a massive win for us as a company. We went from vague sentiments and opinions of experience to a clear understanding of what needs attention.
 
 Our product teams are making data-driven changes quicker and now spend more time in detailed strategy debates on driving needed changes.

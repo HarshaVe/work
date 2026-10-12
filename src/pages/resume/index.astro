@@ -5,68 +5,78 @@ import ProtectedEmail from '../../components/ProtectedEmail.astro';
 import JumpNav from '../../components/JumpNav.astro';
 import { contact } from '../../data/site';
 
-// Master resume. Numbers and phrasing here must match CLAUDE.md, the homepage, and the case studies.
+// Resume page. It must say the same thing as the downloadable PDFs in public/downloads/
+// (supplied by Harsha): every bullet on any of those PDFs appears here, word for word,
+// and titles, dates, team sizes, and metrics match them exactly. Order may differ.
+const summary = 'Design and research executive with 25+ years of experience and 16 years leading multi-disciplinary organizations spanning product design, user research, design systems, content strategy, and localization. Grew Siemens’ global experience organization from 5 to 70 people across seven countries as a manager of managers, and led design through enterprise transformations at Siemens, VMware, and Bosch. AI-forward leader who sets org-wide AI strategy, from research agents and AI-driven localization to AI-assisted prototyping that ships to production, and pairs adoption with evaluation standards that protect research rigor. Holds the quality bar on accessibility and craft across enterprise SaaS, marketplace, and global multi-language platforms.';
+
+const selectedImpact = [
+  'Led experience design for Siemens Xcelerator Marketplace, a €9.4B digital sales channel that grew 19% in FY2025.',
+  'Built and scaled design organizations of 70 (Siemens), 75 (VMware), ~120 (Bosch), and 140 (GM); grew 10+ designers into manager and director roles.',
+  'Drove AI into the work itself: −34% time-to-insight with a research agent; +23% conversion and +28% engagement from an AI product finder.',
+  'Own a $2M annual operating budget (excluding salaries), report to the SVP of eCommerce, and partner with Product and Engineering leadership on roadmap and tradeoffs.',
+];
+
 const skills = [
-  { title: 'Design org leadership & scaling', text: 'Leading large, distributed design orgs (teams of 100+, director-level reports, 16 years leading design orgs) · Managing managers · Org design & succession · Player/coach leadership · Culture & mentoring · Partnership with Product & Engineering · Executive alignment · Leading through inflection points' },
-  { title: 'AI-native design practice', text: 'Agentic & conversational UX · LLM integration & prompt design · Validation frameworks for LLM outputs · AI tooling adoption & workflow redesign · Building org-wide AI fluency · AI-assisted prototyping (Figma Make)' },
-  { title: 'Design systems & quality', text: 'Design system ownership at enterprise scale (100K+ pages, 150+ sites consolidated, 3,000+ creators) · Tokens, components & governance · Definitions of done · Launch review frameworks · Accessibility & privacy standards' },
-  { title: 'Growth, commerce & conversion', text: 'Marketing & purchase funnel design · Marketplace & e-commerce UX · Vehicle configurators · Experimentation (A/B, multivariate) · Data-informed iteration · Enterprise workflows (CPQ)' },
-  { title: 'Research & craft', text: 'UX research & research operations · Usability testing · Measurement frameworks · Behavioral science · Interaction & visual design · Data visualization · Web, native mobile & in-vehicle HMI' },
-  { title: 'Tools', text: 'Figma · FigJam · Figma Make · Microsoft Copilot · Miro · Dovetail · UserTesting · Jira · Notion · Adobe CC · HTML/CSS' },
+  { title: 'Organization Leadership', text: 'Manager of managers · Org design & scaling · Career paths & development programs · Remote, globally distributed teams · Psychological safety · Executive influence with Product & Engineering' },
+  { title: 'AI Strategy & Adoption', text: 'Org-wide AI strategy · AI-assisted research synthesis · LLM evaluation & hallucination guardrails · Agentic workflows · Conversational UX · AI-assisted SDLC (Figma Make, Claude Code, React prototyping)' },
+  { title: 'Research & Content', text: 'Research methodologies & ResearchOps · Insight-led product strategy · A/B testing & experimentation · Content strategy · Globalization & localization · AI-assisted translation' },
+  { title: 'Quality & Systems', text: 'Design system governance & adoption · Accessibility (WCAG 2.1) · Design critique & review · Workflow automation for design & content compliance · Experience metrics & scorecards' },
 ];
 
 interface Job {
   role: string;
   company: string;
   dates: string;
-  summary: string;
+  summary?: string;
   groups: { heading?: string; items: string[] }[];
 }
 
 const jobs: Job[] = [
   {
     role: 'Global Director, Experience Design & Research',
-    company: 'Siemens',
-    dates: 'April 2023 – Present',
-    summary: 'Grew and lead a global UX, research, and content strategy organization from 5 to 70 people across seven countries, within a complex B2B ecosystem spanning industrial automation and AI-driven customer experiences.',
-    groups: [
-      { heading: 'Platform & commerce', items: [
-        'Own and govern the One Siemens design system. Put the first- and third-party marketplace at the center of Siemens’ digital experience and integrated the marketing site and business-unit selling channels around it: a single explorable catalog of hundreds of thousands of Siemens and third-party products, across 100K+ pages, consolidating 150+ sites into one',
-        'Own the design of the marketing and purchase funnels, partnering with Product and Engineering to improve usability and conversion through experimentation and data-informed iteration',
-        'Set governance for 3,000+ internal creators, and organized the catalog so customers navigate by their own needs rather than Siemens’ org structure',
-      ] },
-      { heading: 'AI-native practice', items: [
-        'Led design and research for an AI-powered product finder that increased conversion 23% and engagement 28%',
-        'Led strategy and training for an AI research agent on Microsoft Copilot that unified research repositories and lets stakeholders query insights in natural language, increasing data utilization 20% and cutting time-to-insight 34%',
-      ] },
-      { heading: 'Organization', items: [
-        'Manage managers (4 direct reports) and partner as a peer to Product and Engineering on sprint planning, backlog priorities, and technical tradeoffs',
-        'Built a career-growth tool that combines industry best-practice frameworks with self- and manager-scoring, helping every level of the team find and develop the skills for the roles they aspire to',
-      ] },
-    ],
-  },
-  {
-    role: 'Senior Manager UX, Smart Vehicle',
-    company: 'Amazon',
-    dates: 'September 2022 – January 2023',
-    summary: 'Directed design and research for Amazon’s next-gen in-vehicle platform, spanning embedded commerce, media, and personalization.',
+    company: 'Siemens Digital Industries Software',
+    dates: '2025 – Present',
+    summary: 'Lead a 70-person organization across seven countries spanning UX design, research, content, localization, and design operations for Siemens Xcelerator Marketplace and global platforms.',
     groups: [{ items: [
-      'Led a 13-person team (3 direct reports) across UX design, research, conversational design, and visual design in Seattle, San Francisco, and Detroit',
-      'Designed vehicle-specific commerce and monetization features, balancing safety, usability, and business impact within hardware-freeze timelines',
-      'Introduced leaner design processes that increased collaboration and cut delivery timelines 12%',
+      'Grew the organization from 5 to 70 (about 58 employees plus embedded contractors) through layers of senior managers; built a co-created skills framework and career growth tool that defines paths and expectations at every level.',
+      'Set the org’s AI agenda: led a Microsoft Copilot research agent over a unified research repository (−34% time-to-insight, +20% data utilization) and a persona agent grounded in 80 interviews and 800+ surveys, now in daily use by research and approved for the extended design team, with accuracy and hallucination evaluation gating wider rollout.',
+      'Led the One Siemens design system and governance model, consolidating 150+ sites, 100K+ pages, and 3,000+ content creators onto shared components and standards.',
+      'Own localization, translation, and currency across 38 regions and 32 languages, where regions can carry multiple languages and currencies; use AI tools to tailor content to each market.',
+      'Hold the quality bar at scale: no UI moves to development without an accessibility review, and built workflow automation that validates design-system compliance in design and brand, accessibility (WCAG 2.1), and content-strategy compliance in content authoring.',
+      'Partnered as a peer with VP and SVP business leaders on the Xcelerator Marketplace go-live, accountable for the experience while they owned revenue targets; built third-party page templates that made the marketplace a home for partner products and services.',
     ] }],
   },
   {
-    role: 'Senior Director User Experience Design & Research',
+    role: 'Director of User Experience, DISW',
+    company: 'Siemens Digital Industries Software',
+    dates: 'April 2023 – 2025',
+    groups: [{ items: [
+      'Owned UX, research, and content for Digital Industries Software’s web properties and purchase and finance funnels for technical and non-technical customers.',
+      'Player/coach on an AI-powered product finder: cut scope to the customer’s next step, drew the initial layout, validated with 5-second and data-driven tests, prototyped in Figma Make, and shipped in React on Contentful; +23% conversion and +28% engagement, measured in Amplitude.',
+      'Ran 2–3 A/B tests a week across the site with design, marketing, communications, and sales teams.',
+    ] }],
+  },
+  {
+    role: 'Senior Manager, UX Smart Vehicle',
+    company: 'Amazon',
+    dates: 'September 2022 – January 2023',
+    groups: [{ items: [
+      'Directed design and research for a multi-stakeholder vehicle platform with embedded commerce, media, and advertising; introduced leaner processes that cut timelines 12%.',
+      'Led a 13-person team (3 direct reports) across UX design, research, conversational design, and visual design in Seattle, San Francisco, and Detroit',
+      'Designed vehicle-specific commerce and monetization features, balancing safety, usability, and business impact within hardware-freeze timelines',
+    ] }],
+  },
+  {
+    role: 'Senior Director, User Experience Design & Research',
     company: 'VMware',
     dates: 'April 2021 – September 2022',
-    summary: 'Led design, research, and experience strategy for mission-critical enterprise tools through VMware’s Sub-to-SaaS transformation, a company-level inflection point.',
     groups: [{ items: [
-      'Modernized the CPQ (configure-price-quote) platform, cutting time-on-task 30% and accelerating deal velocity across 35,000+ users, in direct partnership with Product and Engineering',
-      'Re-platformed digital systems for a post-COVID hybrid workforce while holding 75%+ CSAT and reducing support load 20%',
+      'Led design, research, experience strategy, and service design through VMware’s subscription-to-SaaS transformation.',
+      'Redesigned mission-critical CPQ quoting workflows for 35,000+ users, cutting time-on-task 30% and accelerating SaaS deal velocity.',
+      'Shipped an experience scorecard used by thousands of employees; re-platformed hybrid-work systems while holding 75%+ CSAT and reducing support load 20%.',
+      'Developed senior ICs into leaders across a distributed team while contributing directly to critical design work.',
       'Built a 75-person distributed team (9 direct reports) across UX strategy, design, research, content design, and design operations in Palo Alto, Sofia, and Bangalore',
-      'Designed a centralized experience scorecard and measurement framework adopted company-wide',
-      'Operated as player/coach, contributing directly to critical design work while mentoring senior ICs and scaling leadership capacity',
     ] }],
   },
   {
@@ -75,8 +85,8 @@ const jobs: Job[] = [
     dates: 'October 2019 – April 2021',
     summary: 'Led UX, brand, and research across consumer touchpoints for one of the most recognized names in automotive.',
     groups: [{ items: [
-      'Led an end-to-end product redesign that delivered a 7% conversion lift and a 26% reduction in development churn',
-      'Elevated the brand across consumer touchpoints, from mobile apps to dealer products, with a repeatable design process and research cadence',
+      'Led end-to-end product redesign for +7% conversion and −26% dev churn; established a research cadence that informed product and brand strategy.',
+      'Elevated the brand across consumer touchpoints, from mobile apps to dealer products',
       'Led a 30-person team (3 direct reports) across UX design, research, graphic design, and design operations',
     ] }],
   },
@@ -84,12 +94,10 @@ const jobs: Job[] = [
     role: 'Head of Design, North America',
     company: 'Robert Bosch, LLC',
     dates: 'October 2016 – October 2019',
-    summary: 'Joined as employee zero and built Bosch’s North American internal design consultancy into a ~120-person practice (5 direct reports, 90 indirect).',
     groups: [{ items: [
-      'Ran an internal design agency and a design-thinking incubator that took non-design teams from early concept to launched products with startup-level agility',
-      'Led research and design of an AI/ML-powered radio and infotainment system, trading off physical controls and screen to lower glance times and improve customer sentiment while cutting hardware cost',
+      'Built Bosch’s internal design consultancy from employee zero to ~120 people (5 direct, 90 indirect), and scaled a design thinking framework that let non-designers build human-centered solutions.',
+      'Drove service design initiatives that saved $6M; led research and design for an AI/ML infotainment system that lowered hardware costs and glance times.',
       'Designed connected-vehicle and consumer services, including fleet maintenance, community and parking apps, and keyless access, plus B2C e-commerce for Power Tools',
-      'Drove service design initiatives that saved $6M while strengthening key industry partnerships',
     ] }],
   },
   {
@@ -98,16 +106,16 @@ const jobs: Job[] = [
     dates: 'September 2014 – October 2016',
     summary: 'Led the design of the full owner journey across seven global brands, from brand sites through ownership and trade-in.',
     groups: [{ items: [
+      'Built a pattern-driven global strategy that launched 7 mobile apps in 23 languages within one year across seven brands.',
+      'Created an in-app services revenue stream exceeding $1M in its first year.',
       'Led the design of brand websites, the vehicle configurator, purchase and finance flows, OnStar onboarding, and ownership through maintenance and trade-in',
       'Set purchase and finance interaction patterns adopted across Chevrolet, Cadillac, Buick, GMC, Opel, Vauxhall, and OnStar',
-      'Built a unified, pattern-driven design system that launched seven mobile apps in 23 languages within one year, with OnStar, CarPlay, and Android Auto integration',
-      'Created a new in-app services revenue stream exceeding $1M in its first year',
       'Scaled and led a 140-person multidisciplinary team across research, UX, visual design, and front-end development in Detroit and Austin',
     ] }],
   },
   {
     role: 'Design Manager',
-    company: 'Air Mobility Command',
+    company: 'Air Mobility Command (U.S. Air Force)',
     dates: 'May 2013 – September 2014',
     summary: 'Led consulting teams delivering mission-critical planning and decision-support systems for U.S. Air Force operations.',
     groups: [{ items: [
@@ -130,33 +138,29 @@ const jobs: Job[] = [
 
 const priorExperience = [
   { title: 'Interaction Designer', detail: 'Blackbaud · Nov 2007 – Dec 2010' },
-  { title: 'Product Manager & Design Engineer', detail: 'Morris Digitalworks · Feb 2004 – Oct 2007' },
-  { title: 'Research Analyst', detail: 'Mirant, LLC · Aug 2001 – Oct 2003' },
-  { title: 'Designer', detail: 'SoftSys, LLC · May 1999 – Jul 2001' },
+  { title: 'Product Manager', detail: 'Morris Digitalworks · Feb 2004 – Oct 2007' },
 ];
 
 const thoughtLeadership = [
-  { title: 'Leading Teams through AI', detail: "Panel speaker, UX Researchers' Guild, Dec 2025" },
+  { title: 'Leading Teams through AI', detail: 'Panel speaker, Research Guild, Dec 2025' },
   { title: 'IDC MarketScape: Digital B2B Ecosystems and Marketplaces', detail: 'Featured expert, IDC, Sept 2025' },
-  { title: 'Forrester: Leveraging AI for E-commerce in B2B Organizations', detail: 'Featured expert, Forrester, 2025' },
+  { title: 'Forrester: Leveraging AI for B2B E-commerce', detail: 'Featured expert, Forrester, 2025' },
   { title: 'Creating a Human-Centered Company', detail: 'AV18 Autonomous Vehicle Conference, 2018' },
   { title: 'Designing the Human Experience', detail: 'Automotive Cockpit HMI, 2018' },
-  { title: 'Five Agile Challenges for Distributed Teams', detail: 'AgileConnection/TechWell, 2014' },
-  { title: 'Gaming & Mobile for Public Health', detail: 'CDC NPIN Health Webcast, 2013' },
-  { title: 'Usability in Public Health', detail: 'National HIV Prevention Conference, 2011' },
 ];
 
 const education = [
-  { title: 'Bachelor of Science, Information Technology', detail: 'American InterContinental University, 2001' },
-  { title: 'Decision by Design', detail: 'Farnam Street, 2025' },
-  { title: 'Google AI Essentials', detail: 'Google, 2025' },
-  { title: 'Behavioral Design', detail: 'Irrational Labs, 2024' },
-  { title: 'UX Research certificate', detail: 'University of Denver, 2016' },
-  { title: 'Certified Agile Product Owner & Scrum Master', detail: 'Scrum Alliance, 2009' },
+  { title: 'B.S., Information Technology', detail: 'American InterContinental University' },
+  { title: 'Decision by Design', detail: 'Farnam Street' },
+  { title: 'Google AI Essentials', detail: 'Google' },
+  { title: 'Behavioral Design', detail: 'Irrational Labs' },
+  { title: 'UX Research', detail: 'University of Denver' },
+  { title: 'Certified Scrum Product Owner & ScrumMaster', detail: 'Scrum Alliance' },
 ];
 
 const sections = [
   { id: 'intro', label: 'Summary' },
+  { id: 'impact', label: 'Selected impact' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'thought-leadership', label: 'Thought leadership' },
@@ -167,7 +171,7 @@ const sections = [
   <PageHeader
     eyebrow="Resume"
     title="Harsha Vemulapalli"
-    lede="Design executive with 25+ years of experience, 16 of them leading and scaling design organizations with director-level reports. I build AI-native design and research practices, and the quality systems that let distributed teams ship at a consistently high bar, across enterprise platforms, commerce, connected vehicles, and regulated public health. Currently leading a 70-person UX, research, and content strategy organization at Siemens across seven countries."
+    lede={summary}
   >
     <p class="contact-line">
       {contact.location} · <ProtectedEmail /> · <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="print-only"> ({contact.linkedin.replace('https://www.', '')})</span></a><span class="print-only"> · harshav.com</span>
@@ -182,6 +186,15 @@ const sections = [
     <JumpNav label="Resume sections" items={sections.map((s) => ({ href: `#${s.id}`, label: s.label }))} />
 
     <div class="resume-body">
+      <section id="impact" class="resume-section">
+        <h2>Selected impact</h2>
+        <div class="job-group">
+          <ul>
+            {selectedImpact.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
       <section id="experience" class="resume-section">
         <h2>Experience</h2>
         {jobs.map((job) => (
@@ -190,7 +203,7 @@ const sections = [
               <h3>{job.role}</h3>
               <p class="job-meta"><strong>{job.company}</strong> · {job.dates}</p>
             </div>
-            <p class="job-summary">{job.summary}</p>
+            {job.summary && <p class="job-summary">{job.summary}</p>}
             {job.groups.map((group) => (
               <div class="job-group">
                 {group.heading && <h4>{group.heading}</h4>}
