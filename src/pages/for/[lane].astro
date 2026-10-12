@@ -24,6 +24,7 @@ const caseStudies = page.caseStudies.map((slug) => {
   title={page.title ?? page.label}
   description={page.description ?? `${page.headline} Harsha Vemulapalli's work on ${page.banner}.`}
   resumePdf={page.resumePdf}
+  image={`/og/${page.key}.png`}
 >
   <div class="focus-banner" slot="banner">
     <div class="container focus-banner-inner">

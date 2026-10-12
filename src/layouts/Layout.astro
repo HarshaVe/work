@@ -7,7 +7,7 @@ interface Props {
   description?: string;
   /** The "Let's talk" heading and buttons; off on the contact pages themselves. */
   showContactBand?: boolean;
-  /** Wide image for link previews (e.g. a case study hero); defaults to the headshot. */
+  /** Wide image for link previews (a case study hero, or a /for page's card); defaults to the sitewide card. */
   image?: string;
   /** Keep direct-link-only pages (the /for pages) out of search results. */
   noindex?: boolean;
@@ -27,7 +27,10 @@ const {
 // Link previews (Slack, email, LinkedIn): absolute URLs built from `site` in astro.config.mjs.
 const pageTitle = title === 'Home' ? 'Harsha Vemulapalli — Design & Research Executive' : `${title} | Harsha Vemulapalli`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const previewImage = new URL(image ?? '/images/harsha-headshot-768.jpg', Astro.site);
+// Link-preview image: the page's own, or the sitewide card (scripts/build-og-cards.sh).
+const previewPath = image ?? '/og/default.png';
+const previewImage = new URL(previewPath, Astro.site);
+const isCard = previewPath.startsWith('/og/');
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
@@ -58,7 +61,10 @@ const navItems = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={previewImage} />
-    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    {isCard && <meta property="og:image:width" content="1200" />}
+    {isCard && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={isCard ? 'Harsha Vemulapalli, Design & Research Executive' : title} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={previewImage} />

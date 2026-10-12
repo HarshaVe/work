@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  Link-preview card (1200×630) for Slack, LinkedIn, iMessage, etc. Rendered to PNG by
+  scripts/build-og-cards.sh, which passes the eyebrow and headline in the URL hash.
+  Colors mirror the site's tokens in src/styles/global.css (text, muted, accent-strong).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&display=block" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 64px;
+    padding: 64px 72px;
+    background: #FFFFFF;
+    color: #101418;
+    font-family: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  }
+  .main { display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+  .site { display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 600; color: #073D5E; }
+  .site svg { width: 52px; height: 52px; }
+  .middle { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow { font-size: 22px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4B5360; }
+  .eyebrow:empty { display: none; }
+  h1 { font-size: 60px; font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; }
+  h1.long { font-size: 50px; line-height: 1.1; }
+  h1.lines span { white-space: nowrap; }
+  .who { display: flex; flex-direction: column; gap: 4px; }
+  .name { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+  .title { font-size: 24px; color: #4B5360; }
+  .photo { align-self: center; }
+  .photo img {
+    display: block;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 5px #073D5E, 0 22px 50px -10px rgba(7, 61, 94, 0.35);
+  }
+</style>
+</head>
+<body>
+  <div class="main">
+    <div class="site">
+      <svg viewBox="5.5 5.5 89 89" aria-hidden="true">
+        <path fill="#073D5E" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z"/>
+        <g fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M29 34 C29.6 46,28.8 58,29.4 68"/>
+          <path d="M45 33 C45.4 45,44.8 58,45.3 69"/>
+          <path d="M28 51.5 C33 50.6,39 51.8,45.5 50.4"/>
+          <path d="M54 34 C57 46,60 57,63.5 68 C66.5 57,69.5 45,73 33"/>
+        </g>
+      </svg>
+      harshav.com
+    </div>
+    <div class="middle">
+      <p class="eyebrow" id="eyebrow"></p>
+      <h1 id="headline"></h1>
+    </div>
+    <div class="who">
+      <span class="name">Harsha Vemulapalli</span>
+      <span class="title">Design &amp; Research Executive</span>
+    </div>
+  </div>
+  <div class="photo"><img src="../../public/images/harsha-headshot-768.jpg" alt="" /></div>
+  <script>
+    // Hash: #<JSON {"eyebrow": "...", "headline": "..."}>; a <br> in the headline is allowed.
+    const data = JSON.parse(decodeURIComponent(location.hash.slice(1) || '{}'));
+    document.getElementById('eyebrow').textContent = data.eyebrow || '';
+    const h1 = document.getElementById('headline');
+    h1.innerHTML = (data.headline || '').split('<br>').map((part) => {
+      const span = document.createElement('span');
+      span.textContent = part;
+      return span.outerHTML;
+    }).join('<br>');
+    if ((data.headline || '').length > 60) h1.classList.add('long');
+    // Headlines with explicit line breaks keep each line whole, shrinking the type to fit.
+    if ((data.headline || '').includes('<br>')) {
+      h1.classList.add('lines');
+      let size = parseFloat(getComputedStyle(h1).fontSize);
+      document.fonts.ready.then(() => {
+        while (h1.scrollWidth > h1.clientWidth && size > 36) {
+          size -= 1;
+          h1.style.fontSize = size + 'px';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
