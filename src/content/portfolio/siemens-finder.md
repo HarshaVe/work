@@ -30,6 +30,16 @@ gallery:
     caption: "Mini Finder Test Page - Control"
   - src: "/images/portfolio/siemens-finder/mini-finder-test-page-variation.jpg"
     caption: "Mini Finder Test Page - Variation"
+glance:
+  outcome: "+23% conversion and +28% engagement at scale; clicks to content from 77 to 4"
+  did:
+    - "Started the project and led the discovery workshops"
+    - "Drew the initial layout and refined it through 5-second and data-driven tests"
+    - "Pushed the \"mini finder\" approach when the team stalled"
+    - "Set the success measures with Product and Analytics; saw it through to a React build on Contentful"
+  team: "7 across UX, UX strategy, content strategy, SEO, taxonomy, content production, user research, and product management"
+  partners: "Business-unit go-to-market teams, global and business-unit marketing, Engineering, and Legal"
+  org: "35 people (3 direct reports)"
 ---
 
 ## Situation

@@ -26,6 +26,15 @@ gallery:
     caption: "Info Card Pattern - Fonts"
   - src: "/images/portfolio/gm-mychevrolet/info-card-pattern-spacing.png"
     caption: "Info Card Pattern - Spacing"
+glance:
+  outcome: "7 apps in 23 languages within one year, across 7 brands; $1M+ in new revenue in year one"
+  did:
+    - "Created the research plan: owner interviews plus in-app analytics"
+    - "Led the teams through defining the core patterns"
+    - "Set the pattern-driven platform that let development reuse controls instead of rebuilding them"
+  team: "15 across UX design, research (quant and qual), visual design, and content strategy"
+  partners: "Brand marketing managers for Chevrolet, Buick, Cadillac, GMC, Opel, Vauxhall, and OnStar, plus mobile engineering"
+  org: "140 people across Detroit and Austin (5 direct reports)"
 ---
 
 ## Situation

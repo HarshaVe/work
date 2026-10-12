@@ -26,6 +26,14 @@ gallery:
     caption: "Final Presentation"
 downloadFile: "/downloads/bosch-winter-national-awards.pdf"
 downloadLabel: "Download Awards Presentation"
+glance:
+  outcome: "$1.2M in journey-mapping revenue against a $900K target"
+  did:
+    - "Designed and led the interactive LEGO race workshop at the 2017 Regional Executive Meeting"
+    - "Turned \"customer journey\" from a buzzword into something leadership felt firsthand"
+  team: "25: service design, UX design, and marketing managers, plus 20 Bosch volunteers"
+  partners: "The CEO of Bosch North America and the head of sales for North America"
+  org: "5 people (all direct reports)"
 ---
 
 ## Situation

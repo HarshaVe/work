@@ -22,6 +22,15 @@ gallery:
     caption: "Wireframe Prototypes"
   - src: "/images/portfolio/bosch-infotainment/concept-iterations.png"
     caption: "Concept Iterations"
+glance:
+  outcome: "About 3 seconds less eyes-off-road time per task; led to a Bosch–Ford development partnership"
+  did:
+    - "Proposed a design-thinking approach to the CM/NA CEO and executive team"
+    - "Led contextual inquiries and task timing with drivers"
+    - "Shaped the \"smart buttons\" concept and the prototypes"
+  team: "3, covering UX strategy, service design, UI development, visual design, and user research"
+  partners: "The Car Multimedia product manager, Bosch’s head of sales for its Ford relationship, and the global head of automotive UX"
+  org: "~120 people (5 direct reports)"
 ---
 
 ## Situation

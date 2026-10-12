@@ -30,6 +30,16 @@ gallery:
     caption: "Siemens Digital Industries Software"
   - src: "/images/portfolio/siemens-design-system/siemens-xcelerator-marketplace.jpg"
     caption: "Siemens Xcelerator Marketplace"
+glance:
+  outcome: "150+ sites consolidated into one across 100K+ pages; 3,000+ content creators on shared components; 38 regions and 32 languages"
+  did:
+    - "Ran the joint audit that gave the SW and AG teams one shared view of the system"
+    - "Set the token-based foundation and core design-system architecture with design, engineering, product, and content leads"
+    - "Put governance, analytics, and lifecycle processes in place so the system runs as a product"
+    - "Partnered as a peer with VP and SVP business leaders on the Xcelerator Marketplace go-live; built third-party page templates"
+  team: "45+ across UX, UX strategy, content strategy, SEO, taxonomy, content production, and user research"
+  partners: "Product Management, Engineering, business-unit go-to-market teams, regional CEOs and SVPs, Marketing, Corporate Communications, and the Siemens Managing Board"
+  org: "70 people across seven countries (4 direct reports)"
 ---
 
 ## Unifying Siemens' Digital Experience Through a Core Design System
