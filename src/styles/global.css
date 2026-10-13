@@ -467,6 +467,17 @@ main:has(> .has-rail:last-child > div > .band:last-child) + .site-footer {
   }
 }
 
+/* An aside in running copy (e.g. a photo credit): grey, led by a bold label
+   ("About this artwork:") so it reads as separate from the main text. */
+.note {
+  color: var(--color-text-secondary);
+}
+
+.note strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
 /* Quotation from someone else (e.g. a recommendation), with its source below. */
 .pull-quote {
   margin: 0;

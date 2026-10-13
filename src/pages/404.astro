@@ -1,64 +1,112 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+
+// Plain links to the main sections, each with a short note on what's there.
+const destinations = [
+  { href: '/portfolio', label: 'Case studies', note: 'the work, in depth' },
+  { href: '/resume', label: 'Resume', note: 'the short version' },
+  { href: '/about', label: 'About', note: 'how I got here and how I work' },
+  { href: '/contact', label: 'Get in touch', note: 'if a link sent you here, I’d like to know' },
+];
 ---
 
 <Layout noindex title="Page not found" description="This page doesn't exist, or it has moved.">
-  <PageHeader eyebrow="Research finding #404" title="The page you wanted isn’t here.">
-    <section class="glance finding" aria-label="Finding details">
-      <dl>
-        <div><dt>Severity</dt><dd>Low. Everything else on the site works.</dd></div>
-        <div><dt>Frequency</dt><dd>Rare, but it happens to the best-tested sites.</dd></div>
-        <div><dt>Likely cause</dt><dd>A link from before the site was rebuilt, or a typo in the address.</dd></div>
-        <div><dt>Next step</dt><dd>Pick up where you meant to go:</dd></div>
-      </dl>
-    </section>
-    <div class="button-row">
-      <a href="/" class="button button-primary">Go to the homepage</a>
-      <a href="/portfolio" class="button button-secondary">See the case studies</a>
-      <a href="/resume" class="button button-secondary">Resume</a>
-    </div>
-
-    <!-- The header's navy circle with "404" set in Helvetica Bold (static, no animation). -->
-    <svg class="mark-404" slot="aside" viewBox="5.5 5.5 89 89" role="img" aria-label="404">
-      <path class="disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
-      <text class="digits" x="50" y="51" text-anchor="middle" dominant-baseline="central">404</text>
-    </svg>
+  <div class="hero-404">
+  <PageHeader eyebrow="404" title="That page doesn’t exist, but these do.">
+    <ul class="destinations section-intro">
+      {destinations.map((d) => (
+        <li><a href={d.href}>{d.label}</a>: {d.note}</li>
+      ))}
+    </ul>
+    <p class="note"><strong>About this artwork:</strong> Mark Bradford’s <cite><a href="https://hirshhorn.si.edu/exhibitions/mark-bradford-picketts-charge/" target="_blank" rel="noopener noreferrer">Pickett’s Charge</a></cite><span class="visually-hidden"> (opens in a new tab)</span>, inside the Hirshhorn Museum, Gordon Bunshaft’s 1974 “brutalist donut” in Washington, DC. Photo by me.</p>
   </PageHeader>
+
+  <figure class="photo-404">
+    <img src="/images/404-hirshhorn.jpg" width="1120" height="840" alt="A gallery corridor curving out of view, lined with a layered, weathered artwork." />
+  </figure>
+</div>
 </Layout>
 
 <style>
-  .finding {
-    margin-bottom: 0;
+  /* The photo sits behind the header on the right and fades out to the left, so the
+     text stays on a clean background. On phones it becomes a band below the links. */
+  .hero-404 {
+    position: relative;
+    overflow: hidden;
   }
 
-  .mark-404 {
+  .hero-404 :global(.page-header) {
+    position: relative;
+    z-index: 1;
+    min-height: 34rem;
+    align-content: center;
+  }
+
+  .photo-404 {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 66%;
+    margin: 0;
+  }
+
+  /* Fades out to the left, and softly at the top and bottom edges. Cropped from the
+     left of the image so the far end of the corridor stays in view. */
+  .photo-404 img {
     display: block;
     width: 100%;
-    max-width: 260px;
-    overflow: visible;
+    height: 100%;
+    object-fit: cover;
+    object-position: 20% 50%;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 70%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 70%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-composite: intersect;
   }
 
-  .mark-404 .disc {
-    fill: var(--color-accent-strong);
-  }
-
-  .mark-404 .digits {
-    fill: var(--color-surface);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-
-  /* On phones, show the mark first (above the headline) so it is seen. */
+  /* On phones the photo comes first: a band cropped to the curve of the corridor that
+     fades into the page at its bottom edge, with the headline starting over the fade. */
   @media (max-width: 800px) {
-    .mark-404 {
-      max-width: 120px;
+    .hero-404 {
+      display: flex;
+      flex-direction: column;
     }
 
-    :global(.page-header-aside) {
+    .photo-404 {
       order: -1;
+      position: static;
+      width: 100%;
     }
+
+    .photo-404 img {
+      height: 15rem;
+      object-position: 35% 60%;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+      -webkit-mask-composite: source-over;
+      mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+      mask-composite: add;
+    }
+
+    .hero-404 :global(.page-header) {
+      min-height: 0;
+      margin-top: -4rem;
+      padding-top: 0;
+    }
+  }
+
+  /* Keep the credit on the clean side of the faded photo. */
+  .note {
+    max-width: 26rem;
+  }
+
+  .destinations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-left: 1.25rem;
   }
 </style>
