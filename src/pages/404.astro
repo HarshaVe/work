@@ -1,25 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+
+// Plain links to the main sections, each with a short note on what's there.
+const destinations = [
+  { href: '/portfolio', label: 'Case studies', note: 'the work, in depth' },
+  { href: '/resume', label: 'Resume', note: 'the short version' },
+  { href: '/about', label: 'About', note: 'how I got here and how I work' },
+  { href: '/contact', label: 'Get in touch', note: 'if a link sent you here, I’d like to know' },
+];
 ---
 
 <Layout noindex title="Page not found" description="This page doesn't exist, or it has moved.">
-  <PageHeader eyebrow="Research finding #404" title="The page you wanted isn’t here.">
-    <section class="glance finding" aria-label="Finding details">
-      <dl>
-        <div><dt>Severity</dt><dd>Low. Everything else on the site works.</dd></div>
-        <div><dt>Frequency</dt><dd>Rare, but it happens to the best-tested sites.</dd></div>
-        <div><dt>Likely cause</dt><dd>A link from before the site was rebuilt, or a typo in the address.</dd></div>
-        <div><dt>Next step</dt><dd>Pick up where you meant to go:</dd></div>
-      </dl>
-    </section>
-    <div class="button-row">
-      <a href="/" class="button button-primary">Go to the homepage</a>
-      <a href="/portfolio" class="button button-secondary">See the case studies</a>
-      <a href="/resume" class="button button-secondary">Resume</a>
-    </div>
+  <PageHeader eyebrow="404" title="This page doesn’t exist, but these do.">
+    <ul class="destinations section-intro">
+      {destinations.map((d) => (
+        <li><a href={d.href}>{d.label}</a>: {d.note}</li>
+      ))}
+    </ul>
 
-    <!-- The header's navy circle with "404" set in Helvetica Bold (static, no animation). -->
+    <!-- The header's navy circle with "404" set in Helvetica Bold. -->
     <svg class="mark-404" slot="aside" viewBox="5.5 5.5 89 89" role="img" aria-label="404">
       <path class="disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
       <text class="digits" x="50" y="51" text-anchor="middle" dominant-baseline="central">404</text>
@@ -28,15 +28,17 @@ import PageHeader from '../components/PageHeader.astro';
 </Layout>
 
 <style>
-  .finding {
-    margin-bottom: 0;
+  .destinations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-left: 1.25rem;
   }
 
   .mark-404 {
     display: block;
     width: 100%;
-    max-width: 260px;
-    overflow: visible;
+    max-width: 200px;
   }
 
   .mark-404 .disc {
@@ -51,10 +53,10 @@ import PageHeader from '../components/PageHeader.astro';
     letter-spacing: -0.5px;
   }
 
-  /* On phones, show the mark first (above the headline) so it is seen. */
+  /* On phones, the small mark sits above the headline. */
   @media (max-width: 800px) {
     .mark-404 {
-      max-width: 120px;
+      max-width: 100px;
     }
 
     :global(.page-header-aside) {
