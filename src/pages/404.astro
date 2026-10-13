@@ -18,12 +18,6 @@ const destinations = [
         <li><a href={d.href}>{d.label}</a>: {d.note}</li>
       ))}
     </ul>
-
-    <!-- The header's navy circle with "404" set in Helvetica Bold. -->
-    <svg class="mark-404" slot="aside" viewBox="5.5 5.5 89 89" role="img" aria-label="404">
-      <path class="disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
-      <text class="digits" x="50" y="51" text-anchor="middle" dominant-baseline="central">404</text>
-    </svg>
   </PageHeader>
 </Layout>
 
@@ -33,34 +27,5 @@ const destinations = [
     flex-direction: column;
     gap: 0.625rem;
     padding-left: 1.25rem;
-  }
-
-  .mark-404 {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .mark-404 .disc {
-    fill: var(--color-accent-strong);
-  }
-
-  .mark-404 .digits {
-    fill: var(--color-surface);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-
-  /* On phones, the small mark sits above the headline. */
-  @media (max-width: 800px) {
-    .mark-404 {
-      max-width: 100px;
-    }
-
-    :global(.page-header-aside) {
-      order: -1;
-    }
   }
 </style>
