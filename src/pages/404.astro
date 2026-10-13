@@ -68,22 +68,33 @@ const destinations = [
     mask-composite: intersect;
   }
 
+  /* On phones the photo comes first: a band cropped to the curve of the corridor that
+     fades into the page at its bottom edge, with the headline starting over the fade. */
   @media (max-width: 800px) {
-    .hero-404 :global(.page-header) {
-      min-height: 0;
+    .hero-404 {
+      display: flex;
+      flex-direction: column;
     }
 
     .photo-404 {
+      order: -1;
       position: static;
       width: 100%;
     }
 
     .photo-404 img {
-      height: 18rem;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 88%, transparent 100%);
+      height: 15rem;
+      object-position: 35% 60%;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
       -webkit-mask-composite: source-over;
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 88%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
       mask-composite: add;
+    }
+
+    .hero-404 :global(.page-header) {
+      min-height: 0;
+      margin-top: -4rem;
+      padding-top: 0;
     }
   }
 
