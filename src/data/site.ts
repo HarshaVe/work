@@ -80,17 +80,13 @@ export interface Lane {
 export interface FocusPage extends Lane {
   caseStudies: string[];
   proof: Proof[];
-  /** Completes "A focused look at my work on …" */
-  banner: string;
-  /** Replaces "A focused look at my work on" before the banner (defaults to that). */
-  bannerLead?: string;
   headline: string;
   intro: string[];
   /** Browser-tab title (defaults to `label`). */
   title?: string;
   /** Small label above the headline (defaults to `label`). */
   eyebrow?: string;
-  /** Meta description (defaults to the headline plus the banner). */
+  /** Meta description (defaults to the headline). */
   description?: string;
   /** Resume PDF for this page's download buttons (defaults to contact.resumePdf). */
   resumePdf?: string;
@@ -110,7 +106,6 @@ export const focusPages: FocusPage[] = [
     key: 'enterprise',
     label: 'Enterprise & regulated platforms',
     line: 'B2B platforms, design systems at scale, and products built under regulation, including a CPQ modernization at VMware that cut time-on-task 30%.',
-    banner: 'AI-native design organizations for B2B platforms',
     headline: 'I build AI-native design orgs, and the quality systems that let them ship at scale.',
     intro: [
       'At Siemens I lead a 70-person design, research, and content org across seven countries, with AI built into how it works: a Copilot research agent for the team and an AI-powered product finder that lifted conversion 23%. Quality is a system, not a hope: a governed design system, definitions of done, and launch reviews built with Product and Engineering.',
@@ -128,7 +123,6 @@ export const focusPages: FocusPage[] = [
     key: 'mobility',
     label: 'Mobility',
     line: 'Digital experiences for vehicle buyers and owners, where measurable growth meets crafted interaction.',
-    banner: 'digital experiences for vehicle buyers and owners',
     headline: 'I lead teams where growth meets craft, from first click to years of ownership.',
     intro: [
       'I lead design where conversion and craft meet. At CARFAX my 30-person team redesigned the vehicle history experience millions of buyers rely on, lifting conversion 7% and cutting dev churn 26%. At Siemens we A/B-tested, then scaled, an AI-powered product finder inside a marketplace of hundreds of thousands of products, lifting conversion 23%.',
@@ -149,8 +143,6 @@ export const focusPages: FocusPage[] = [
     line: 'Building AI-native design organizations for B2B platforms.',
     title: 'Design organization leadership',
     eyebrow: 'Design & research leadership',
-    bannerLead: 'A focused look at my work',
-    banner: 'building AI-native design organizations for B2B platforms',
     headline: 'I build AI-native design orgs, and the quality systems that let them ship at scale.',
     description: 'I build AI-native design orgs, and the quality systems that let them ship at scale. Design, research, design systems, content, and localization leadership for B2B platforms.',
     intro: [

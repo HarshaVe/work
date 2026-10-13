@@ -38,6 +38,7 @@ const filters = [
       {sortedEntries.map((entry) => (
         <div
           class="work-item"
+          data-slug={entry.slug}
           data-regulated={String(entry.data.featured.regulated)}
           data-systems={String(entry.data.featured.systems)}
           data-enterprise={String(entry.data.featured.enterprise)}
@@ -49,6 +50,21 @@ const filters = [
         </div>
       ))}
     </div>
+    <script is:inline>
+      // A visitor who came through a tailored /for homepage sees its case studies first
+      // (see the lens in Layout.astro). Runs before first paint, so nothing jumps.
+      (function () {
+        try {
+          var lens = JSON.parse(sessionStorage.getItem('harshav-lens') || 'null');
+          if (!lens || !lens.caseStudies) return;
+          var grid = document.currentScript.previousElementSibling;
+          lens.caseStudies.slice().reverse().forEach(function (slug) {
+            var item = grid.querySelector('[data-slug="' + slug + '"]');
+            if (item) grid.prepend(item);
+          });
+        } catch (e) {}
+      })();
+    </script>
 
     <p class="no-results" hidden>No case studies match that filter yet.</p>
   </section>
