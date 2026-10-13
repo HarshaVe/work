@@ -96,7 +96,7 @@ export interface FocusPage extends Lane {
 
 export const allLane: Lane = {
   key: 'all',
-  label: 'Everything',
+  label: 'All work',
   line: 'A cross-section of the work, across every focus.',
   caseStudies: ['siemens-design-system', 'siemens-finder', 'bosch-infotainment', 'gm-mychevrolet'],
 };

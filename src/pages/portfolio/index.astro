@@ -27,6 +27,7 @@ const filters = [
 
   <section class="container">
     <div class="filter-bar" role="group" aria-label="Filter case studies">
+      <button type="button" class="filter-button" data-filter="start" aria-pressed="false" hidden>Start here</button>
       {filters.map((f, i) => (
         <button type="button" class="filter-button" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
           {f.label}
@@ -51,8 +52,9 @@ const filters = [
       ))}
     </div>
     <script is:inline>
-      // A visitor who came through a tailored /for homepage sees its case studies first
-      // (see the lens in Layout.astro). Runs before first paint, so nothing jumps.
+      // A visitor who came through a tailored /for homepage gets the same "Start here" filter
+      // as that homepage, selected, with its case studies first under "All work" too (see the
+      // lens in Layout.astro). Runs before first paint, so nothing jumps.
       (function () {
         try {
           var lens = JSON.parse(sessionStorage.getItem('harshav-lens') || 'null');
@@ -60,7 +62,13 @@ const filters = [
           var grid = document.currentScript.previousElementSibling;
           lens.caseStudies.slice().reverse().forEach(function (slug) {
             var item = grid.querySelector('[data-slug="' + slug + '"]');
-            if (item) grid.prepend(item);
+            if (item) { item.dataset.start = 'true'; grid.prepend(item); }
+          });
+          grid.querySelectorAll('.work-item:not([data-start])').forEach(function (item) { item.hidden = true; });
+          document.querySelectorAll('.filter-button').forEach(function (button) {
+            var start = button.dataset.filter === 'start';
+            if (start) button.hidden = false;
+            button.setAttribute('aria-pressed', String(start));
           });
         } catch (e) {}
       })();
@@ -174,7 +182,7 @@ const filters = [
   });
 
   const requested = new URLSearchParams(window.location.search).get('filter');
-  if (requested && Array.from(buttons).some((button) => button.dataset.filter === requested)) {
+  if (requested && Array.from(buttons).some((button) => button.dataset.filter === requested && !button.hidden)) {
     applyFilter(requested);
   }
 </script>

@@ -176,11 +176,11 @@ const sections = [
     <p class="contact-line">
       {contact.location} · <ProtectedEmail /> · <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="print-only"> ({contact.linkedin.replace('https://www.', '')})</span></a><span class="print-only"> · harshav.com</span>
     </p>
+    <p class="versions no-print"><strong>This page is the full version.</strong> The PDF is a two-page summary.</p>
     <div class="button-row no-print">
       <a href="/contact" class="button button-primary">Get in touch</a>
       <a href={contact.resumePdf} class="button button-secondary" download>Download resume</a>
     </div>
-    <p class="note no-print">This page is the full version; the PDF is the two-page summary.</p>
   </PageHeader>
 
   <div class="container resume has-rail">
@@ -260,6 +260,16 @@ const sections = [
 <style>
   .contact-line {
     color: var(--color-text-muted);
+  }
+
+  /* Tells skimmers which version they're reading before they choose to download. */
+  .versions {
+    align-self: flex-start;
+    width: fit-content;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--color-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--color-surface-muted);
   }
 
   .resume {
