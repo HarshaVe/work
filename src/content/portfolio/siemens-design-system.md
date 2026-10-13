@@ -153,7 +153,7 @@ This transformed the design system from a library to a managed product with clea
 
 ### 7. Built the marketplace for partners, not just Siemens
 
-Partnered as a peer with VP and SVP business leaders on the Xcelerator Marketplace go-live (I owned the experience; they owned revenue targets) and built third-party page templates so partner products and services sit alongside Siemens' own.
+Partnered as a peer with VP and SVP business leaders to grow the Xcelerator Marketplace, leading the experience from go-live, and built third-party page templates so partner products and services sit alongside Siemens' own.
 
 ## Results
 

@@ -32,3 +32,4 @@ files.zip
 /site-update-brief.md
 /*.docx
 /*.pdf
+*.tmp
