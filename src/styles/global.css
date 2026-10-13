@@ -467,11 +467,15 @@ main:has(> .has-rail:last-child > div > .band:last-child) + .site-footer {
   }
 }
 
-/* Caption under a photo or figure: small grey metadata; titles in <cite> stay italic. */
-.figure-caption {
-  font-size: 0.8125rem;
-  line-height: 1.45;
+/* An aside in running copy (e.g. a photo credit): italic so it reads as separate from
+   the main text. Titles in <cite> switch back to upright so they still stand out. */
+.note {
+  font-style: italic;
   color: var(--color-text-secondary);
+}
+
+.note cite {
+  font-style: normal;
 }
 
 /* Quotation from someone else (e.g. a recommendation), with its source below. */

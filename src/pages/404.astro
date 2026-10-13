@@ -19,12 +19,11 @@ const destinations = [
         <li><a href={d.href}>{d.label}</a>: {d.note}</li>
       ))}
     </ul>
-
+    <p class="note">Mark Bradford’s <cite><a href="https://hirshhorn.si.edu/exhibitions/mark-bradford-picketts-charge/" target="_blank" rel="noopener noreferrer">Pickett’s Charge</a></cite><span class="visually-hidden"> (opens in a new tab)</span>, inside the Hirshhorn Museum, Gordon Bunshaft’s 1974 “brutalist donut” in Washington, DC. Photo by me.</p>
   </PageHeader>
 
-  <figure class="photo-404" aria-hidden="false">
+  <figure class="photo-404">
     <img src="/images/404-hirshhorn.jpg" width="1120" height="840" alt="A gallery corridor curving out of view, lined with a layered, weathered artwork." />
-    <figcaption class="figure-caption">Mark Bradford’s <cite><a href="https://hirshhorn.si.edu/exhibitions/mark-bradford-picketts-charge/" target="_blank" rel="noopener noreferrer">Pickett’s Charge</a></cite><span class="visually-hidden"> (opens in a new tab)</span>, inside the Hirshhorn Museum, Gordon Bunshaft’s 1974 “brutalist donut” in Washington, DC. Photo by me.</figcaption>
   </figure>
 </div>
 </Layout>
@@ -69,17 +68,6 @@ const destinations = [
     mask-composite: intersect;
   }
 
-  .photo-404 figcaption {
-    position: absolute;
-    right: 1.5rem;
-    bottom: 1rem;
-    max-width: 26rem;
-    padding: 0.375rem 0.625rem;
-    border-radius: var(--radius);
-    background: var(--color-background);
-    text-align: right;
-  }
-
   @media (max-width: 800px) {
     .hero-404 :global(.page-header) {
       min-height: 0;
@@ -97,14 +85,11 @@ const destinations = [
       mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 88%, transparent 100%);
       mask-composite: add;
     }
+  }
 
-    .photo-404 figcaption {
-      position: static;
-      max-width: none;
-      padding: 0.75rem var(--page-gutter) 0;
-      background: none;
-      text-align: left;
-    }
+  /* Keep the credit on the clean side of the faded photo. */
+  .note {
+    max-width: 26rem;
   }
 
   .destinations {
