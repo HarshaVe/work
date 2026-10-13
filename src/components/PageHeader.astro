@@ -5,13 +5,15 @@ interface Props {
   eyebrow?: string;
   lede?: string;
   back?: { href: string; label: string };
+  /** Give the aside (e.g. a photo) about as much room as the text, centered against it. */
+  wideAside?: boolean;
 }
 
-const { title, eyebrow, lede, back } = Astro.props;
+const { title, eyebrow, lede, back, wideAside = false } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 
-<header id="intro" class:list={['container', 'page-header', { 'has-aside': hasAside }]}>
+<header id="intro" class:list={['container', 'page-header', { 'has-aside': hasAside, 'wide-aside': hasAside && wideAside }]}>
   <div class="page-header-text">
     {back && <a href={back.href} class="back-link">← {back.label}</a>}
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -40,6 +42,11 @@ const hasAside = Astro.slots.has('aside');
     grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
   }
 
+  .page-header.wide-aside {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    align-items: center;
+  }
+
   .page-header-text {
     display: flex;
     flex-direction: column;
@@ -57,7 +64,8 @@ const hasAside = Astro.slots.has('aside');
 
   @media (max-width: 800px) {
     .page-header,
-    .page-header.has-aside {
+    .page-header.has-aside,
+    .page-header.wide-aside {
       grid-template-columns: minmax(0, 1fr);
       gap: 2rem;
       padding-top: 2.5rem;

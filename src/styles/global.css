@@ -467,6 +467,13 @@ main:has(> .has-rail:last-child > div > .band:last-child) + .site-footer {
   }
 }
 
+/* Caption under a photo or figure: small grey metadata; titles in <cite> stay italic. */
+.figure-caption {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
 /* Quotation from someone else (e.g. a recommendation), with its source below. */
 .pull-quote {
   margin: 0;
