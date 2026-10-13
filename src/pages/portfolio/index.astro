@@ -27,6 +27,7 @@ const filters = [
 
   <section class="container">
     <div class="filter-bar" role="group" aria-label="Filter case studies">
+      <button type="button" class="filter-button" data-filter="start" aria-pressed="false" hidden>Start here</button>
       {filters.map((f, i) => (
         <button type="button" class="filter-button" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
           {f.label}
@@ -38,6 +39,7 @@ const filters = [
       {sortedEntries.map((entry) => (
         <div
           class="work-item"
+          data-slug={entry.slug}
           data-regulated={String(entry.data.featured.regulated)}
           data-systems={String(entry.data.featured.systems)}
           data-enterprise={String(entry.data.featured.enterprise)}
@@ -49,6 +51,28 @@ const filters = [
         </div>
       ))}
     </div>
+    <script is:inline>
+      // A visitor who came through a tailored /for homepage gets the same "Start here" filter
+      // as that homepage, selected, with its case studies first under "All work" too (see the
+      // lens in Layout.astro). Runs before first paint, so nothing jumps.
+      (function () {
+        try {
+          var lens = JSON.parse(sessionStorage.getItem('harshav-lens') || 'null');
+          if (!lens || !lens.caseStudies) return;
+          var grid = document.currentScript.previousElementSibling;
+          lens.caseStudies.slice().reverse().forEach(function (slug) {
+            var item = grid.querySelector('[data-slug="' + slug + '"]');
+            if (item) { item.dataset.start = 'true'; grid.prepend(item); }
+          });
+          grid.querySelectorAll('.work-item:not([data-start])').forEach(function (item) { item.hidden = true; });
+          document.querySelectorAll('.filter-button').forEach(function (button) {
+            var start = button.dataset.filter === 'start';
+            if (start) button.hidden = false;
+            button.setAttribute('aria-pressed', String(start));
+          });
+        } catch (e) {}
+      })();
+    </script>
 
     <p class="no-results" hidden>No case studies match that filter yet.</p>
   </section>
@@ -158,7 +182,7 @@ const filters = [
   });
 
   const requested = new URLSearchParams(window.location.search).get('filter');
-  if (requested && Array.from(buttons).some((button) => button.dataset.filter === requested)) {
+  if (requested && Array.from(buttons).some((button) => button.dataset.filter === requested && !button.hidden)) {
     applyFilter(requested);
   }
 </script>

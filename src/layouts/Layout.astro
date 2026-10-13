@@ -13,6 +13,10 @@ interface Props {
   noindex?: boolean;
   /** Resume PDF for the footer's download button (a /for page may use a tailored one). */
   resumePdf?: string;
+  /** The homepage itself, or a tailored /for homepage (the name then doesn't offer "Return to homepage"). */
+  isHome?: boolean;
+  /** Set by a /for homepage: for the rest of the visit, home links and resume downloads point to its versions. */
+  lens?: { home: string; resumePdf: string; caseStudies: string[] };
 }
 
 const {
@@ -22,6 +26,8 @@ const {
   image,
   noindex = false,
   resumePdf = contact.resumePdf,
+  isHome = false,
+  lens,
 } = Astro.props;
 
 // Link previews (Slack, email, LinkedIn): absolute URLs built from `site` in astro.config.mjs.
@@ -35,8 +41,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
   { label: 'Work', href: '/portfolio' },
-  { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume' },
+  { label: 'About', href: '/about' },
 ];
 ---
 
@@ -70,11 +76,9 @@ const navItems = [
     <meta name="twitter:image" content={previewImage} />
   </head>
   <body>
-    <slot name="banner" />
-
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class:list={['site-name', { 'is-home': currentPath === '/' }]} aria-label="Harsha Vemulapalli, home">
+        <a href="/" class:list={['site-name', { 'is-home': isHome }]} aria-label="Harsha Vemulapalli, home">
           <svg class="site-mark" viewBox="0 0 100 100" aria-hidden="true">
             <path class="site-mark-disc" d="M52 7 C77 8,93 27,92 51 C91 76,72 93,48 92 C24 91,7 73,8 49 C9 26,28 6,52 7 Z" />
             <defs><clipPath id="hv-letters"><rect x="0" y="33" width="100" height="35" /></clipPath></defs>
@@ -140,6 +144,25 @@ const navItems = [
         </div>
       </div>
     </footer>
+
+    <script is:inline define:vars={{ lens: lens ?? null, defaultResume: contact.resumePdf }}>
+      // A visitor who arrives through a tailored /for homepage keeps it for the rest of the
+      // visit (this tab only): home links go back to it and resume downloads give the PDF
+      // they were sent. Everyone else sees the default site. Runs before first paint.
+      (function () {
+        var active = lens;
+        try {
+          if (active) sessionStorage.setItem('harshav-lens', JSON.stringify(active));
+          else active = JSON.parse(sessionStorage.getItem('harshav-lens') || 'null');
+        } catch (e) {}
+        if (!active || !active.home) return;
+        document.documentElement.dataset.lens = active.home;
+        document.querySelectorAll('a[href="/"]').forEach(function (a) { a.setAttribute('href', active.home); });
+        if (active.resumePdf && active.resumePdf !== defaultResume) {
+          document.querySelectorAll('a[href="' + defaultResume + '"]').forEach(function (a) { a.setAttribute('href', active.resumePdf); });
+        }
+      })();
+    </script>
 
     <script>
       const menuToggle = document.querySelector('.menu-toggle');
