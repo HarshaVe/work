@@ -3,7 +3,7 @@ title: "Finder"
 description: "Led the design of an AI-powered product finder that reduced clicks to content from 77 to 4 and, at scale, increased conversion by 23% and engagement by 28%."
 summary: "An AI-powered product finder that took clicks-to-content from 77 to 4, lifting conversion 23% and engagement 28%."
 company: "Siemens"
-role: "Director of User Experience, DISW"
+role: "Director of User Experience, Digital Industries Software"
 dates: "2024-2025"
 tags: ["Content Strategy", "Enterprise SaaS", "Experience Strategy", "User Research"]
 featured:

@@ -33,3 +33,5 @@ files.zip
 /*.docx
 /*.pdf
 *.tmp
+/STATE.md
+/claude-code-brief-*.md

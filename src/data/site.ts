@@ -5,13 +5,13 @@ export const contact = {
   email: 'hello@harshav.com',
   linkedin: 'https://www.linkedin.com/in/hvem/',
   resumePdf: '/downloads/harsha-vemulapalli-resume.pdf',
-  location: 'Metro Detroit',
+  location: 'Metro Detroit, MI',
 };
 
 export const headlineStats = [
   { value: '25+', label: 'Years in design and research' },
-  { value: '16', label: 'Years leading design organizations' },
-  { value: '10+', label: 'Leaders grown into manager and director roles' },
+  { value: '16+', label: 'Years leading design organizations' },
+  { value: '10+', label: 'Designers grown into manager and director roles' },
   { value: '150+ → 1', label: 'Sites, from flagship properties to regional microsites, consolidated into Siemens.com' },
 ];
 
@@ -45,13 +45,13 @@ export const cycle = [
   {
     title: 'Leaders at every level',
     short: 'Who carry it all forward.',
-    text: 'Leadership is behavior, not title. The people I grow hold the values, co-create, flag questions and decisions early, and treat critique as something to test. More than ten have stepped into manager and director roles.',
+    text: 'Leadership is behavior, not title. The people I grow hold the values, co-create, flag questions and decisions early, and treat critique as something to test. More than ten designers have stepped into manager and director roles.',
   },
 ];
 
 export const experience = [
   { company: 'Siemens', role: 'Global Director (2025–now), promoted from Director of UX', summary: '5→70 org, One Siemens catalog, AI product finder (+23% conversion)', years: '2023–now' },
-  { company: 'Amazon', role: 'Senior Manager, UX Smart Vehicle', summary: '13-person team, next-gen in-vehicle platform', years: '2022–23' },
+  { company: 'Amazon', role: 'Senior Manager, UX Design, Amazon Smart Vehicles', summary: '13-person team, next-gen in-vehicle platform', years: '2022–23' },
   { company: 'VMware', role: 'Senior Director, User Experience Design & Research', summary: 'Sub-to-SaaS transformation, CPQ −30% time-on-task', years: '2021–22' },
   { company: 'CARFAX', role: 'Director, Digital Brand, UX and Research', summary: '+7% conversion, −26% dev churn', years: '2019–21' },
   { company: 'Robert Bosch', role: 'Head of Design, North America', summary: 'Employee zero → ~120-person practice, $6M saved', years: '2016–19' },
@@ -108,8 +108,8 @@ export const focusPages: FocusPage[] = [
     line: 'B2B platforms, design systems at scale, and products built under regulation, including a CPQ modernization at VMware that cut time-on-task 30%.',
     headline: 'I build AI-native design orgs, and the quality systems that let them ship at scale.',
     intro: [
-      'At Siemens I lead a 70-person design, research, and content org across seven countries, with AI built into how it works: a Copilot research agent for the team and an AI-powered product finder that lifted conversion 23%. Quality is a system, not a hope: a governed design system, definitions of done, and launch reviews built with Product and Engineering.',
-      'I’ve led design through inflection points before, including VMware’s shift from subscriptions to SaaS. I haven’t built compliance software, but I’ve designed high-stakes experiences for users from first-timer to expert, from public health at the CDC to industrial platforms at Siemens.',
+      'At Siemens I lead a 70-person design, research, and content org across seven countries, with AI built into how it works: a Copilot research agent for the team, a persona agent that has to prove its accuracy before wider rollout, and an AI-powered product finder that lifted conversion 23%. Quality is a system, not a hope: a governed design system, definitions of done, and launch reviews built with Product and Engineering. No UI moves to development without an accessibility review, and workflow automation checks design-system, brand, accessibility, and content-strategy compliance before anything ships.',
+      'I’ve led design through inflection points before, including VMware’s shift from subscriptions to SaaS. I haven’t built compliance software, but I’ve designed high-stakes experiences for users from first-timer to expert, from public health at the CDC to industrial platforms at Siemens. At the CDC, that included redesigning HIVTest.org as the center’s first responsive mobile site, under HIPAA and Section 508.',
     ],
     proof: [
       { value: '5 → 70', label: 'Design, research, and content org grown across seven countries' },
@@ -118,6 +118,7 @@ export const focusPages: FocusPage[] = [
       { value: '−30%', label: 'Time-on-task on VMware’s CPQ through the Sub-to-SaaS shift' },
     ],
     caseStudies: ['siemens-design-system', 'siemens-finder', 'vmware-measurement', 'cdc-hivtest'],
+    resumePdf: '/downloads/harsha-vemulapalli-resume-enterprise.pdf',
   },
   {
     key: 'mobility',
