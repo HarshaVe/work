@@ -24,7 +24,8 @@ def items(path):
     return [(k, t) for k, t in out if t]
 # Spaces after a hyphen are dropped on both sides: a PDF line break after "first-" can't tell
 # "first-party" from "first- and third-party".
-norm = lambda t: re.sub(r'-\s+', '-', re.sub(r'\s+', ' ', t.replace('’', "'"))).strip()
+# Likewise "75%" / "+ CSAT" split across lines is rejoined as "75%+".
+norm = lambda t: re.sub(r'%\s+\+', '%+', re.sub(r'-\s+', '-', re.sub(r'\s+', ' ', t.replace('’', "'")))).strip()
 page = norm(html.unescape(re.sub(r'<[^>]+>', ' ', open(sys.argv[1]).read())))
 for path in sys.argv[2:]:
     its = items(path)
