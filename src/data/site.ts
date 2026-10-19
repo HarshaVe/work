@@ -149,7 +149,7 @@ export const focusPages: FocusPage[] = [
     intro: [
       'At Siemens I lead a 70-person organization across seven countries spanning UX design, research, design systems, content, and localization. AI is built into how it works: a Copilot research agent that cut time-to-insight 34%, a persona agent that has to prove its accuracy before wider rollout, AI-assisted localization across 38 regions and 32 languages, and an AI-powered product finder that lifted conversion 23%.',
       'Quality is a system, not a hope. No UI moves to development without an accessibility review, and workflow automation checks design-system, brand, accessibility, and content-strategy compliance before anything ships. I partner as a peer with Product, Engineering, and business leaders. On the Xcelerator Marketplace, I led the experience behind a channel that reached €9.4B and grew 19% in FY2025.',
-      'I’ve led design through inflection points before, including VMware’s shift from subscriptions to SaaS, where we redesigned quoting workflows for 35,000+ users and cut time-on-task 30%.',
+      'I’ve led design through inflection points before, including VMware’s shift from subscriptions to SaaS, where we redesigned quoting workflows and cut time-on-task 30%.',
     ],
     proof: [
       { value: '5 → 70', label: 'Design, research, and content org grown across seven countries' },
